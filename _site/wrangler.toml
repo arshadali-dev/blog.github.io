@@ -1,6 +1,8 @@
 # Cloudflare Pages configuration for Jekyll
 name = "blog"
+compatibility_date = "2026-03-26"
 
-[env.production]
-build = { command = "bundle exec jekyll build", cwd = "/" }
-site = { include = "_site" }
+# Serve static files from _site directory
+[assets]
+directory = "_site"
+
