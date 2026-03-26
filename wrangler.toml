@@ -1,0 +1,6 @@
+# Cloudflare Pages configuration for Jekyll
+name = "blog"
+
+[env.production]
+build = { command = "bundle exec jekyll build", cwd = "/" }
+site = { include = "_site" }

@@ -1,0 +1,12 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Jekyll blog",
+  "scripts": {
+    "build": "bundle exec jekyll build",
+    "serve": "bundle exec jekyll serve"
+  },
+  "keywords": ["jekyll", "blog"],
+  "author": "Arshad Ali",
+  "license": "MIT"
+}
