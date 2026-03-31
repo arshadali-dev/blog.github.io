@@ -1,12 +1,9 @@
 ---
 layout: page
 title: About Me
-permalink: /aboutme/
+permalink: /about/
 feature-img: "assets/images/Seattle.jpg"
-tags: [Page]
 ---
-
-# About Me - Arshad Ali
 
 ![Arshad Ali](/assets/images/ArshadAli.jpg){: .center}
 

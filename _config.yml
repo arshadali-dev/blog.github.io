@@ -1,4 +1,84 @@
-title: Arshad Ali
-description: Data analytics, big data processing, Spark, and Artificial Intelligence (AI) at scale
-url: https://arshadali.dev
-baseurl: ""   # keep empty for root dom
+# SITE CONFIGURATION
+baseurl: ""
+url: "https://arshadali.dev"
+
+# THEME-SPECIFIC CONFIGURATION
+theme_settings:
+  # Meta
+  title: Arshad Ali
+  avatar: assets/images/ArshadAli.jpg
+  favicon:
+  gravatar:
+  description: "Data analytics, big data processing, Spark, and Artificial Intelligence (AI) at scale"
+
+  # Header and footer text
+  header_text: >
+    <p>Data analytics, big data processing, Spark, and Artificial Intelligence (AI) at scale</p>
+  header_text_feature_image: assets/images/Seattle.jpg
+  footer_text: >
+    Copyright 2026 Arshad Ali. Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+
+  # Icons
+  rss: true
+  email_address:
+  behance:
+  bitbucket:
+  dribbble:
+  facebook:
+  flickr:
+  gitlab:
+  github:
+  gitter:
+  google_plus:
+  instagram:
+  linkedin: "https://www.linkedin.com/in/arshadalitmmba"
+  pinterest:
+  reddit:
+  soundcloud:
+  stack_exchange:
+  steam:
+  tumblr:
+  twitter:
+  wordpress:
+  youtube:
+
+  # Scripts
+  google_analytics:
+  disqus_shortname:
+  katex: false
+  search: true
+
+  # Localization strings
+  str_follow_on: "Follow on"
+  str_rss_follow: "Follow RSS feed"
+  str_email: "Email"
+  str_next_post: "Next post"
+  str_previous_post: "Previous post"
+  str_next_page: "Next"
+  str_previous_page: "Prev"
+  str_continue_reading: "Continue reading"
+  str_javascript_required_disqus: "Please enable JavaScript to view comments."
+  str_search_no_results: "No results found."
+
+  # Colours, typography and padding
+  google_fonts: "Source+Sans+Pro:400,700,700italic,400italic"
+
+  # Post navigation
+  post_navigation: true
+
+# PAGINATION
+paginate: 5
+paginate_path: "blog/page:num"
+
+# BUILD SETTINGS
+markdown: kramdown
+highlighter: rouge
+sass:
+  sass_dir: _sass
+  style: :compressed
+plugins: [jekyll-paginate]
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .venv
+  - README.md
