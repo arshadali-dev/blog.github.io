@@ -29,20 +29,27 @@
 			</li>
 			{% endif %}
 			{% endfor %}
-			<!-- Social icons from Font Awesome, if enabled  -->
-			{% include icons.html %}
 
-            <!-- Search bar -->
-            {% if site.theme_settings.search %}
-            <li>
-            <form action="{{ site.baseurl }}/search.html" method="get">
-                <input type="text" id="search-box" name="query" placeholder="Search" class="">
-                <button type="submit" class="">
-                    <i class="fa fa-fw fa-search"></i>
-                </button>
-            </form>
-            </li>
-            {% endif %}
+			<!-- Search icon -->
+			<li>
+				<a class="nav-icon" href="{{ '/search/' | relative_url }}" title="Search">
+					<i class="fas fa-search"></i>
+				</a>
+			</li>
+
+			<!-- Tags icon -->
+			<li>
+				<a class="nav-icon" href="{{ '/tags/' | relative_url }}" title="Tags">
+					<i class="fas fa-tags"></i>
+				</a>
+			</li>
+
+			<!-- Dark/Light mode toggle -->
+			<li>
+				<a class="nav-icon" href="#" id="theme-toggle" title="Toggle dark/light mode">
+					<i class="fas fa-adjust"></i>
+				</a>
+			</li>
 		</ul>
 	</nav>
 
