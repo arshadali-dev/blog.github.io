@@ -5,4 +5,34 @@
   width: 100%;
   color: lighten($text-color, 30%);
   font-size: 0.9em;
+
+  .footer-icons {
+    margin-top: 10px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: $link-color;
+      color: #fff;
+      font-size: 1.2em;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
 }
