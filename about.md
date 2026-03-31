@@ -27,7 +27,6 @@ I have authored **200+ technical articles** published across [MSSQLTips](https:/
 
 ---
 
-> [!NOTE]
 > Disclaimer: I work for Microsoft and help people and businesses make better use of technology to realize their full potential. The opinions mentioned herein are solely mine and do not reflect those of my current employer or previous employers.
 
 ## Honors & Awards at Microsoft

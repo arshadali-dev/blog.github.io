@@ -6,13 +6,15 @@ order: 3
 hide: true
 ---
 
+<h2>What are you looking for?</h2>
+
 <div class="search">
+    <input type="text" id="search-box" class="search-input" placeholder="Type to search..." autofocus>
     <div id="search-results"></div>
     <p id="not-found" style="display: none">
         {{ site.theme_settings.str_search_no_results }}
     </p>
 </div>
-
 
 <script>
   window.store = {
@@ -24,12 +26,26 @@ hide: true
         "author": "{{ post.author | xml_escape }}",
         "category": "{{ post.category | xml_escape }}",
         "content": {{ post.content | strip_html | strip_newlines | jsonify }},
-        "url": "{{ site.baseurl }}/{{ post.url | xml_escape }}"
+        "url": "{{ post.url | relative_url }}"
       }
       {% unless forloop.last %},{% endunless %}
+    {% endfor %}
+    {% for page in site.pages %}
+      {% if page.title and page.url != "/search/" %}
+      {% unless forloop.first %},{% endunless %}
+      "{{ page.url | slugify }}": {
+        "title": "{{ page.title | xml_escape }}",
+        "tags": "",
+        "date": "",
+        "author": "",
+        "category": "",
+        "content": {{ page.content | strip_html | strip_newlines | jsonify }},
+        "url": "{{ page.url | relative_url }}"
+      }
+      {% endif %}
     {% endfor %}
   };
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.6/lunr.min.js"></script>
-<script src="{{ site.baseurl }}/assets/js/search.js"></script>
+<script src="{{ "/assets/js/search.js" | relative_url }}"></script>

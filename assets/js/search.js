@@ -23,25 +23,31 @@
       .display = "block";
   }
 
+  const hideNoResultsMessage = () => {
+    document
+      .getElementById(NO_RESULTS_MESSAGE_ID)
+      .style
+      .display = "none";
+  }
+
   const setSearchResultsHtml = (innerHtml) => {
     document
       .getElementById(SEARCH_RESULTS_CONTAINER_ID)
       .innerHTML = innerHtml;
   }
 
-  const createPostListingHtml = (postItem) => `
-    <h2>
-      <a class='search-link' href='${postItem.url}'>${postItem.title}</a>
-    </h2>
-
-    <div class='meta'>
-      ${postItem.date}
-    </div>
-
-    <p>
-      ${postItem.content.substring(0, 150)}...
-    </p>
-  `;
+  const createPostListingHtml = (postItem) => {
+    const dateLine = postItem.date ? `<div class='meta'>${postItem.date}</div>` : '';
+    return `
+      <div class="search-result-item">
+        <h3>
+          <a class='search-link' href='${postItem.url}'>${postItem.title}</a>
+        </h3>
+        ${dateLine}
+        <p>${postItem.content.substring(0, 200)}...</p>
+      </div>
+    `;
+  };
 
   const displaySearchResults = (results) => {
     setSearchResultsHtml(
@@ -71,13 +77,41 @@
     });
   }
 
-  const searchFromUrl = () => {
-    const searchTerm = extractUrlQueryParameter();
-    setSearchBoxValue(searchTerm);
-    const lunrIndex = buildLunrIndex();
-    const results = lunrIndex.search(searchTerm);
-    results.length === 0 ? showNoResultsMessage() : displaySearchResults(results);
+  const lunrIndex = buildLunrIndex();
+
+  const performSearch = (searchTerm) => {
+    hideNoResultsMessage();
+    if (!searchTerm || searchTerm.trim() === '') {
+      setSearchResultsHtml('');
+      return;
+    }
+    try {
+      const results = lunrIndex.search(searchTerm + '*');
+      if (results.length === 0) {
+        setSearchResultsHtml('');
+        showNoResultsMessage();
+      } else {
+        displaySearchResults(results);
+      }
+    } catch (e) {
+      setSearchResultsHtml('');
+    }
   }
 
-  searchFromUrl();
+  // Live search on keyup
+  const searchBox = document.getElementById(SEARCH_BOX_ID);
+  if (searchBox) {
+    searchBox.addEventListener('input', function() {
+      performSearch(this.value);
+    });
+
+    // Also check URL query on load
+    const urlQuery = extractUrlQueryParameter();
+    if (urlQuery) {
+      searchBox.value = urlQuery;
+      performSearch(urlQuery);
+    }
+
+    searchBox.focus();
+  }
 };

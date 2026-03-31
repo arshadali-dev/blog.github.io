@@ -131,46 +131,92 @@ img[align=right] {
 }
 
 // Dark mode
+html {
+  transition: background-color 0.3s ease;
+}
+body {
+  transition: color 0.3s ease;
+}
+.site-header {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+a {
+  transition: color 0.2s ease;
+}
+
 [data-theme="dark"] {
-  html &, & {
-    background-color: #1e1e2e;
+  &, html & {
+    background-color: #292d3e;
   }
   body {
-    color: #cdd6f4;
+    color: #bfc7d5;
   }
   h1, h2, h3, h4, h5, h6 {
-    a { color: #cdd6f4; }
+    color: #d6deeb;
+    a { color: #d6deeb; }
   }
   a {
-    color: #89b4fa;
+    color: #82aaff;
   }
   .site-header {
-    background: #181825;
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-    a { color: #cdd6f4; }
-    .nav-icon { color: #cdd6f4; }
+    background: #1e2132;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    a { color: #bfc7d5; }
+    .page-link { color: #bfc7d5; }
+    .nav-icon { color: #7e8a9e; }
   }
   .site-footer {
-    color: #a6adc8;
+    color: #7e8a9e;
     .footer-icons a {
-      background-color: #89b4fa;
+      background-color: #82aaff;
+      color: #1e2132;
     }
   }
+  .post-link {
+    color: #d6deeb;
+  }
+  .meta {
+    color: #7e8a9e;
+  }
   td, th {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.08);
   }
   hr {
-    border-top-color: rgba(255, 255, 255, 0.1);
+    border-top-color: rgba(255, 255, 255, 0.08);
     border-bottom-color: transparent;
   }
   blockquote {
-    border-left-color: #89b4fa;
+    border-left-color: #82aaff;
+    color: #7e8a9e;
   }
-  code, pre {
-    background-color: #181825;
-    color: #cdd6f4;
+  code {
+    background-color: #1e2132;
+    color: #c3e88d;
+  }
+  pre {
+    background-color: #1e2132;
+    code {
+      background-color: transparent;
+    }
   }
   .header-text {
-    background-color: #313244 !important;
+    background-color: #1e2132 !important;
+    color: #bfc7d5;
+    a { color: #82aaff; }
+  }
+  .feature-image .container .title {
+    color: #fff;
+  }
+  .search-input {
+    background-color: #1e2132;
+    color: #bfc7d5;
+    border-color: rgba(255, 255, 255, 0.15);
+    &::placeholder { color: #7e8a9e; }
+  }
+  .tag-title {
+    color: #82aaff;
+  }
+  .tagged-post .title a {
+    color: #d6deeb;
   }
 }

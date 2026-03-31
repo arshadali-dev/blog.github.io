@@ -16,7 +16,7 @@ theme_settings:
     <p>Data analytics, big data processing, Spark, and Artificial Intelligence (AI) at scale</p>
   header_text_feature_image: assets/images/Seattle.jpg
   footer_text: >
-    Copyright 2026 Arshad Ali. Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+    Copyright 2026 Arshad Ali. <br> Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
 
   # Icons
   rss: true
