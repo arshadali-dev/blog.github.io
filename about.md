@@ -1,11 +1,14 @@
 ---
 layout: page
-title: About Me
+title: About
 permalink: /about/
 feature-img: "assets/images/Seattle.jpg"
+order: 1
 ---
 
-![Arshad Ali](/assets/images/ArshadAli.jpg){: .center}
+<p align="center">
+  <img src="/assets/images/ArshadAli.jpg" alt="Arshad Ali" style="width: 4in; height: 4in; object-fit: cover; border-radius: 4px;" />
+</p>
 
 I am a Principal Product Manager at Microsoft, working on **Microsoft Fabric** and focusing on the **Spark Runtime** that empowers both Data Engineering and Data Science experiences. I am passionate about solving business problems with data through **Artificial Intelligence (AI)** and about how the power of data and analytics can change the competitive landscape when AI is applied in the right and timely manner.
 

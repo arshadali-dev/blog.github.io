@@ -1,0 +1,22 @@
+---
+layout: page
+title: Categories
+permalink: /categories/
+order: 2
+---
+
+{% assign defined_categories = "Data Engineering,Optimization,Security,Architecture,Product Management,Artificial Intelligence (AI) and Agentic AI" | split: "," %}
+
+{% for cat_name in defined_categories %}
+<h3>{{ cat_name }}</h3>
+<ul>
+  {% assign cat_posts = site.categories[cat_name] %}
+  {% if cat_posts.size > 0 %}
+    {% for post in cat_posts %}
+    <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> — <small>{{ post.date | date: "%B %d, %Y" }}</small></li>
+    {% endfor %}
+  {% else %}
+    <li><em>No posts yet.</em></li>
+  {% endif %}
+</ul>
+{% endfor %}

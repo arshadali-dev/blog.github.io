@@ -2,18 +2,27 @@
 layout: page
 ---
 
-{% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-{% assign tag_words = site_tags | split:',' | sort %}
+{% assign defined_tags = "Azure Synapse,Microsoft Fabric,Data Engineering,Data Science,Data Warehouse,Optimization,Apache Spark,Delta Lake,Security,Data Governance" | split: "," %}
 
-<!-- cycles through tag list and creates subheader for each tag name -->
-{% for item in (0..site.tags.size) %}
-  {% unless forloop.last %}
-    {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-    <h2 id="{{ this_word | cgi_escape }}" class="tag-title">
-      #{{ this_word }}
+{% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+{% assign existing_tags = site_tags | split:',' %}
+
+{% assign all_tags = defined_tags %}
+{% for etag in existing_tags %}
+  {% assign etag_stripped = etag | strip %}
+  {% unless all_tags contains etag_stripped %}
+    {% assign all_tags = all_tags | push: etag_stripped %}
+  {% endunless %}
+{% endfor %}
+{% assign tag_words = all_tags | sort %}
+
+{% for this_word in tag_words %}
+  {% assign this_word_stripped = this_word | strip %}
+  {% if this_word_stripped != "" %}
+    <h2 id="{{ this_word_stripped | cgi_escape }}" class="tag-title">
+      #{{ this_word_stripped }}
     </h2>
-    <!-- lists all posts corresponding to specific tag -->
-    {% for post in site.tags[this_word] %}
+    {% for post in site.tags[this_word_stripped] %}
       {% if post.title != null %}
         <div class="tagged-post">
           <h3 class="title">
@@ -27,5 +36,5 @@ layout: page
         </div>
       {% endif %}
     {% endfor %}
-  {% endunless %}
+  {% endif %}
 {% endfor %}
