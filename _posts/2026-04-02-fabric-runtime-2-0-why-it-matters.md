@@ -21,7 +21,7 @@ tags:
 
 ## A modern Spark and Delta foundation for the next generation of analytics and AI in Microsoft Fabric
 
-Data teams are under pressure to do more than run batch jobs faster. They are expected to deliver reliable lakehouse pipelines, support AI scenarios, preserve data correctness, and keep up with fast-moving open-source innovation. That combination is exactly why Fabric Runtime 2.0 matters.
+Data teams are under pressure to do more than run batch jobs faster. They are expected to deliver reliable lakehouse pipelines, support AI scenarios, preserve data correctness, and keep up with fast-moving open-source innovation. Fabric Runtime 2.0 is built to deliver on all of these at once.
 
 Fabric Runtime 2.0 is now in public preview and is built on:
 
@@ -34,7 +34,7 @@ Fabric Runtime 2.0 is now in public preview and is built on:
 
 This is not a cosmetic version update. It is a foundational modernization of the Fabric execution stack so Spark developers can build for what is next, not what was sufficient yesterday.
 
-## What Spark developers were asking for
+## What Spark developers need
 
 Across customer conversations, one message is consistent: developers want open innovation and enterprise reliability at the same time.
 
@@ -122,9 +122,12 @@ Fabric Runtime 2.0 matters because it combines modernization, openness, and plat
 For Spark developers, it provides a stronger and more future-ready execution foundation in Fabric:
 
 - Modern OSS runtime baseline today (Spark 4.0 and Delta 4.0)
-- Better readiness for enterprise reliability and governance demands
-- A smoother path to the next generation (Spark 4.1 and Delta 4.1)
+- A smoother path to the next generation (Spark 4.1 and Delta 4.1) - coming soon
+- Better readiness for enterprise reliability, security, scalability and governance demands
+- Microsoft internal enhancements and optimizations to the open source stacks further boost the performance significantly
 
 The real value is not just newer bits. It is a runtime foundation built for the next generation of analytics and AI workloads in Microsoft Fabric.
+
+To learn more about Runtime 2.0 and get started, see the official documentation: [Fabric Runtime 2.0](https://learn.microsoft.com/en-us/fabric/data-engineering/runtime-2-0).
 
 > *Note: This blog post was written with assistance from AI*
