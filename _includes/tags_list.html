@@ -1,9 +1,10 @@
 {% if include.tag_count > 0 %}
-<footer>
-  <div class="tags">
+<div class="tags-section">
+  <span class="section-label">Tags:</span>
+  <div class="tags chip-list">
     {% for tag in include.tags %}
     <a class="tag" href="{{site.baseurl}}/tags#{{ tag | cgi_escape }}">#{{tag}}</a>
     {% endfor %}
   </div>
-</footer>
+</div>
 {% endif %}

@@ -1,0 +1,10 @@
+{% if include.category_count > 0 %}
+<div class="categories-section">
+  <span class="section-label">Categories:</span>
+  <div class="categories chip-list">
+    {% for category in include.categories %}
+    <a class="category" href="{{site.baseurl}}/categories#{{ category | cgi_escape }}">{{ category }}</a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

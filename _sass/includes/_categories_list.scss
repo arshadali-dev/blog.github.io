@@ -1,0 +1,49 @@
+.categories-section,
+.tags-section {
+  margin-top: 0.35em;
+  margin-bottom: 0.6em;
+  padding: 0.6em 0;
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.section-label {
+  flex: 0 0 auto;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $text-color;
+  font-weight: 700;
+}
+
+.chip-list {
+  width: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.categories .category,
+.tags .tag {
+  display: inline-block;
+  padding: 0.4rem 0.85rem;
+  background-color: $link-color;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px;
+  font-size: 0.9em;
+  line-height: 1.2;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}

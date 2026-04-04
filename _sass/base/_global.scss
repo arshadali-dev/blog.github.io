@@ -159,7 +159,7 @@ a {
     color: #82aaff;
   }
   .site-header {
-    background: #1e2132;
+    background: #292d3e;
     border-bottom-color: rgba(255, 255, 255, 0.08);
     a { color: #bfc7d5; }
     .page-link { color: #bfc7d5; }
@@ -218,5 +218,11 @@ a {
   }
   .tagged-post .title a {
     color: #d6deeb;
+  }
+  .section-label {
+    color: #fff;
+  }
+  .call-out {
+    background-color: #292d3e;
   }
 }

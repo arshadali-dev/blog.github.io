@@ -1,9 +1,9 @@
-.tags-page-layout {
+.categories-page-layout {
   padding-top: 0.75rem;
 }
 
-.tags-page {
-  .tags-nav {
+.categories-page {
+  .categories-nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -11,7 +11,7 @@
     margin: 0 0 1.5rem;
   }
 
-  .tag-chip {
+  .category-chip {
     display: inline-block;
     padding: 0.45rem 0.95rem;
     border-radius: 999px;
@@ -22,7 +22,7 @@
     font-weight: 600;
   }
 
-  .tag-section {
+  .category-section {
     margin: 0 0 2rem;
 
     h2 {
@@ -30,7 +30,7 @@
     }
   }
 
-  .tag-post {
+  .category-post {
     border-left: 6px solid rgba($text-color, 0.18);
     padding-left: 0.9rem;
     margin: 0 0 1rem;

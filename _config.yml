@@ -7,20 +7,19 @@ theme_settings:
   # Meta
   title: Arshad Ali
   avatar: assets/images/ArshadAli.jpg
-  favicon:
+  favicon: assets/images/ArshadAli.jpg
   gravatar:
-  description: "Data analytics, big data processing, Spark, and Artificial Intelligence (AI) at scale"
+  description: ""
 
   # Header and footer text
   header_text: >
-    <p>Data analytics, big data processing, Spark, and Artificial Intelligence (AI) at scale</p>
+    <p></p>
   header_text_feature_image: assets/images/Seattle.jpg
   footer_text: >
-    Copyright 2026 Arshad Ali. <br> Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
 
   # Icons
   rss: true
-  email_address: arshad0384@gmail.com
   behance:
   bitbucket:
   dribbble:
@@ -31,16 +30,17 @@ theme_settings:
   gitter:
   google_plus:
   instagram:
-  linkedin: "https://www.linkedin.com/in/arshadalitmmba"
+  linkedin: "http://www.linkedin.com/in/arshadali-dev"
   pinterest:
-  reddit:
+  reddit: "arshadali-msft"
   soundcloud:
   stack_exchange:
   steam:
   tumblr:
-  twitter:
+  twitter: "arshadali_dev"
   wordpress:
   youtube:
+  email_address: arshad0384@gmail.com
 
   # Scripts
   google_analytics:
@@ -85,3 +85,4 @@ exclude:
   - Gemfile.lock
   - .venv
   - README.md
+  - blogger-skill/examples/

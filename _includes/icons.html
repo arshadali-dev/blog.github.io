@@ -6,14 +6,6 @@
 </li>
 {% endif %}
 
-{% if site.theme_settings.email_address %}
-<li>
-	<a href="mailto:{{ site.theme_settings.email_address }}" title="{{ site.theme_settings.str_email }}">
-		<i class="fas fa-fw fa-envelope"></i>
-	</a>
-</li>
-{% endif %}
-
 {% if site.theme_settings.behance %}
 <li>
 	<a href="https://www.behance.net/{{ site.theme_settings.behance }}" title="{{ site.theme_settings.str_follow_on }} Behance">
@@ -170,6 +162,14 @@
 <li>
 	<a href="https://gitter.im/{{ site.theme_settings.gitter }}" title="{{ site.theme_settings.str_follow_on }} Gitter">
 		<i class="fab fa-fw fa-gitter"></i>
+	</a>
+</li>
+{% endif %}
+
+{% if site.theme_settings.email_address %}
+<li>
+	<a href="mailto:{{ site.theme_settings.email_address }}" title="{{ site.theme_settings.str_email }}">
+		<i class="fas fa-fw fa-envelope"></i>
 	</a>
 </li>
 {% endif %}

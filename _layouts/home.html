@@ -3,16 +3,20 @@ layout: default
 ---
 
 <div class="home">
-  {% if site.theme_settings.header_text %}
+  {% if site.theme_settings.header_text_feature_image %}
   <div class="call-out"
   style="background-image: url('{{ site.baseurl }}/{{ site.theme_settings.header_text_feature_image }}')">
-    {{ site.theme_settings.header_text }}
   </div>
   {% endif %}
 
   <div class="posts">
     {% for post in paginator.posts %}
     <div class="post-teaser">
+      {% if post.feature-img %}
+      <a class="teaser-image" href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">
+        <img src="{{ post.feature-img | relative_url }}" alt="{{ post.title }} teaser image">
+      </a>
+      {% endif %}
       <header>
         <h1>
           <a class="post-link" href="{{ post.url | relative_url }}">
@@ -24,7 +28,11 @@ layout: default
         </p>
       </header>
       <div class="excerpt">
-        {{ post.excerpt }}
+        {% assign teaser = post.excerpt | strip_html | strip %}
+        {% if teaser == post.title %}
+          {% assign teaser = post.content | markdownify | strip_html | remove_first: post.title | strip %}
+        {% endif %}
+        <p>{{ teaser | truncatewords: 42 }}</p>
         <a class="button" href="{{ post.url | relative_url }}">
           {{ site.theme_settings.str_continue_reading }}
         </a>

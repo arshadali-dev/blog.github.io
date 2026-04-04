@@ -1,10 +1,18 @@
 .site-footer {
-  @extend %padding-regular;
+  padding: 0.9rem $padding-large 1.2rem;
   display: inline-block;
   text-align: center;
   width: 100%;
   color: lighten($text-color, 30%);
   font-size: 0.9em;
+
+  @media (max-width: 1000px) {
+    padding: 0.9rem $padding-large / 1.6 1.1rem;
+  }
+
+  @media (max-width: 576px) {
+    padding: 0.8rem $padding-small 1rem;
+  }
 
   .footer-icons {
     margin-top: 10px;

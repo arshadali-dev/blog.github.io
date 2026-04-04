@@ -29,7 +29,7 @@ $header-link-color: #383838 !default;
 
 // Feature image for articles
 $feature-image-text-color: #fff !default;
-$feature-image-size: cover !default; // options include "cover", "contain", "auto"
+$feature-image-size: contain !default; // options include "cover", "contain", "auto"
 
 // Header description box
 $header-desc-background-color: #1ABC9C !default;

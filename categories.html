@@ -3,20 +3,36 @@ layout: page
 title: Categories
 permalink: /categories/
 order: 2
+page_class: categories-page-layout
 ---
 
-{% assign defined_categories = "Data Engineering,Optimization,Security,Architecture,Product Management,Artificial Intelligence (AI) and Agentic AI" | split: "," %}
+{% assign defined_categories = "Microsoft Fabric,Data Engineering,Data Science,Data Warehouse,Optimization,Security,Architecture,Product Management,Artificial Intelligence (AI) and Agentic AI" | split: "," %}
 
-{% for cat_name in defined_categories %}
-<h3>{{ cat_name }}</h3>
-<ul>
-  {% assign cat_posts = site.categories[cat_name] %}
-  {% if cat_posts.size > 0 %}
-    {% for post in cat_posts %}
-    <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> — <small>{{ post.date | date: "%B %d, %Y" }}</small></li>
+<div class="categories-page">
+  <div class="categories-nav">
+    {% for cat_name in defined_categories %}
+      {% assign cat_name_stripped = cat_name | strip %}
+      <a class="category-chip" href="#{{ cat_name_stripped | cgi_escape }}">{{ cat_name_stripped }}</a>
     {% endfor %}
-  {% else %}
-    <li><em>No posts yet.</em></li>
-  {% endif %}
-</ul>
-{% endfor %}
+  </div>
+
+  {% for cat_name in defined_categories %}
+    {% assign cat_name_stripped = cat_name | strip %}
+    {% assign cat_posts = site.categories[cat_name_stripped] %}
+    <section id="{{ cat_name_stripped | cgi_escape }}" class="category-section">
+      <h2>{{ cat_name_stripped }}</h2>
+      {% if cat_posts.size > 0 %}
+        {% for post in cat_posts %}
+          <div class="category-post">
+            <div class="meta">{{ post.date | date: "%B %-d, %Y" }}</div>
+            <h3>
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="empty"><em>No posts yet.</em></p>
+      {% endif %}
+    </section>
+  {% endfor %}
+</div>

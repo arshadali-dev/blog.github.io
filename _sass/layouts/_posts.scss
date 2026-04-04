@@ -1,6 +1,11 @@
 .post-content > :last-child {
   margin-bottom: 0;
 }
+
+.about-page-layout {
+  padding-top: 0.75rem;
+}
+
 article,
 .comments {
   @extend %padding-regular;
@@ -15,7 +20,7 @@ article {
     margin: 0;
   }
   header {
-    margin-bottom: 6%;
+    margin-bottom: 2%;
     text-align: center;
   }
   a {
@@ -45,13 +50,21 @@ header {
   header {
     color: $feature-image-text-color;
     background-size: $feature-image-size;
+    background-repeat: no-repeat;
+    background-position: center;
     margin-bottom: 0;
-    padding: $padding-large/2.5 $padding-large;
+    padding: ($padding-large/2.5) * 1.5 $padding-large;
     .meta {
       color: rgba($feature-image-text-color, .7);
     }
   }
   .post-content {
     @extend %padding-regular;
+    padding-top: 3rem;
+    padding-bottom: 0.6rem;
+
+    > h1:first-child {
+      margin-top: 0;
+    }
   }
 }
