@@ -2,7 +2,7 @@
 layout: page
 ---
 
-{% assign defined_tags = "microsoft-fabric,fabric-runtime,data-engineering,data-science,data-warehouse,azure-synapse,apache-spark,delta-lake,optimization,performance,security,data-governance" | split: "," %}
+{% assign defined_tags = "fabric-runtime,data-engineering,data-science,data-warehouse,azure-synapse,apache-spark,delta-lake,optimization,performance,security,data-governance" | split: "," %}
 
 {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
 {% assign existing_tags = site_tags | split:',' %}

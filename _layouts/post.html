@@ -7,7 +7,7 @@ layout: default
     {% if page.subtitle %}<h2 class="subtitle">{{ page.subtitle }}</h2>{% endif %}
   </header>
   <section class="post-content">{{ content }}</section>
-  {% include categories_list.html categories=page.categories category_count=page.categories.size %}
+  {% include share.html %}
   {% include tags_list.html tags=page.tags tag_count=page.tags.size %}
 </article>
 

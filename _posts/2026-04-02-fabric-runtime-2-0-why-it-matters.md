@@ -6,11 +6,8 @@ feature-img: assets/images/Runtime2.jpg
 feature-title: ""
 author: Arshad Ali
 categories:
-  - Microsoft Fabric
-  - Data Engineering
-  - Data Science
+  - Data-Engineering
 tags:
-  - microsoft-fabric
   - fabric-runtime
   - apache-spark
   - delta-lake

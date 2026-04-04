@@ -1,0 +1,35 @@
+.share-section {
+  @extend %padding-regular;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  border-top: 1px solid $border-color;
+  text-align: center;
+
+  .share-label {
+    display: block;
+    font-size: 0.85em;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #000;
+    margin-bottom: 0.6rem;
+  }
+
+  .share-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+
+    a {
+      font-size: 1.95rem;
+      color: $text-color;
+      opacity: 0.6;
+      transition: opacity 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        opacity: 1;
+        color: $link-color;
+      }
+    }
+  }
+}
