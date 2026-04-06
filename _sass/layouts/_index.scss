@@ -1,17 +1,19 @@
 // Header text feature
 .call-out {
-  @extend %padding-regular;
-  display: inline-block;
+  display: block;
   width: 100%;
-  padding-top: 9em;
-  padding-bottom: 9em;
   background-color: $background-color;
-  background-size: auto 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  font-size: 1.2em;
   text-align: center;
   color: $header-desc-text-color;
+  overflow: hidden;
+
+  .call-out-img {
+    width: 100%;
+    max-height: 320px;
+    display: block;
+    object-fit: cover;
+    object-position: top;
+  }
 }
 .call-out p:last-child {
   margin-bottom: 0;
