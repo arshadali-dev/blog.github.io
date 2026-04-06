@@ -2,7 +2,7 @@
 layout: post
 title: "Fabric Runtime 2.0: Why It Matters for Spark Developers"
 date: 2026-04-02
-feature-img: assets/images/Runtime2.jpg
+feature-img: assets/images/Runtime-02.jpg
 feature-title: ""
 author: Arshad Ali
 categories:
