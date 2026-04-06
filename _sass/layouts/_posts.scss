@@ -49,11 +49,19 @@ header {
   }
   header {
     color: $feature-image-text-color;
-    background-size: $feature-image-size;
-    background-repeat: no-repeat;
-    background-position: center;
     margin-bottom: 0;
-    padding: ($padding-large/2.5) * 1.5 $padding-large;
+    padding: 0 $padding-large;
+    @media (max-width: 1000px) {
+      padding: 0 $padding-large / 1.6;
+    }
+    @media (max-width: 576px) {
+      padding: 0 $padding-small;
+    }
+    .feature-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
     .meta {
       color: rgba($feature-image-text-color, .7);
     }
