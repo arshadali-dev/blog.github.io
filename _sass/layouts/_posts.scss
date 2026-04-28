@@ -76,3 +76,27 @@ header {
     }
   }
 }
+
+.note-callout {
+  background-color: #f3e8ff;
+  border-left: 4px solid #7c3aed;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.95em;
+
+  .note-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #4c1d95;
+
+    &::before {
+      content: "\24D8";
+      margin-right: 0.4rem;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+}
