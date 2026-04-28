@@ -2,6 +2,7 @@
 layout: post
 title: "Fabric Runtime 2.0: Why It Matters for Spark Developers"
 date: 2026-04-02
+description: "Fabric Runtime 2.0 upgrades to Spark 4.x and Delta Lake 4.x. Here is what changed and why it matters for data engineers building on Microsoft Fabric."
 feature-img: assets/images/Runtime-02.jpg
 feature-title: ""
 author: Arshad Ali

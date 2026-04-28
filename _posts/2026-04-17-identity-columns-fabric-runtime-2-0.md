@@ -2,6 +2,7 @@
 layout: post
 title: "Identity Columns in Fabric Runtime 2.0: From Workarounds to First‑Class Support"
 date: 2026-04-17
+description: "Learn how Fabric Runtime 2.0 brings native identity column support to Delta Lake, replacing fragile Spark-side workarounds with transactionally safe surrogate key generation."
 feature-img: assets/images/identity-columns-fabric-runtime-2.0.jpg
 author: Arshad Ali
 categories:

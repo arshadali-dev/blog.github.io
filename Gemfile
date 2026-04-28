@@ -8,3 +8,6 @@ gem "wdm", ">= 0.1.0", platforms: [:mingw, :x64_mingw, :mswin]
 
 
 
+
+gem "jekyll-seo-tag", "~> 2.8"
+gem "jekyll-sitemap", "~> 1.4"

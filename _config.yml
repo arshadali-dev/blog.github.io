@@ -1,6 +1,13 @@
 # SITE CONFIGURATION
 baseurl: ""
 url: "https://arshadali.dev"
+title: "Arshad Ali — Data & Analytics Engineering"
+description: "Practical insights on Microsoft Fabric, Apache Spark, Delta Lake, and modern data platform engineering. Written by Arshad Ali."
+author:
+  name: "Arshad Ali"
+  url: "https://arshadali.dev"
+  twitter: "arshadali_dev"
+lang: en
 
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
@@ -79,10 +86,22 @@ highlighter: rouge
 sass:
   sass_dir: _sass
   style: :compressed
-plugins: [jekyll-paginate]
+plugins: [jekyll-paginate, jekyll-seo-tag, jekyll-sitemap]
+
+# SEO
+twitter:
+  username: arshadali_dev
+  card: summary_large_image
+social:
+  name: Arshad Ali
+  links:
+    - https://twitter.com/arshadali_dev
+    - https://github.com/arshadali-dev
+    - http://www.linkedin.com/in/arshadali-dev
+
 exclude:
   - Gemfile
   - Gemfile.lock
   - .venv
   - README.md
-  - blogger-skill/examples/
+  - blogger-skill/
