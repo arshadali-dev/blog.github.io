@@ -194,9 +194,10 @@ a {
     color: #c3e88d;
   }
   pre {
-    background-color: #1e2132;
+    background-color: #282a36;
     code {
       background-color: transparent;
+      color: #f8f8f2;
     }
   }
   .header-text {
@@ -230,5 +231,13 @@ a {
   }
   .call-out {
     background-color: #292d3e;
+  }
+  .note-callout {
+    background-color: #2d1f4e;
+    border-left-color: #a78bfa;
+
+    .note-title {
+      color: #c4b5fd;
+    }
   }
 }

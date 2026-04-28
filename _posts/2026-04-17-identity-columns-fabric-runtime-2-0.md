@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Identity Columns in Fabric Runtime 2.0: From Workarounds to First‑Class"
+title: "Identity Columns in Fabric Runtime 2.0: From Workarounds to First‑Class Support"
 date: 2026-04-17
 feature-img: assets/images/identity-columns-fabric-runtime-2.0.jpg
 author: Arshad Ali
@@ -15,7 +15,7 @@ tags:
   - performance
 ---
 
-# Identity Columns in Fabric Runtime 2.0: From Workarounds to First‑Class
+# Identity Columns in Fabric Runtime 2.0: From Workarounds to First‑Class Support
 
 ## Reliable surrogate keys for modern lakehouse workloads
 

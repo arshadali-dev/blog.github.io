@@ -108,6 +108,44 @@ If gaps exist, revise before presenting final output.
 - Append this disclosure line at the end of every generated blog post:
   - `> *Note: This blog post was written with assistance from AI*`
 
+## Styling and Formatting Rules
+
+### Code blocks
+- All code blocks use dark background (Dracula-inspired theme via `_sass/external/_syntax.scss`)
+- Always specify language identifiers on fenced code blocks (```python, ```sql, ```scala)
+- Use `%%sql` as the first line inside SQL code blocks for Fabric notebook context
+- Use `%%spark` as the first line inside Scala code blocks for Fabric notebook context
+- Inline `code` uses light gray background in light mode and dark background in dark mode — distinct from code block styling
+
+### Note callouts
+- GitHub-flavored `[!NOTE]` admonition syntax does NOT work in Jekyll
+- Use the custom `.note-callout` HTML div for note/info boxes:
+  ```html
+  <div class="note-callout" markdown="1">
+  <div class="note-title">Note</div>
+
+  Your markdown content here. Use `<br><br>` for paragraph breaks inside the div.
+  </div>
+  ```
+- The `.note-callout` class is defined in `_sass/layouts/_posts.scss` with dark mode overrides in `_sass/base/_global.scss`
+
+### Table naming conventions
+- Use `dbo.dim_<name>` pattern for dimension tables (e.g., `dbo.dim_sales`, `dbo.dim_customer`)
+- Use `dbo.fact_<name>` pattern for fact tables
+- Avoid reusing the same table name across different code examples if they have incompatible schemas — use suffixes like `_scd2`, `_scala` to differentiate
+
+### PySpark code accuracy
+- `spark.createDataFrame` cannot infer types from `None` values — avoid including `None` in row data
+- Instead, add nullable columns after creation: `.withColumn("col", lit(None).cast("type"))`
+- Always import required functions explicitly (`from pyspark.sql.functions import lit, col, current_date`)
+- Use `date.today()` (from `datetime`) for date values in DataFrames, not string literals
+
+### Delta Lake identity columns
+- OSS Delta Lake 4.x and Fabric Runtime 2.0 do NOT support SQL DDL (`CREATE TABLE ... GENERATED ALWAYS AS IDENTITY`) for identity columns
+- Must use the `DeltaTable` builder API: `IdentityGenerator` in Python, `generatedByDefaultAsIdentity`/`generatedAlwaysAsIdentity` in Scala
+- Once created, standard SQL DML (`INSERT`, `SELECT`, `UPDATE`, `DELETE`) works normally
+- Tables with identity columns do not support concurrent transactions
+
 ## Suggested Tags
 
 - microsoft-fabric
