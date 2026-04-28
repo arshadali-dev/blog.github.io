@@ -1,0 +1,25 @@
+# Arshad Ali — Data & Analytics Engineering Blog
+
+> Personal technical blog by Arshad Ali, Principal Product Manager at Microsoft, focused on Microsoft Fabric, Apache Spark, Delta Lake, and modern data platform engineering.
+
+## About
+
+- Author: Arshad Ali
+- Role: Principal Product Manager, Microsoft Fabric (Spark Runtime)
+- Site: https://arshadali.dev
+- RSS: https://arshadali.dev/feed.xml
+- Sitemap: https://arshadali.dev/sitemap.xml
+
+## Topics Covered
+
+- Microsoft Fabric Spark Runtime updates and feature deep dives
+- Apache Spark 4.x and Delta Lake 4.x capabilities
+- Data engineering patterns: surrogate keys, SCD Type 2, identity columns
+- Performance and reliability guidance for production Spark workloads
+- Migration guidance from legacy Spark patterns to modern approaches
+- Lakehouse architecture and data platform modernization
+
+## Blog Posts
+
+- [Fabric Runtime 2.0: Why It Matters for Spark Developers](https://arshadali.dev/data-engineering/2026/04/02/fabric-runtime-2-0-why-it-matters.html): Fabric Runtime 2.0 upgrades to Spark 4.x and Delta Lake 4.x. Here is what changed and why it matters for data engineers building on Microsoft Fabric.
+- [Identity Columns in Fabric Runtime 2.0: From Workarounds to First-Class Support](https://arshadali.dev/data-engineering/2026/04/17/identity-columns-fabric-runtime-2-0.html): Learn how Fabric Runtime 2.0 brings native identity column support to Delta Lake, replacing fragile Spark-side workarounds with transactionally safe surrogate key generation.
