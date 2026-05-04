@@ -46,13 +46,14 @@ Required front matter:
 - layout: post
 - title
 - date
+- description (for SEO — appears in meta tags and Open Graph)
+- excerpt (for home page teaser — use same text as description)
 - author: Arshad Ali
 - categories
 - tags
 
 Recommended optional front matter:
 - subtitle
-- tags
 - feature-img
 - feature-title
 
@@ -112,6 +113,9 @@ If gaps exist, revise before presenting final output.
 
 ### Code blocks
 - All code blocks use dark background (Dracula-inspired theme via `_sass/external/_syntax.scss`)
+- Code blocks have a toolbar with copy-to-clipboard and per-block line number toggle buttons (via `assets/js/code-blocks.js`)
+- The toolbar is always visible (not hover-only)
+- Line number toggle affects only the individual code block, not all blocks on the page
 - Always specify language identifiers on fenced code blocks (```python, ```sql, ```scala)
 - Use `%%sql` as the first line inside SQL code blocks for Fabric notebook context
 - Use `%%spark` as the first line inside Scala code blocks for Fabric notebook context
@@ -160,3 +164,13 @@ If gaps exist, revise before presenting final output.
 Use this starter to invoke the skill quickly:
 
 "Write a Microsoft Fabric Spark Runtime performance blog. Generate both an outline and a full draft. Focus on [topic], for [workload type], with [audience], and center on [improvement focus]. Use engineering deep-dive style and Jekyll-ready markdown front matter."
+
+An example invocation could be:
+Write a Microsoft Fabric Spark Runtime performance blog. Generate both an outline and a full draft. Focus on Variant data type in Spark 4.1 and Delta Lake 4.1, for Data Engineering, with Data Engineers, and center on enhancement and how solves current real world problems. Use engineering deep-dive style and Jekyll-ready markdown front matter and cover these points in the details.
+
+What it is and the real problem it solves
+what are use cases of its usage
+how it works with examples
+migration guide from existing implementation of storing JSON in string data type
+Any other best practices
+Limitations (important for real-world use)

@@ -14,7 +14,7 @@
 
 - Microsoft Fabric Spark Runtime updates and feature deep dives
 - Apache Spark 4.x and Delta Lake 4.x capabilities
-- Data engineering patterns: surrogate keys, SCD Type 2, identity columns
+- Data engineering patterns: surrogate keys, SCD Type 2, identity columns, semi-structured data
 - Performance and reliability guidance for production Spark workloads
 - Migration guidance from legacy Spark patterns to modern approaches
 - Lakehouse architecture and data platform modernization
@@ -23,3 +23,4 @@
 
 - [Fabric Runtime 2.0: Why It Matters for Spark Developers](https://arshadali.dev/data-engineering/2026/04/02/fabric-runtime-2-0-why-it-matters.html): Fabric Runtime 2.0 upgrades to Spark 4.x and Delta Lake 4.x. Here is what changed and why it matters for data engineers building on Microsoft Fabric.
 - [Identity Columns in Fabric Runtime 2.0: From Workarounds to First-Class Support](https://arshadali.dev/data-engineering/2026/04/17/identity-columns-fabric-runtime-2-0.html): Learn how Fabric Runtime 2.0 brings native identity column support to Delta Lake, replacing fragile Spark-side workarounds with transactionally safe surrogate key generation.
+- [The Variant Data Type in Fabric Runtime 2.0: Native Semi-Structured Data Without the JSON Tax](https://arshadali.dev/data-engineering/2026/04/24/variant-data-type-fabric-runtime-2-0.html): Learn how the Variant data type in Spark 4.x and Delta Lake 4.x eliminates repeated JSON parsing, replacing fragile STRING-based patterns with a binary, query-optimized semi-structured type.
