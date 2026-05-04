@@ -5,5 +5,5 @@ _site/
 .bundle/
 .venv/
 vendor/
-blogger-skill/examples/
+blogger-skill/
 blog-draft/
