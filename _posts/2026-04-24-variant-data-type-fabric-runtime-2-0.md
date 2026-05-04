@@ -13,7 +13,6 @@ tags:
   - apache-spark
   - delta-lake
   - data-engineering
-  - semi-structured-data
   - performance
 ---
 

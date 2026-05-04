@@ -6,3 +6,4 @@ _site/
 .venv/
 vendor/
 blogger-skill/examples/
+blog-draft/
