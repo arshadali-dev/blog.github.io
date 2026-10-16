@@ -104,4 +104,4 @@ exclude:
   - Gemfile.lock
   - .venv
   - README.md
-  - blogger-skill/
+  - .github/

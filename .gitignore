@@ -4,6 +4,8 @@ _site/
 .jekyll-metadata
 .bundle/
 .venv/
+__pycache__/
 vendor/
 blogger-skill/
+/.github/skills/fabric-spark-blogger/
 blog-draft/

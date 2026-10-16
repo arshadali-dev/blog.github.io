@@ -1,0 +1,4 @@
+# Client packages used for the validation recorded in the blog.
+azure-identity==1.25.3
+azure-core==1.39.0
+requests==2.33.1

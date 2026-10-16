@@ -1,0 +1,31 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Preview site",
+			"type": "shell",
+			"command": "bundle",
+			"args": [
+				"exec",
+				"jekyll",
+				"serve",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"4000"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"windows": {
+				"options": {
+					"env": {
+						"PATH": "${env:LOCALAPPDATA}\\Programs\\Ruby34-x64\\bin;${env:PATH}"
+					}
+				}
+			},
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}
