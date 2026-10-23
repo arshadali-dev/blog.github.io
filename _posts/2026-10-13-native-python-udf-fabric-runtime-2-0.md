@@ -14,7 +14,6 @@ tags:
   - fabric-runtime
   - apache-spark
   - python
-  - udf
   - native-execution-engine
   - performance
 ---

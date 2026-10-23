@@ -6,7 +6,6 @@ description: "Learn Spark SQL pipe syntax in Fabric Runtime 2.0 with copy-paste 
 excerpt: "Learn Spark SQL pipe syntax in Fabric Runtime 2.0 with copy-paste examples, PySpark comparisons, joins, aggregation, window functions, and result checks."
 author: Arshad Ali
 categories:
-  - Microsoft Fabric
   - Data Engineering
 tags:
   - microsoft-fabric
@@ -14,7 +13,6 @@ tags:
   - fabric-runtime
   - spark-sql
   - pyspark
-  - pipe-syntax
 feature-img: assets/images/pipe-syntax-fabric-runtime-2.0.png
 feature-title: ""
 ---
