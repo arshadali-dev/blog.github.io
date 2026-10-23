@@ -57,6 +57,31 @@ Use Python 3.11+ with the client dependencies from
 they do not submit workloads. Update the post's tested-on record only after
 live validation of the actual downloads, including output and cleanup checks.
 
+## Pipe syntax companion notebook
+
+The [pipe syntax tutorial](_posts/2026-10-19-pipe-syntax-spark-4-1-fabric-runtime-2-0.md)
+is the source of truth for its
+[downloadable notebook](assets/downloads/fabric-pipe-syntax/pipe-syntax-runtime-2-0.ipynb).
+The generator preserves every Python and SQL block in order, keeps SQL magics,
+converts article callouts to portable Markdown, and records a source SHA-256.
+Do not manually edit the generated notebook.
+
+After editing the article, use Python 3.11+ (standard library only):
+
+```shell
+python .github/scripts/sync_pipe_notebook.py
+python .github/scripts/sync_pipe_notebook.py --check
+python -m unittest discover -s .github/scripts -p test_pipe_notebook.py
+```
+
+These are offline checks, not Spark execution. For live validation, import the
+download into Fabric, select a published Runtime 2.0 Environment, use PySpark as
+the default language, and run all cells in a fresh session without a Lakehouse.
+Check expected tables and assertions, then repeat after restarting.
+Retain the executed copy privately with your environment details and outputs;
+keep the public download output-free and unbound to any workspace. Only update
+the article and generator's validation status after a successful live run.
+
 ## Author
 
 **Arshad Ali** — Principal Product Manager at Microsoft, working on Microsoft Fabric Spark Runtime.
