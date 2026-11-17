@@ -125,6 +125,9 @@ python .github/scripts/sync_livy_examples.py --check
 python -m unittest discover -s .github/scripts -p test_livy_examples.py
 ```
 
+ZIP timestamps and creator-platform metadata are fixed so Windows and Linux
+produce the same download.
+
 Use Python 3.11+ with the client dependencies from
 `assets/downloads/fabric-livy/requirements.txt`. The tests mock Fabric calls;
 they do not submit workloads. Update the post's tested-on record only after

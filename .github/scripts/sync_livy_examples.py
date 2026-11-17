@@ -227,6 +227,8 @@ def expected_files() -> dict[str, bytes]:
     with zipfile.ZipFile(buffer, "w") as archive:
         for name, content in sorted(files.items()):
             info = zipfile.ZipInfo(name, date_time=(2026, 10, 16, 0, 0, 0))
+            # Preserve the published ZIP metadata on both Windows and Linux.
+            info.create_system = 0
             info.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(info, content)
     files["fabric-livy-examples.zip"] = buffer.getvalue()

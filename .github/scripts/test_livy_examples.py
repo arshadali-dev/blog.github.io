@@ -36,6 +36,19 @@ class Downloads(unittest.TestCase):
             with self.subTest(name=name):
                 self.assertEqual((source.DESTINATION / name).read_bytes(), content)
 
+    def test_zip_metadata_does_not_depend_on_creator_platform(self):
+        original_init = source.zipfile.ZipInfo.__init__
+
+        def unix_init(info, *args, **kwargs):
+            original_init(info, *args, **kwargs)
+            info.create_system = 3
+
+        with patch.object(source.zipfile.ZipInfo, "__init__", unix_init):
+            generated = source.expected_files()["fabric-livy-examples.zip"]
+        self.assertEqual(
+            (source.DESTINATION / "fabric-livy-examples.zip").read_bytes(), generated
+        )
+
     def test_quality_query_matches_the_article(self):
         post = source.POST.read_text(encoding="utf-8")
         blocks = source.python_blocks(
