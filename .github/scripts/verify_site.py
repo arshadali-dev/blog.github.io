@@ -22,6 +22,9 @@ class Page(HTMLParser):
     def __init__(self, content: bytes):
         super().__init__(convert_charrefs=True)
         self.title = ""
+        self.title_count = 0
+        self.h1s: list[str] = []
+        self.in_h1 = False
         self.links: list[str] = []
         self.assets: list[tuple[str, str]] = []
         self.canonicals: list[str] = []
@@ -38,6 +41,10 @@ class Page(HTMLParser):
         values = dict(attrs)
         if tag == "title":
             self.in_title = True
+            self.title_count += 1
+        if tag == "h1":
+            self.h1s.append("")
+            self.in_h1 = True
         if tag == "a" and (href := values.get("href")):
             self.links.append(href)
         if tag == "nav" and values.get("aria-label") == "Related guides":
@@ -62,6 +69,8 @@ class Page(HTMLParser):
     def handle_endtag(self, tag: str) -> None:
         if tag == "title":
             self.in_title = False
+        if tag == "h1":
+            self.in_h1 = False
         if tag == "script" and self.in_schema:
             schema = json.loads(self.schema_text)
             if not isinstance(schema, dict):
@@ -72,6 +81,8 @@ class Page(HTMLParser):
     def handle_data(self, data: str) -> None:
         if self.in_title:
             self.title += data
+        if self.in_h1:
+            self.h1s[-1] += data
         if self.in_schema:
             self.schema_text += data
 
@@ -168,6 +179,10 @@ def verify_discovery(read: Reader, origin: str) -> None:
         page = Page(content)
         if kind != "text/html" or page.canonicals != [url]:
             raise ValueError(f"Canonical URL does not match the sitemap: {url}")
+        if page.title_count != 1 or not page.title.strip():
+            raise ValueError(f"Sitemap page must have one nonempty title: {url}")
+        if len(page.h1s) != 1 or not page.h1s[0].strip():
+            raise ValueError(f"Sitemap page must have one nonempty H1: {url}")
         if not page.meta.get("description"):
             raise ValueError(f"Missing page description: {url}")
         directives = page.meta.get("robots", "").lower()
@@ -183,6 +198,8 @@ def verify_discovery(read: Reader, origin: str) -> None:
             posts.add(url)
             if schema.get("url") != url or page.meta.get("og:url") != url:
                 raise ValueError(f"Article metadata has a conflicting URL: {url}")
+            if not schema.get("headline") or schema["headline"] != page.meta.get("og:title"):
+                raise ValueError(f"Article metadata has a missing or conflicting headline: {url}")
             author = schema.get("author")
             if not isinstance(author, dict) or not author.get("name") or not author.get("url"):
                 raise ValueError(f"Article author has no name or profile URL: {url}")
@@ -250,6 +267,8 @@ def verify(read: Reader, revision: str) -> tuple[str, int]:
     origin = feed.findtext("./channel/link", "").strip()
     if urlsplit(origin).scheme not in ("http", "https") or not urlsplit(origin).netloc:
         raise ValueError("The feed has no valid canonical site URL")
+    if home.title.strip() != feed.findtext("./channel/title", "").strip():
+        raise ValueError("The homepage title does not match the feed's site title")
     title = feed.findtext("./channel/item/title", "").strip()
     article_url = feed.findtext("./channel/item/link", "").strip()
     article_path = local_path(article_url, origin)
@@ -260,9 +279,8 @@ def verify(read: Reader, revision: str) -> tuple[str, int]:
 
     article_bytes, kind = read(article_path)
     article = Page(article_bytes)
-    if kind != "text/html" or not (
-        article.title == title or article.title.startswith(title + " |")
-    ):
+    if (kind != "text/html" or article.meta.get("og:type") != "article"
+            or article.meta.get("og:title") != title):
         raise ValueError(f"The article is missing or returned a fallback page: {article_path}")
 
     sitemap_bytes, _ = read("/sitemap.xml")

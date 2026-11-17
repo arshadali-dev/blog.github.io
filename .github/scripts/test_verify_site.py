@@ -7,7 +7,9 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 from urllib.error import HTTPError
 
-from verify_site import directory_reader, http_reader, local_path, sitemap_urls, verify, verify_live_routes
+from verify_site import (
+    Page, directory_reader, http_reader, local_path, sitemap_urls, verify, verify_live_routes,
+)
 
 REVISION = "a" * 40
 ARTICLE = "/product%20management/2026/11/14/guide"
@@ -20,6 +22,7 @@ class VerifySite(unittest.TestCase):
         image_url = ORIGIN + "assets/diagram.svg"
         schema = {
             "@context": "https://schema.org", "@type": "BlogPosting", "url": article_url,
+            "headline": "A & B",
             "author": {"name": "Author", "url": ORIGIN + "about/"},
             "datePublished": "2026-11-14", "dateModified": "2026-11-14", "image": image_url,
         }
@@ -28,10 +31,12 @@ class VerifySite(unittest.TestCase):
                 json.dumps({"revision": REVISION}).encode(), "application/json",
             ),
             "/": (
-                f'<title>Blog</title><a href="{ARTICLE}">Guide</a>'.encode(), "text/html",
+                (f'<title>Blog</title><link rel="canonical" href="{ORIGIN}">'
+                 '<meta name="description" content="Blog description">'
+                 f'<h1>Blog</h1><a href="{ARTICLE}">Guide</a>').encode(), "text/html",
             ),
             "/feed.xml": (
-                f"<rss><channel><link>{ORIGIN}</link><item><title>A &amp; B</title>"
+                f"<rss><channel><title>Blog</title><link>{ORIGIN}</link><item><title>A &amp; B</title>"
                 f"<link>{ORIGIN.rstrip('/')}{ARTICLE}</link></item></channel></rss>".encode(),
                 "application/xml",
             ),
@@ -40,10 +45,12 @@ class VerifySite(unittest.TestCase):
                  f'<link rel="canonical" href="{article_url}">'
                  '<meta name="description" content="A practical guide">'
                  '<meta property="og:type" content="article">'
+                 '<meta property="og:title" content="A &amp; B">'
                  f'<meta property="og:url" content="{article_url}">'
                  f'<meta property="og:image" content="{image_url}">'
                  f'<meta name="twitter:image" content="{image_url}">'
                  f'<script type="application/ld+json">{json.dumps(schema)}</script>'
+                 '<h1>A &amp; B</h1>'
                  '<nav aria-label="Related guides"><a href="/fabric-spark/">More</a></nav>'
                  '<img class="feature-img" src="/assets/diagram.svg">'
                  '<link rel="stylesheet" href="/assets/site.css">'
@@ -53,6 +60,7 @@ class VerifySite(unittest.TestCase):
             ),
             "/sitemap.xml": (
                 f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+                f"<url><loc>{ORIGIN}</loc></url>"
                 f"<url><loc>{ORIGIN.rstrip('/')}{ARTICLE}</loc></url></urlset>".encode(),
                 "application/xml",
             ),
@@ -115,7 +123,7 @@ class VerifySite(unittest.TestCase):
 
     def test_empty_feed_fails(self):
         self.files["/feed.xml"] = (
-            f"<rss><channel><link>{ORIGIN}</link></channel></rss>".encode(),
+            f"<rss><channel><title>Blog</title><link>{ORIGIN}</link></channel></rss>".encode(),
             "application/xml",
         )
         with self.assertRaisesRegex(ValueError, "latest article"):
@@ -143,6 +151,63 @@ class VerifySite(unittest.TestCase):
     def replace_article(self, old, new):
         content, kind = self.files[ARTICLE]
         self.files[ARTICLE] = (content.replace(old.encode(), new.encode()), kind)
+
+    def test_independent_seo_title_preserves_editorial_identity(self):
+        self.replace_article("<title>A &amp; B | Blog</title>",
+                             "<title>A short SEO title | Blog</title>")
+        self.assertEqual(verify(self.read, REVISION), (ARTICLE, 3))
+
+    def test_homepage_title_must_not_append_the_description(self):
+        content, kind = self.files["/"]
+        self.files["/"] = (content.replace(b"<title>Blog</title>",
+                                          b"<title>Blog | Blog description</title>"), kind)
+        with self.assertRaisesRegex(ValueError, "homepage title"):
+            verify(self.read, REVISION)
+
+    def test_indexed_pages_require_one_nonempty_h1(self):
+        for path, heading in (("/", "Blog"), (ARTICLE, "A &amp; B")):
+            content, kind = self.files[path]
+            for replacement in ("", "<h1> </h1>", "<h1>First</h1><h1>Second</h1>"):
+                with self.subTest(path=path, replacement=replacement):
+                    self.files[path] = (
+                        content.replace(f"<h1>{heading}</h1>".encode(), replacement.encode()), kind,
+                    )
+                    with self.assertRaisesRegex(ValueError, "one nonempty H1"):
+                        verify(self.read, REVISION)
+            self.files[path] = (content, kind)
+
+    def test_article_requires_one_nonempty_browser_title(self):
+        content, kind = self.files[ARTICLE]
+        for replacement in ("", "<title> </title>", "<title>First</title><title>Second</title>"):
+            with self.subTest(replacement=replacement):
+                self.files[ARTICLE] = (
+                    content.replace(b"<title>A &amp; B | Blog</title>", replacement.encode()), kind,
+                )
+                with self.assertRaisesRegex(ValueError, "one nonempty title"):
+                    verify(self.read, REVISION)
+
+    def test_mismatched_editorial_title_fails_even_with_a_matching_browser_title(self):
+        self.replace_article('property="og:title" content="A &amp; B"',
+                             'property="og:title" content="Wrong article"')
+        with self.assertRaisesRegex(ValueError, "fallback"):
+            verify(self.read, REVISION)
+
+    def test_missing_or_conflicting_schema_headline_fails(self):
+        content, kind = self.files[ARTICLE]
+        for headline in ("", "Wrong article"):
+            with self.subTest(headline=headline):
+                self.files[ARTICLE] = (
+                    content.replace(b'"headline": "A & B"',
+                                    f'"headline": "{headline}"'.encode()), kind,
+                )
+                with self.assertRaisesRegex(ValueError, "headline"):
+                    verify(self.read, REVISION)
+
+    def test_heading_parser_preserves_nested_text_and_decodes_entities(self):
+        page = Page(b"<title>A &amp; B</title><h1>A <em>&amp;</em> B</h1>")
+        self.assertEqual(page.title, "A & B")
+        self.assertEqual(page.title_count, 1)
+        self.assertEqual(page.h1s, ["A & B"])
 
     def test_conflicting_canonical_fails(self):
         self.replace_article('rel="canonical"', 'rel="alternate"')

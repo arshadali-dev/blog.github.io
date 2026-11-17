@@ -16,6 +16,8 @@ tags:
   - performance
 ---
 
+# The Variant Data Type in Fabric Runtime 2.0: Native Semi‑Structured Data Without the JSON Tax
+
 ## What it is and the real problem it solves
 
 Every data platform eventually faces the same tension: **structured schemas are efficient but rigid; semi-structured data is flexible but expensive to query.** In practice, most lakehouse tables end up with at least one column that stores raw JSON as a `STRING` — event payloads, API responses, configuration metadata, or CDC change records with heterogeneous schemas.

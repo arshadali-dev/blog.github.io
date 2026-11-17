@@ -2,9 +2,9 @@
 layout: null
 sitemap: false
 ---
-# Arshad Ali — Data & Analytics Engineering Blog
+# {{ site.title }}
 
-> Personal technical blog by Arshad Ali, Principal Product Manager at Microsoft, focused on Microsoft Fabric, Apache Spark, Delta Lake, and modern data platform engineering.
+> Personal blog by Arshad Ali, Principal Product Manager at Microsoft, focused on Microsoft Fabric, Apache Spark, Delta Lake, modern data platform engineering, and product management.
 
 ## About
 
@@ -22,6 +22,8 @@ sitemap: false
 - Performance and reliability guidance for production Spark workloads
 - Migration guidance from legacy Spark patterns to modern approaches
 - Lakehouse architecture and data platform modernization
+- Product management frameworks and technical decision-making
+- System design for product managers and interview preparation
 
 ## Blog Posts
 

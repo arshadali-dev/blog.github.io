@@ -1,8 +1,10 @@
 <header class="site-header">
 	<div class="branding">
-		<h1 class="site-title">
+		{% assign branding_tag = "div" %}
+		{% if page.layout == "home" %}{% assign branding_tag = "h1" %}{% endif %}
+		<{{ branding_tag }} class="site-title">
 			<a href="{{ site.baseurl }}/">{{ site.theme_settings.title }}</a>
-		</h1>
+		</{{ branding_tag }}>
 	</div>
 	<nav class="site-nav">
 		<ul>

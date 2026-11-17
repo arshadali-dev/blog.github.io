@@ -20,6 +20,8 @@ tags:
   - high-concurrency
 ---
 
+# Run Spark from Anywhere with the Microsoft Fabric Livy API
+
 Your application already knows what data it needs. What if it could send Spark SQL or PySpark code to Fabric Spark and get the answer back, without opening a notebook?
 
 That is what the **Microsoft Fabric Spark Livy API** enables. It is an HTTP interface for starting Spark compute, submitting code, checking execution, and retrieving results. Your application runs locally or in another service; the Spark code runs in Fabric.
