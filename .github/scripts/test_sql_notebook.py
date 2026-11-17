@@ -1,10 +1,12 @@
 """Offline SQL notebook contract tests; no Spark or Fabric execution."""
 
+import ast
 import hashlib
 import json
 import re
 import sqlite3
 import unittest
+from unittest.mock import Mock
 
 import sync_pipe_notebook as shared
 import sync_sql_notebook as source
@@ -19,6 +21,24 @@ class SqlNotebook(unittest.TestCase):
             "".join(cell["source"])
             for cell in cls.notebook["cells"] if cell["cell_type"] == "code"
         ]
+        cls.statements = []
+        for code in cls.codes:
+            calls = [
+                node for node in ast.walk(ast.parse(code))
+                if isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute)
+                and isinstance(node.func.value, ast.Name)
+                and node.func.value.id == "spark"
+                and node.func.attr == "sql"
+            ]
+            assert calls, "Each cell must contain a spark.sql call"
+            statements = []
+            for call in sorted(calls, key=lambda node: node.lineno):
+                sql = ast.literal_eval(call.args[0])
+                assert isinstance(sql, str), "SQL must be a literal string"
+                statements.append(sql.strip())
+            cls.statements.append(statements)
+        cls.sqls = [statements[-1] for statements in cls.statements]
         cls.markdown = "\n".join(
             "".join(cell["source"])
             for cell in cls.notebook["cells"] if cell["cell_type"] == "markdown"
@@ -28,13 +48,37 @@ class SqlNotebook(unittest.TestCase):
         self.assertEqual(source.DESTINATION.read_bytes(), source.expected_bytes())
         expected = [
             match[2] for match in shared.FENCE.finditer(self.post)
-            if match[1] == "sql"
+            if match[1] == "python"
         ]
         self.assertEqual(len(expected), 15)
         self.assertEqual(self.codes, expected)
-        for code in self.codes:
-            self.assertTrue(code.startswith("%%sql\n"))
-            self.assertTrue(code.rstrip().endswith(";"))
+        for code, statements in zip(self.codes, self.statements):
+            self.assertTrue(code.startswith('spark.sql("""\n'))
+            for sql in statements:
+                self.assertTrue(sql.endswith(";"))
+            self.assertEqual(len(ast.parse(code).body), len(statements))
+
+    def test_pyspark_calls_execute_in_order_and_display_only_results(self):
+        result_cells = {0, 2, 4, 6, 7, 9, 10, 11, 12, 13, 14}
+        for index, code in enumerate(self.codes):
+            with self.subTest(cell=index):
+                spark = Mock()
+                statements = self.statements[index]
+                self.assertEqual(len(statements), 3 if index == 14 else 1)
+                results = [Mock() for _ in statements]
+                spark.sql.side_effect = results
+                exec(compile(code, f"sql-tutorial-cell-{index}", "exec"), {"spark": spark})
+                self.assertEqual(spark.sql.call_count, len(statements))
+                for position, (invocation, sql, result) in enumerate(
+                    zip(spark.sql.call_args_list, statements, results)
+                ):
+                    self.assertEqual(len(invocation.args), 1)
+                    self.assertEqual(invocation.kwargs, {})
+                    self.assertEqual(invocation.args[0].strip(), sql)
+                    if index in result_cells and position == len(statements) - 1:
+                        result.show.assert_called_once_with(truncate=False)
+                    else:
+                        result.show.assert_not_called()
 
     def test_source_metadata_is_for_sql_not_pipe(self):
         tutorial = self.notebook["metadata"]["tutorial"]
@@ -110,26 +154,33 @@ class SqlNotebook(unittest.TestCase):
         )
 
     def test_script_boundaries_setup_and_expected_results(self):
-        scripts = [code for code in self.codes if code.startswith("%%sql\nBEGIN\n")]
+        scripts = [sql for sql in self.sqls if sql.startswith("BEGIN\n")]
         self.assertEqual(len(scripts), 4)
         for script in scripts:
             self.assertTrue(script.rstrip().endswith("END;"))
-        self.assertIn("CREATE OR REPLACE TEMP VIEW sql_sales", self.codes[1])
-        self.assertIn("DECLARE OR REPLACE VARIABLE sql_min_sales", self.codes[3])
-        self.assertIn("CREATE OR REPLACE TEMP VIEW sql_employees", self.codes[8])
-        self.assertIn("WITH RECURSIVE", self.codes[9])
-        self.assertIn("SQLSTATE 'P0001'", self.codes[13])
-        self.assertIn("raise_error(", self.codes[13])
-        self.assertIn("EXECUTE IMMEDIATE", self.codes[14])
+        self.assertIn("CREATE OR REPLACE TEMP VIEW sql_sales", self.sqls[1])
+        self.assertIn("DECLARE OR REPLACE VARIABLE sql_min_sales", self.sqls[3])
+        self.assertIn("CREATE OR REPLACE TEMP VIEW sql_employees", self.sqls[8])
+        self.assertIn("WITH RECURSIVE", self.sqls[9])
+        self.assertIn("SQLSTATE 'P0001'", self.sqls[13])
+        self.assertIn("raise_error(", self.sqls[13])
+        self.assertIn("EXECUTE IMMEDIATE", self.sqls[14])
         for result in ("| 6 | 6800.00 |", "| Chicago | 2400.00 |",
                        "| Frank | Carol | 2 |", "| Seattle | 1000.00 | 1500.00 |",
                        "REJECTED"):
             self.assertIn(result, self.markdown)
 
+    def test_assignment_syntax_matches_scope(self):
+        for index, sql in enumerate(self.sqls):
+            if sql.startswith("BEGIN\n"):
+                with self.subTest(cell=index):
+                    self.assertNotRegex(sql, r"\bSET\s+(?:VAR|VARIABLE)\b")
+        self.assertEqual(self.sqls[5], "SET VAR sql_min_sales = 1700.00;")
+
     def test_empty_batch_uses_row_count_not_revenue(self):
-        script = self.codes[10]
+        script = self.sqls[10]
         self.assertIn("DECLARE order_count BIGINT DEFAULT 0;", script)
-        self.assertIn("SET VAR (order_count, total_sales)", script)
+        self.assertIn("SET (order_count, total_sales)", script)
         self.assertIn("SELECT COUNT(*), COALESCE(SUM(amount), 0.00)", script)
         self.assertIn("IF order_count = 0 THEN", script)
         self.assertNotIn("IF total_sales = 0 THEN", script)
@@ -145,6 +196,8 @@ class SqlNotebook(unittest.TestCase):
 
     def test_editorial_revision_and_requested_removals(self):
         for content in (self.post, self.markdown):
+            self.assertNotIn("%%sql", content)
+            self.assertNotIn("no Python code", content)
             self.assertIn("**Core path:**", content)
             self.assertIn("**Go further:**", content)
             self.assertIn("### Shared setup", content)
@@ -158,24 +211,84 @@ class SqlNotebook(unittest.TestCase):
             self.assertNotIn("## Start a self-contained Runtime 2.0 notebook", content)
             self.assertIn("a result**", content)
 
+    def test_dynamic_sql_session_parameters_and_expected_values(self):
+        """Check fixed references and portable filters, not Spark variable resolution."""
+        script = self.sqls[14]
+        execution = re.search(
+            r"EXECUTE IMMEDIATE\s+'(.*?)'\s+INTO qualifying_sales;",
+            script, re.S,
+        )
+        assert execution is not None, "Dynamic query or INTO missing"
+        query = execution[1]
+        self.assertNotIn("?", query)
+        self.assertNotRegex(query, r":\w+")
+        self.assertNotIn("USING", script)
+        self.assertIn("city = session.sql_dynamic_city", query)
+        self.assertIn("amount >= session.sql_dynamic_minimum_order", query)
+        self.assertIn("session.sql_dynamic_city AS selected_city", script)
+        self.assertIn("session.sql_dynamic_minimum_order AS minimum_order", script)
+        self.assertEqual(len(self.statements[14]), 3)
+        city = re.fullmatch(
+            r"DECLARE OR REPLACE VARIABLE sql_dynamic_city STRING DEFAULT '([^']+)';",
+            self.statements[14][0],
+        )
+        minimum = re.fullmatch(
+            r"DECLARE OR REPLACE VARIABLE sql_dynamic_minimum_order "
+            r"DECIMAL\(10, 2\) DEFAULT ([\d.]+);",
+            self.statements[14][1],
+        )
+        assert city is not None and minimum is not None, "Dynamic defaults missing"
+        portable_query = (
+            "WITH parameters(sql_dynamic_city, sql_dynamic_minimum_order) "
+            "AS (VALUES (?, ?)) "
+            + query.replace("FROM sql_sales", "FROM sql_sales CROSS JOIN parameters AS session")
+        )
+        sales = [
+            (city_name, int(amount)) for city_name, amount in re.findall(
+                r"\(\d+,\s*'([^']+)',\s*'[^']+',\s*(\d+)\)", self.sqls[1]
+            )
+        ]
+        self.assertEqual(len(sales), 6)
+        connection = sqlite3.connect(":memory:")
+        try:
+            connection.execute("CREATE TABLE sql_sales(city TEXT, amount NUMERIC)")
+            connection.executemany("INSERT INTO sql_sales VALUES (?, ?)", sales)
+            connection.execute("INSERT INTO sql_sales VALUES (?, ?)", ("O'Brien", 1250))
+            for arguments, expected in (
+                ((city[1], float(minimum[1])), 1500),
+                (("Seattle", 1500), 1500),
+                (("Seattle", 1600), 0),
+                (("Chicago", 1000), 1700),
+                (("New York", 0), 2300),
+                (("Missing city", 0), 0),
+                (("O'Brien", 1000), 1250),
+                (("Seattle' OR 1=1 --", 0), 0),
+            ):
+                with self.subTest(arguments=arguments):
+                    self.assertEqual(
+                        connection.execute(portable_query, arguments).fetchone(), (expected,)
+                    )
+        finally:
+            connection.close()
+
     def test_batch_aggregate_and_branch_expected_values(self):
         """Check portable SQL expressions in SQLite, not Spark script execution."""
-        script = self.codes[10]
+        script = self.sqls[10]
         aggregate = re.search(
-            r"SET VAR \(order_count, total_sales\) = \(\s*(SELECT.*?)\s*\);",
+            r"SET \(order_count, total_sales\) = \(\s*(SELECT.*?)\s*\);",
             script, re.S,
         )
         branches = re.search(
-            r"IF (.*?) THEN\s+SET VAR batch_status = ('[^']+');\s+"
-            r"ELSEIF (.*?) THEN\s+SET VAR batch_status = ('[^']+');\s+"
-            r"ELSE\s+SET VAR batch_status = ('[^']+');",
+            r"IF (.*?) THEN\s+SET batch_status = ('[^']+');\s+"
+            r"ELSEIF (.*?) THEN\s+SET batch_status = ('[^']+');\s+"
+            r"ELSE\s+SET batch_status = ('[^']+');",
             script, re.S,
         )
         assert aggregate is not None, "Batch aggregate assignment missing"
         assert branches is not None, "Batch classification branches missing"
         amounts = [
             int(value) for value in re.findall(
-                r"\(\d+,\s*'[^']+',\s*'[^']+',\s*(\d+)\)", self.codes[1]
+                r"\(\d+,\s*'[^']+',\s*'[^']+',\s*(\d+)\)", self.sqls[1]
             )
         ]
         self.assertEqual(len(amounts), 6)

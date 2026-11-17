@@ -160,15 +160,18 @@ the article and generator's validation status after a successful live run.
 
 ## SQL enhancements companion notebook
 
-The [SQL enhancements tutorial](_posts/2026-10-23-spark-sql-enhancements-fabric-runtime-2-0.md)
+The [SQL enhancements tutorial](_posts/2026-11-17-spark-sql-enhancements-fabric-runtime-2-0.md)
 is the source of truth for its
 [downloadable notebook](assets/downloads/fabric-sql-enhancements/spark-sql-runtime-2-0.ipynb).
 The generator reuses the pipe tutorial's Markdown/cell conversion, preserves
-all SQL blocks verbatim and in order, and records this article's path and
+all PySpark blocks verbatim and in order, and records this article's path and
 SHA-256. Both notebooks start with their article title, omit the blog-only
 AI disclosure, and contain no outputs or workspace bindings.
 The SQL notebook also omits the blog's download/import introduction while
 retaining the shared setup instructions and every executable example.
+Each cell executes SQL statements or a complete script with `spark.sql(...)`.
+The dynamic SQL cell initializes two session variables before executing its script.
+Result-producing cells use `.show(truncate=False)`; setup and assignments do not.
 
 After editing the article, use Python 3.11+ (standard library only):
 
@@ -178,11 +181,12 @@ python .github/scripts/sync_sql_notebook.py --check
 python -m unittest discover -s .github/scripts -p "test_*notebook.py"
 ```
 
-These tests check the notebook contract and evaluate the batch example's
-portable aggregate/branch expressions in SQLite, not Spark SQL scripting.
+These tests check the notebook contract, session-parameter initialization order, and
+portable filter/aggregate expressions in SQLite, including quoted city names and
+unmatched values. They do not execute Spark SQL scripting or validate Spark variable scope.
 Import the
 notebook into Fabric, select a published Runtime 2.0 Environment, and run all
-15 SQL cells in a fresh PySpark session. Compare the expected tables, including
+15 PySpark cells in a fresh session. Compare the expected tables, including
 the deliberate `REJECTED` result from the handler example. Try the two suggested
 threshold edits and empty/zero-value batch exercises separately, restore the
 original values and queries, then repeat in a

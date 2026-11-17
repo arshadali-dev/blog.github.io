@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Bring Your SQL Skills to Fabric Runtime 2.0: Spark 4.1 in Practice"
-date: 2026-10-23
-published: false
+date: 2026-11-17
+published: true
 description: "Reuse your SQL skills in Fabric Runtime 2.0 with hands-on Spark 4.1 examples for session variables, CTEs, recursion, SQL scripting, and safer dynamic SQL."
 excerpt: "Reuse your SQL skills in Fabric Runtime 2.0 with hands-on Spark 4.1 examples for session variables, CTEs, recursion, SQL scripting, and safer dynamic SQL."
 author: Arshad Ali
@@ -51,7 +51,7 @@ No scripting-enablement flag is needed for the default Spark 4.1 configuration.
 ## Choose your learning path
 
 - **Core path:** [session variables](#1-session-variables-make-your-parameters-explicit), [CTEs](#2-ctes-give-each-transformation-a-name), then [local variables and branching](#4-sql-scripting-keep-variables-and-decisions-together).
-- **Go further:** [recursive CTEs](#3-recursive-ctes-walk-a-hierarchy-without-an-application-side-loop), [loops](#5-for-loops-useful-for-control-data-not-millions-of-fact-rows), [error handling](#6-error-handling-handle-a-specific-condition-deliberately), and [dynamic SQL](#7-dynamic-sql-bind-values-instead-of-concatenating-them).
+- **Go further:** [recursive CTEs](#3-recursive-ctes-walk-a-hierarchy-without-an-application-side-loop), [loops](#5-for-loops-useful-for-control-data-not-millions-of-fact-rows), [error handling](#6-error-handling-handle-a-specific-condition-deliberately), and [dynamic SQL](#7-dynamic-sql-reuse-typed-parameters).
 
 Run the shared setup first. The core path needs only the sales view; the hierarchy section creates its own employee view.
 
@@ -61,13 +61,18 @@ Run the shared setup first. The core path needs only the sales view; the hierarc
 
 Choose either entry path in a **development Fabric workspace**:
 
-- **Download:** save the linked `.ipynb` file, select **Import notebook** from the workspace toolbar, and open it. If your browser displays JSON, save it with the `.ipynb` extension, not `.txt`. The download contains all **15 executable SQL cells**, explanations, and expected results, with no saved outputs or workspace bindings.
+- **Download:** save the linked `.ipynb` file, select **Import notebook** from the workspace
+  toolbar, and open it. If your browser displays JSON, save it with the `.ipynb` extension,
+  not `.txt`. The download contains all **15 executable PySpark cells**, explanations, and
+  expected results, with no saved outputs or workspace bindings.
 - **Copy and paste:** create a blank notebook and paste each code block below into a separate cell.
 
 ### Shared setup
 
 1. Select a **Runtime 2.0 Environment**. If you change its runtime, **Save** and **Publish** the Environment before using it. Alternatively, use the workspace's Runtime 2.0 default if there is no Environment override.
-2. Keep **PySpark** as the notebook's default language. Each code cell starts with `%%sql` to run Spark SQL; no Python code, Lakehouse attachment, external data, or package installation is required.
+2. Keep **PySpark** as the notebook's default language. Each code cell passes SQL text to
+   `spark.sql(...)`. No Lakehouse attachment, external data, or package installation is
+   required.
 3. Start a **fresh Spark session** and run the setup cells below. Then follow either learning path, or select **Run all** in the imported notebook for the complete tutorial.
 4. Compare outputs with the expected tables. The handler example deliberately returns `REJECTED`; that is its expected result, not a notebook failure. Stop on unexpected errors rather than skipping ahead.
 
@@ -77,14 +82,21 @@ Optional exercises change existing cells. Restore their original values and quer
 <div class="note-title">Use the Spark SQL experience</div>
 
 Run these examples in a **Fabric Spark notebook**, not a Warehouse T-SQL editor or a Lakehouse SQL analytics endpoint. Those are different execution surfaces.<br><br>
-Each block is one notebook cell: either one top-level SQL statement or one complete `BEGIN ... END` script. Keep a script together rather than splitting it at its internal semicolons.
+Each code block is one PySpark cell. Pass either one top-level SQL statement or one
+complete `BEGIN ... END` script to `spark.sql(...)`. Keep a script together rather than
+splitting it at its internal semicolons.
 </div>
+
+The business logic stays in SQL. `spark.sql(...)` returns a DataFrame; `.show(truncate=False)`
+displays its results without shortening values. Setup and variable-assignment cells do
+not display a result table.
 
 Check the Spark version:
 
-```sql
-%%sql
+```python
+spark.sql("""
 SELECT version() AS spark_version;
+""").show(truncate=False)
 ```
 
 The version should begin with `4.1`. Record the full value if you are validating a migration.
@@ -93,8 +105,8 @@ The version should begin with `4.1`. Record the full value if you are validating
 
 The amounts represent order revenue, not unit prices. Explicit decimals keep the examples appropriate for currency calculations.
 
-```sql
-%%sql
+```python
+spark.sql("""
 CREATE OR REPLACE TEMP VIEW sql_sales AS
 SELECT
     order_id,
@@ -109,14 +121,16 @@ FROM VALUES
     (5, 'Chicago',  'Laptop',  1700),
     (6, 'Chicago',  'Monitor',  700)
 AS source(order_id, city, product, amount);
+""")
 ```
 
 Check the baseline:
 
-```sql
-%%sql
+```python
+spark.sql("""
 SELECT COUNT(*) AS order_count, SUM(amount) AS total_sales
 FROM sql_sales;
+""").show(truncate=False)
 ```
 
 | order_count | total_sales |
@@ -131,19 +145,21 @@ A threshold should be a parameter, not a string pasted into several queries.
 
 Declare a session variable in a new cell:
 
-```sql
-%%sql
+```python
+spark.sql("""
 DECLARE OR REPLACE VARIABLE sql_min_sales DECIMAL(10, 2) DEFAULT 1000.00;
+""")
 ```
 
 Use it in a query:
 
-```sql
-%%sql
+```python
+spark.sql("""
 SELECT order_id, city, amount
 FROM sql_sales
 WHERE amount >= session.sql_min_sales
 ORDER BY amount DESC, order_id;
+""").show(truncate=False)
 ```
 
 | order_id | city | amount |
@@ -154,19 +170,21 @@ ORDER BY amount DESC, order_id;
 
 Now change the parameter:
 
-```sql
-%%sql
+```python
+spark.sql("""
 SET VAR sql_min_sales = 1700.00;
+""")
 ```
 
 Run the query again:
 
-```sql
-%%sql
+```python
+spark.sql("""
 SELECT order_id, city, amount
 FROM sql_sales
 WHERE amount >= session.sql_min_sales
 ORDER BY amount DESC, order_id;
+""").show(truncate=False)
 ```
 
 Only New York's `1800.00` order and Chicago's `1700.00` order remain. **The query is unchanged; the parameter is different.**
@@ -187,8 +205,8 @@ Ordinary CTEs are already familiar to many SQL developers. They let you express 
 
 Here we calculate city totals, then keep cities with at least `2300.00` in sales:
 
-```sql
-%%sql
+```python
+spark.sql("""
 WITH sales_by_city AS (
     SELECT city, SUM(amount) AS total_sales
     FROM sql_sales
@@ -202,6 +220,7 @@ qualifying_cities AS (
 SELECT city, total_sales
 FROM qualifying_cities
 ORDER BY total_sales DESC, city;
+""").show(truncate=False)
 ```
 
 | city | total_sales |
@@ -221,8 +240,8 @@ Organizational charts, product categories, bills of materials, and dependency tr
 
 Create a small employee hierarchy:
 
-```sql
-%%sql
+```python
+spark.sql("""
 CREATE OR REPLACE TEMP VIEW sql_employees AS
 SELECT *
 FROM VALUES
@@ -233,14 +252,15 @@ FROM VALUES
     ('Emma',  'Bob'),
     ('Frank', 'Carol')
 AS source(employee, manager);
+""")
 ```
 
 Alice is the root. Bob and Carol report to Alice; David and Emma report to Bob; Frank reports to Carol.
 
 Now walk the hierarchy:
 
-```sql
-%%sql
+```python
+spark.sql("""
 WITH RECURSIVE employee_hierarchy (employee, manager, depth) AS (
     SELECT employee, manager, CAST(0 AS INT) AS depth
     FROM sql_employees
@@ -256,6 +276,7 @@ WITH RECURSIVE employee_hierarchy (employee, manager, depth) AS (
 SELECT employee, manager, depth
 FROM employee_hierarchy
 ORDER BY depth, employee;
+""").show(truncate=False)
 ```
 
 | employee | manager | depth |
@@ -284,33 +305,35 @@ Spark 4.1 defaults to a recursion-level limit of `100` and a recursive-row limit
 
 CTEs organize **one query**. SQL scripting coordinates **multiple statements**.
 
-A compound statement starts with `BEGIN` and ends with `END`. Inside it, you can declare local variables, assign query results, branch, and run other SQL statements.
+A compound statement starts with `BEGIN` and ends with `END`. Inside it, you can declare
+local variables, assign query results with plain `SET`, branch, and run other SQL statements.
 
 Here is a complete script that classifies our sales batch:
 
-```sql
-%%sql
+```python
+spark.sql("""
 BEGIN
     DECLARE order_count BIGINT DEFAULT 0;
     DECLARE total_sales DECIMAL(18, 2) DEFAULT 0.00;
     DECLARE review_threshold DECIMAL(18, 2) DEFAULT 6000.00;
     DECLARE batch_status STRING DEFAULT 'NORMAL';
 
-    SET VAR (order_count, total_sales) = (
+    SET (order_count, total_sales) = (
         SELECT COUNT(*), COALESCE(SUM(amount), 0.00)
         FROM sql_sales
     );
 
     IF order_count = 0 THEN
-        SET VAR batch_status = 'EMPTY';
+        SET batch_status = 'EMPTY';
     ELSEIF total_sales >= review_threshold THEN
-        SET VAR batch_status = 'REVIEW';
+        SET batch_status = 'REVIEW';
     ELSE
-        SET VAR batch_status = 'NORMAL';
+        SET batch_status = 'NORMAL';
     END IF;
 
     SELECT order_count, total_sales, review_threshold, batch_status;
 END;
+""").show(truncate=False)
 ```
 
 | order_count | total_sales | review_threshold | batch_status |
@@ -345,8 +368,8 @@ Some workflows genuinely need iteration. SQL scripting lets you iterate over a q
 
 This example visits **three city summaries**, accumulates their totals, and returns one result:
 
-```sql
-%%sql
+```python
+spark.sql("""
 BEGIN
     DECLARE cities_checked INT DEFAULT 0;
     DECLARE checked_total DECIMAL(18, 2) DEFAULT 0.00;
@@ -357,12 +380,13 @@ BEGIN
         GROUP BY city
         ORDER BY city
     DO
-        SET VAR cities_checked = cities_checked + 1;
-        SET VAR checked_total = checked_total + city_row.city_total;
+        SET cities_checked = cities_checked + 1;
+        SET checked_total = checked_total + city_row.city_total;
     END FOR;
 
     SELECT cities_checked, checked_total;
 END;
+""").show(truncate=False)
 ```
 
 | cities_checked | checked_total |
@@ -373,12 +397,13 @@ END;
 
 **This is a syntax example, not an optimization.** For this particular calculation, use a single set-based query instead:
 
-```sql
-%%sql
+```python
+spark.sql("""
 SELECT
     COUNT(DISTINCT city) AS cities_checked,
     SUM(amount) AS checked_total
 FROM sql_sales;
+""").show(truncate=False)
 ```
 
 You should get the same `3` and `6800.00`.
@@ -397,15 +422,15 @@ This example rejects a batch whose total exceeds a configured limit. Read it in 
 
 Spark's `raise_error()` raises `USER_RAISED_EXCEPTION`, with SQLSTATE `P0001`. We evaluate it inside an assignment to trigger the exception without emitting an extra query result. The cast supplies the assignment's string type; the function raises an error rather than returning a status. The handler sets the rejection status and reason.
 
-```sql
-%%sql
+```python
+spark.sql("""
 BEGIN
     DECLARE allowed_total DECIMAL(18, 2) DEFAULT 6000.00;
     DECLARE actual_total DECIMAL(18, 2) DEFAULT 0.00;
     DECLARE validation_status STRING DEFAULT 'ACCEPTED';
     DECLARE validation_reason STRING DEFAULT 'Within the configured limit';
 
-    SET VAR actual_total = (
+    SET actual_total = (
         SELECT COALESCE(SUM(amount), 0.00)
         FROM sql_sales
     );
@@ -413,13 +438,13 @@ BEGIN
     BEGIN
         DECLARE EXIT HANDLER FOR SQLSTATE 'P0001'
         BEGIN
-            SET VAR validation_status = 'REJECTED';
-            SET VAR validation_reason =
+            SET validation_status = 'REJECTED';
+            SET validation_reason =
                 'Sales total exceeds the configured limit';
         END;
 
         IF actual_total > allowed_total THEN
-            SET VAR validation_status = CAST(
+            SET validation_status = CAST(
                 raise_error('Sales total exceeds the configured limit')
                 AS STRING
             );
@@ -432,6 +457,7 @@ BEGIN
         allowed_total,
         validation_reason;
 END;
+""").show(truncate=False)
 ```
 
 Expected: one result with `REJECTED`, `6800.00`, `6000.00`, and the explicit rejection reason. `EXIT` leaves the inner block where the handler is declared; the outer block continues to the final `SELECT`.
@@ -442,35 +468,54 @@ This handler demonstrates a controlled business outcome; **it turns that particu
 
 Also, `BEGIN ... END` defines a script block, **not a multi-statement transaction**. A handler does not roll back earlier successful writes. Design persistent workflows for retries, idempotency, and the actual transaction guarantees of the target tables.
 
-## 7. Dynamic SQL: bind values instead of concatenating them
+## 7. Dynamic SQL: reuse typed parameters
 
-Sometimes a workflow must choose a statement at runtime. For example, a metadata-driven job may select one approved source table from a configuration list and apply a common validation query. `EXECUTE IMMEDIATE` lets that job execute SQL text and bind values without constructing every operation in Python.
+Sometimes a workflow must choose a statement at runtime. For example, a metadata-driven
+job may select one approved source table from a configuration list and apply a common
+validation query. `EXECUTE IMMEDIATE` executes SQL text; typed session variables keep
+configurable values separate from that text.
 
-The small example below keeps the source fixed so you can focus on **parameter binding** with `USING` and **scalar-result capture** with `INTO`. It demonstrates those mechanics, not a case where dynamic SQL is required:
+This example keeps the source fixed to demonstrate **session parameters** and
+**scalar-result capture** with `INTO`, not a case where dynamic SQL is required.
+Run the entire cell: its first two calls initialize the parameters, and its final call
+executes the script. `OR REPLACE` makes the declarations safe to rerun.
 
-```sql
-%%sql
+```python
+spark.sql("""
+DECLARE OR REPLACE VARIABLE sql_dynamic_city STRING DEFAULT 'Seattle';
+""")
+
+spark.sql("""
+DECLARE OR REPLACE VARIABLE sql_dynamic_minimum_order DECIMAL(10, 2) DEFAULT 1000.00;
+""")
+
+spark.sql("""
 BEGIN
-    DECLARE selected_city STRING DEFAULT 'Seattle';
-    DECLARE minimum_order DECIMAL(10, 2) DEFAULT 1000.00;
     DECLARE qualifying_sales DECIMAL(18, 2) DEFAULT 0.00;
 
     EXECUTE IMMEDIATE
         'SELECT COALESCE(SUM(amount), 0.00)
          FROM sql_sales
-         WHERE city = :city AND amount >= :minimum'
-        INTO qualifying_sales
-        USING selected_city AS city, minimum_order AS minimum;
+         WHERE city = session.sql_dynamic_city
+           AND amount >= session.sql_dynamic_minimum_order'
+        INTO qualifying_sales;
 
-    SELECT selected_city, minimum_order, qualifying_sales;
+    SELECT
+        session.sql_dynamic_city AS selected_city,
+        session.sql_dynamic_minimum_order AS minimum_order,
+        qualifying_sales;
 END;
+""").show(truncate=False)
 ```
 
 | selected_city | minimum_order | qualifying_sales |
 |---|---:|---:|
 | Seattle | 1000.00 | 1500.00 |
 
-The markers `:city` and `:minimum` are bound by `USING`. Their values are not pasted into the SQL string, so a city name containing a quote does not require you to build your own quoting logic.
+The executed SQL reads the two **session-scoped** variables by name. Block-local variables
+are not implicitly visible inside its SQL text; `INTO` transfers the returned total to
+the local `qualifying_sales` variable. Change a parameter's declaration and rerun the
+whole cell to change the filter. The SQL string stays unchanged; no values are concatenated.
 
 This is useful when migrating metadata-driven SQL workflows. But dynamic SQL is not needed for every parameterized query: **use an ordinary query with a session variable when that is enough.**
 
@@ -503,7 +548,7 @@ Start with one analytical batch or transformation workflow, not the most transac
 | Hierarchy traversal in application code | Recursive CTEs | Cycles, missing parents, depth, and row growth |
 | Python wrappers around SQL decisions | SQL scripting with local variables and `IF` | Scope, errors, and retry behavior |
 | Database cursors | Set-based SQL first; small `FOR` loops only where needed | Avoid per-row Spark jobs |
-| Generated SQL strings | `EXECUTE IMMEDIATE ... USING` | Safe identifiers and permitted targets |
+| Generated SQL strings | `EXECUTE IMMEDIATE` with typed session parameters | Safe identifiers and permitted targets |
 | Stored procedures and multi-statement transactions | Reworked SQL scripts plus Fabric orchestration | Procedure packaging, transaction boundaries, and operational contracts are not drop-in equivalents |
 
 For T-SQL or PL/SQL migrations, inventory more than syntax. Check date and string functions, null behavior, decimal precision, ANSI arithmetic and cast behavior, collation and case sensitivity, temporary objects, exception semantics, and permissions. Database-specific constructs such as `@variables`, `GO`, or a procedure body will need review rather than being pasted unchanged.
@@ -538,7 +583,9 @@ For this tutorial, the key checkpoints are:
 | Handler limit `6000.00` | Explicit `REJECTED` result |
 | Dynamic Seattle query | `1500.00` |
 
-The only objects created here are temporary views and a session variable. They remain available for experimentation until the Spark session ends. Stop the session when you are finished; it consumes Fabric capacity while active.
+The only objects created here are temporary views and session variables. They remain
+available for experimentation until the Spark session ends. Stop the session when you
+are finished; it consumes Fabric capacity while active.
 
 ## Your SQL skills are the starting point
 
