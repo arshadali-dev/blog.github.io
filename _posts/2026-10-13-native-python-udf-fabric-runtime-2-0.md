@@ -18,6 +18,8 @@ tags:
   - performance
 ---
 
+# Native Python UDFs in Fabric Runtime 2.0: What Gets Faster, What Still Matters
+
 ## Your Python function may not be the slow part
 
 You have a Python function that cleans customer data. It is readable, tested, and easy to maintain. Then it lands in a Spark pipeline processing millions of records, and a modest transformation becomes a noticeable part of the job.

@@ -127,6 +127,19 @@ profile and the site-level author metadata if the author's profile URL changes.
 Set `last_modified_at` only when an article has substantively changed; never
 advance publication dates simply to imply freshness.
 
+Browser/search titles are separate from editorial headlines. The homepage uses
+`site.title` exactly; other pages default to `page.title | theme_settings.title`
+with the shorter site branding. Set `seo_title` in front matter to override the
+complete browser title, including any author suffix. This does not change the
+visible headline, feed title, social headline, or structured-data headline.
+The shared head renders one escaped `<title>` and disables only the SEO
+plugin's title output, retaining its other metadata.
+
+Each indexed page must have one nonempty H1. Site branding is an H1 only on
+home/listing pages, where post cards use H2s. On article pages, use either a
+`feature-title` heading or a Markdown H1, not both. A post without a feature
+title still needs its own Markdown H1.
+
 The [Fabric & Spark hub](fabric-spark.html) and [LLM index](llms.txt) are
 generated from published posts during each build. The LLM index is a convenience
 for tools that choose to consume it, not a Google ranking factor or a guarantee
@@ -134,7 +147,8 @@ of AI citation or model training. The custom [404 page](404.html) prevents
 Cloudflare's default homepage fallback from turning missing URLs into soft 404s.
 
 CI and live verification check canonical URLs, sitemap/feed/search agreement,
-article descriptions, author attribution, banner metadata, the generated LLM
+single-title/single-H1 structure, editorial headline agreement, article
+descriptions, author attribution, banner metadata, the generated LLM
 index, and the topic hub. Live verification also checks the latest article's legacy redirect
 and a genuinely missing URL's HTTP 404 response.
 

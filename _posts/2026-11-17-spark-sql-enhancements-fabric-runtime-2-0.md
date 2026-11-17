@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Bring Your SQL Skills to Fabric Runtime 2.0: Spark 4.1 in Practice"
+seo_title: "Spark 4.1 SQL in Fabric Runtime 2.0 | Arshad Ali"
 date: 2026-11-17
 published: true
 description: "Reuse your SQL skills in Fabric Runtime 2.0 with hands-on Spark 4.1 examples for session variables, CTEs, recursion, SQL scripting, and safer dynamic SQL."
