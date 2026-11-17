@@ -112,6 +112,89 @@ verification failures; enable failed-workflow email notifications in personal
 GitHub notification settings. The last successful production deployment remains
 available when a new build fails.
 
+## Search discovery and AI visibility
+
+Article URLs are extensionless, matching Cloudflare Pages' canonical routes.
+Jekyll still writes the same `.html` files, so previously shared `.html` links
+continue to redirect to the canonical URL. Do not add `.html` to new post
+permalinks or hardcode article URLs; use `post.url` or Jekyll's `post_url` tag.
+Local Jekyll preview also supports these extensionless paths.
+
+The shared SEO image hook maps each post's `feature-img` to `image` for
+`jekyll-seo-tag`, unless an explicit SEO image is provided. Author strings are
+resolved through [`_data/authors.yml`](_data/authors.yml). Update both that
+profile and the site-level author metadata if the author's profile URL changes.
+Set `last_modified_at` only when an article has substantively changed; never
+advance publication dates simply to imply freshness.
+
+The [Fabric & Spark hub](fabric-spark.html) and [LLM index](llms.txt) are
+generated from published posts during each build. The LLM index is a convenience
+for tools that choose to consume it, not a Google ranking factor or a guarantee
+of AI citation or model training. The custom [404 page](404.html) prevents
+Cloudflare's default homepage fallback from turning missing URLs into soft 404s.
+
+CI and live verification check canonical URLs, sitemap/feed/search agreement,
+article descriptions, author attribution, banner metadata, the generated LLM
+index, and the topic hub. Live verification also checks the latest article's legacy redirect
+and a genuinely missing URL's HTTP 404 response.
+
+The existing Google Analytics integration records `file_download` clicks for
+same-site `.ipynb` and `.py` links under `assets/downloads/`, without URL query
+strings. Standard formats such as ZIP are left to GA4 Enhanced Measurement to
+avoid duplicate events. Enable file-download Enhanced Measurement in the GA4
+property for those formats. These are click events, not proof of completed
+downloads or notebook execution.
+
+After successful verification of the current production revision, the deployment
+workflow submits the sitemap's public HTML URLs to IndexNow. This small site
+submits its complete current URL set once per deployment, not just changed posts;
+there is no scheduled resubmission. Preview builds and PR checks never submit.
+[`indexnow-key.txt`](indexnow-key.txt) is a deliberately public ownership proof,
+not an account credential. No Google, Bing, or Cloudflare credentials belong in
+the repository. The script confirms the deployed revision and public proof file
+before submitting; HTTP errors fail the workflow rather than claiming success.
+HTTP 200 means received; HTTP 202 means accepted pending key validation. Neither
+means indexed. An IndexNow failure does not roll back an already live deployment.
+
+After correcting a submission failure, rerun **Verify production deployment**
+for the current `main` revision. To notify engines about a removed URL, first
+deploy its removal or redirect, then run:
+
+```shell
+python .github/scripts/submit_indexnow.py --url https://arshadali.dev --revision <commit-sha> --deleted-url https://arshadali.dev/old-article
+```
+
+### Owner setup and ongoing monitoring
+
+These account steps cannot be replaced by repository configuration:
+
+1. In [Google Search Console](https://search.google.com/search-console), add or
+   select the `arshadali.dev` Domain property and verify it using Google's DNS TXT
+   record in Cloudflare. Submit `https://arshadali.dev/sitemap.xml`, inspect the
+   canonical article URL, run the live URL test, and request indexing. If a
+   property is already verified, reuse it rather than creating a duplicate.
+2. In [Bing Webmaster Tools](https://www.bing.com/webmasters), verify the site
+   (or import an existing verified Search Console property), submit the same
+   sitemap, and inspect indexing and IndexNow submission reports.
+3. In Cloudflare, review WAF events and AI Crawl Control. Allow the desired
+   verified search crawlers, including Googlebot, Bingbot, and OAI-SearchBot,
+   without disabling general security protections. Use provider verification or
+   published IP ranges, not a user-agent-only bypass. Search permission and
+   training permission are independent; this change does not alter either
+   robots rules or AI-training settings.
+4. Monitor Search Console impressions, clicks, indexed/excluded pages; Bing
+   indexing and AI Performance citations; and Analytics referral traffic.
+   Search referrals and AI citations are different metrics. Crawling, indexing,
+   ranking, citation, and model training are not guaranteed by any of these steps.
+
+For new posts, provide a clear answer, supported runtime/version, runnable
+examples, limitations, and evidence in the HTML itself. Share a useful summary
+with a link through relevant communities or newsletters; avoid bulk link spam.
+
+References: [Google AI search guidance](https://developers.google.com/search/docs/appearance/ai-features),
+[OpenAI crawler controls](https://developers.openai.com/api/docs/bots),
+[IndexNow protocol](https://www.indexnow.org/documentation).
+
 ## Livy example downloads
 
 The Livy post's standalone downloads are generated from its Python blocks.

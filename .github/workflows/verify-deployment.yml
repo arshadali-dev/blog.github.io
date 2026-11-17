@@ -63,3 +63,8 @@ jobs:
         run: >-
           python .github/scripts/verify_site.py
           --url https://arshadali.dev --revision "$REVISION" --attempts 6
+      - name: Notify participating search engines with IndexNow
+        if: steps.current.outputs.current == 'true'
+        run: >-
+          python .github/scripts/submit_indexnow.py
+          --url https://arshadali.dev --revision "$REVISION"
