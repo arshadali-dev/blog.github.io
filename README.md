@@ -82,6 +82,37 @@ Retain the executed copy privately with your environment details and outputs;
 keep the public download output-free and unbound to any workspace. Only update
 the article and generator's validation status after a successful live run.
 
+## SQL enhancements companion notebook
+
+The [SQL enhancements tutorial](_posts/2026-10-23-spark-sql-enhancements-fabric-runtime-2-0.md)
+is the source of truth for its
+[downloadable notebook](assets/downloads/fabric-sql-enhancements/spark-sql-runtime-2-0.ipynb).
+The generator reuses the pipe tutorial's Markdown/cell conversion, preserves
+all SQL blocks verbatim and in order, and records this article's path and
+SHA-256. Both notebooks start with their article title, omit the blog-only
+AI disclosure, and contain no outputs or workspace bindings.
+The SQL notebook also omits the blog's download/import introduction while
+retaining the shared setup instructions and every executable example.
+
+After editing the article, use Python 3.11+ (standard library only):
+
+```shell
+python .github/scripts/sync_sql_notebook.py
+python .github/scripts/sync_sql_notebook.py --check
+python -m unittest discover -s .github/scripts -p "test_*notebook.py"
+```
+
+These tests check the notebook contract and evaluate the batch example's
+portable aggregate/branch expressions in SQLite, not Spark SQL scripting.
+Import the
+notebook into Fabric, select a published Runtime 2.0 Environment, and run all
+15 SQL cells in a fresh PySpark session. Compare the expected tables, including
+the deliberate `REJECTED` result from the handler example. Try the two suggested
+threshold edits and empty/zero-value batch exercises separately, restore the
+original values and queries, then repeat in a
+fresh session. Retain the executed copy and environment record privately.
+Do not manually edit the generated public download.
+
 ## Author
 
 **Arshad Ali** — Principal Product Manager at Microsoft, working on Microsoft Fabric Spark Runtime.

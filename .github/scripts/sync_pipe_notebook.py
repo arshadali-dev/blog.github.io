@@ -108,7 +108,7 @@ def article_cells(post: str) -> list[Cell]:
     return cells
 
 
-def build_notebook(post: str) -> Notebook:
+def build_notebook(post: str, source_path: Path = POST) -> Notebook:
     digest = hashlib.sha256(post.encode("utf-8")).hexdigest()
     return {
         "cells": article_cells(post),
@@ -120,7 +120,7 @@ def build_notebook(post: str) -> Notebook:
             },
             "language_info": {"name": "python"},
             "tutorial": {
-                "source": POST.relative_to(ROOT).as_posix(),
+                "source": source_path.relative_to(ROOT).as_posix(),
                 "source_sha256": digest,
             },
         },

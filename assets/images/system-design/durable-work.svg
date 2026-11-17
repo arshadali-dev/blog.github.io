@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="860" viewBox="0 0 900 860" role="img" aria-labelledby="title desc">
+  <title id="title">Atomic state, retry idempotency, and an outbox</title>
+  <desc id="desc">A client submits a stable key. The service atomically commits domain state, the key and result, and an outbox item. A lost response causes a retry with the same key; the service finds the committed result instead of repeating the operation. Publication is retried separately and consumers deduplicate.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#526987" stroke-width="1.7"/></marker></defs>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:23px;font-weight:700}.body{font-size:20px;fill:#425570}.small{font-size:18px;fill:#425570}.flow{fill:none;stroke:#526987;stroke-width:3;marker-end:url(#arrow)}.card rect{stroke:#c8d6e8;stroke-width:2}</style>
+  <rect width="900" height="860" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">A lost response must not create another event</text>
+  <text class="body" x="40" y="86">Time flows downward. The same principle applies to accepted messages.</text>
+  <g class="card"><rect x="40" y="125" width="190" height="70" rx="12" fill="#eef2ff"/><text class="label" x="62" y="168">Client</text></g>
+  <g class="card"><rect x="330" y="125" width="230" height="70" rx="12" fill="#e8f5f2"/><text class="label" x="352" y="168">Service</text></g>
+  <g class="card"><rect x="660" y="125" width="200" height="70" rx="12" fill="#fff5df"/><text class="label" x="682" y="168">Database</text></g>
+  <path d="M135 205V780M445 205V780M760 205V780" fill="none" stroke="#c1ccdc" stroke-width="2" stroke-dasharray="6 6"/>
+  <path class="flow" d="M145 245H433"/><text class="body" x="161" y="232">Submit with key K</text>
+  <path class="flow" d="M457 300H748"/><text class="small" x="474" y="287">Validate + conditional transaction</text>
+  <g class="card"><rect x="640" y="330" width="220" height="150" rx="12" fill="#fff5df"/><text class="label" x="658" y="366">Atomic commit</text><text class="body" x="658" y="398">Domain state</text><text class="body" x="658" y="430">K + stored result</text><text class="body" x="658" y="462">Outbox item</text></g>
+  <path class="flow" d="M748 510H457"/><text class="body" x="535" y="497">Committed</text>
+  <path d="M433 560H145" fill="none" stroke="#b54848" stroke-width="3" stroke-dasharray="8 6"/>
+  <path d="M266 548L290 572M290 548L266 572" stroke="#b54848" stroke-width="4"/>
+  <text class="body" x="163" y="544">Response lost</text>
+  <path class="flow" d="M145 620H433"/><text class="body" x="161" y="607">Retry with the same K</text>
+  <path class="flow" d="M457 675H748"/><text class="small" x="476" y="662">Authorize; verify K + fingerprint</text>
+  <path class="flow" d="M748 715H457"/><text class="small" x="501" y="705">Existing committed result</text>
+  <path class="flow" d="M433 765H145"/><text class="body" x="162" y="752">Return original result</text>
+  <rect x="40" y="800" width="820" height="42" rx="10" fill="#e9eef8"/>
+  <text class="small" x="58" y="827">Outbox publication can repeat. Workers and recipients must deduplicate effects.</text>
+</svg>

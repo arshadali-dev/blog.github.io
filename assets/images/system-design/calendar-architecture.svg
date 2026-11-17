@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="980" viewBox="0 0 900 980" role="img" aria-labelledby="title desc">
+  <title id="title">Calendar architecture with an atomic save and asynchronous work</title>
+  <desc id="desc">Clients use the Calendar API for edits, reads, and cursor synchronization. SQL atomically stores events, permissions, versions, a change log, and an outbox. The publisher, queue, and workers send reminders and invitations asynchronously.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#526987" stroke-width="1.7"/></marker></defs>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:24px;font-weight:700}.body{font-size:20px;fill:#425570}.small{font-size:18px;fill:#425570}.flow{fill:none;stroke:#526987;stroke-width:3;marker-end:url(#arrow)}.async{stroke-dasharray:8 6}.card rect{stroke:#c8d6e8;stroke-width:2}</style>
+  <rect width="900" height="980" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">Calendar: save first, notify asynchronously</text>
+  <text class="body" x="40" y="86">Solid: request and data path. Dashed: background publication.</text>
+  <g class="card"><rect x="270" y="110" width="360" height="90" rx="12" fill="#eef2ff"/><text class="label" x="294" y="148">Browser / mobile app</text><text class="body" x="294" y="178">Local agenda + pending edits</text></g>
+  <path class="flow" d="M450 212V238" marker-start="url(#arrow)"/><text class="small" x="475" y="230">HTTPS</text>
+  <g class="card"><rect x="270" y="250" width="360" height="80" rx="12" fill="#e8f5f2"/><text class="label" x="294" y="297">Edge + API policy</text></g>
+  <path class="flow" d="M450 342V368" marker-start="url(#arrow)"/>
+  <g class="card"><rect x="270" y="380" width="360" height="90" rx="12" fill="#eef2ff"/><text class="label" x="294" y="418">Calendar application</text><text class="body" x="294" y="449">Authorize, version-check, sync</text></g>
+  <path class="flow" d="M380 482L300 538" marker-start="url(#arrow)"/><text class="small" x="76" y="505">Commit, then confirm save</text>
+  <path class="flow" d="M642 425H735V538" marker-start="url(#arrow)"/><text class="small" x="665" y="461">Free/busy</text>
+  <g class="card"><rect x="40" y="550" width="500" height="170" rx="12" fill="#fff5df"/><text class="label" x="64" y="590">Authoritative SQL transaction</text><text class="body" x="64" y="626">Event + attendees + permissions + version</text><text class="body" x="64" y="661">Change log + idempotency result + outbox</text><text class="small" x="64" y="696">Sync reads committed changes through the API.</text></g>
+  <g class="card"><rect x="610" y="550" width="250" height="170" rx="12" fill="#fff"/><text class="label" x="632" y="590">Derived read path</text><text class="body" x="632" y="626">Indexes / cache</text><text class="small" x="632" y="661">Bound freshness.</text><text class="small" x="632" y="691">Recheck access.</text></g>
+  <path class="flow async" d="M150 732V768"/>
+  <g class="card"><rect x="40" y="780" width="220" height="100" rx="12" fill="#e8f5f2"/><text class="label" x="60" y="821">Outbox publisher</text><text class="body" x="60" y="854">Retry publication</text></g>
+  <path class="flow async" d="M272 830H318"/>
+  <g class="card"><rect x="330" y="780" width="220" height="100" rx="12" fill="#e8f5f2"/><text class="label" x="352" y="821">Durable queue</text><text class="body" x="352" y="854">Bounded backlog</text></g>
+  <path class="flow async" d="M562 830H608"/>
+  <g class="card"><rect x="620" y="760" width="240" height="140" rx="12" fill="#eef2ff"/><text class="label" x="642" y="801">Workers</text><text class="body" x="642" y="835">Invites / reminders</text><text class="body" x="642" y="868">Agenda projections</text></g>
+  <text class="body" x="40" y="946">Notification delay does not undo a committed event.</text>
+</svg>

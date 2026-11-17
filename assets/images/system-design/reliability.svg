@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="820" viewBox="0 0 900 820" role="img" aria-labelledby="title desc">
+  <title id="title">Replication, failover, and graceful degradation</title>
+  <desc id="desc">Healthy operation writes through an owner and replicates state. After a failure, a fenced replacement with an explicit data-freshness contract takes over. Optional features may be delayed or unknown, but an unavailable durable path must never be shown as a successful write.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#526987" stroke-width="1.7"/></marker></defs>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:23px;font-weight:700}.body{font-size:20px;fill:#425570}.small{font-size:18px;fill:#425570}.flow{fill:none;stroke:#526987;stroke-width:3;marker-end:url(#arrow)}.card rect{stroke:#c8d6e8;stroke-width:2}</style>
+  <rect width="900" height="820" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">Plan the failure transition, not just redundancy</text>
+  <text class="body" x="40" y="86">A second copy is useful only with a safe recovery and routing plan.</text>
+  <rect x="40" y="140" width="395" height="400" rx="14" fill="#eef2ff"/>
+  <rect x="465" y="140" width="395" height="400" rx="14" fill="#e8f5f2"/>
+  <text class="label" x="62" y="179">Healthy operation</text><text class="label" x="487" y="179">Controlled failover</text>
+  <g class="card"><rect x="80" y="205" width="315" height="70" rx="10" fill="#fff"/><text class="label" x="103" y="248">Service / traffic routing</text></g>
+  <path class="flow" d="M150 287V343"/>
+  <g class="card"><rect x="70" y="355" width="140" height="75" rx="10" fill="#fff"/><text class="body" x="90" y="399">Owner A</text></g>
+  <g class="card"><rect x="270" y="355" width="140" height="75" rx="10" fill="#fff"/><text class="body" x="288" y="399">Replica B</text></g>
+  <path class="flow" d="M222 393H258"/>
+  <text class="small" x="70" y="466">Replicate under a defined contract.</text>
+  <text class="small" x="70" y="500">Test what an acknowledgment protects.</text>
+  <g class="card"><rect x="505" y="205" width="315" height="70" rx="10" fill="#fff"/><text class="label" x="528" y="248">Service / traffic routing</text></g>
+  <path class="flow" d="M750 287V343"/>
+  <g class="card"><rect x="495" y="355" width="140" height="75" rx="10" fill="#fce8e7"/><text class="body" x="512" y="399">A failed</text></g>
+  <g class="card"><rect x="695" y="355" width="140" height="75" rx="10" fill="#fff"/><text class="body" x="710" y="399">B owns</text></g>
+  <text class="small" x="495" y="466">Detect failure; fence the old owner.</text>
+  <text class="small" x="495" y="500">Promote safely; reconnect and replay.</text>
+  <g class="card"><rect x="40" y="590" width="820" height="160" rx="14" fill="#fff5df"/><text class="label" x="64" y="631">Graceful degradation: keep a safe subset working</text><text class="body" x="64" y="669">Calendar: save works; invitation delivery may be delayed.</text><text class="body" x="64" y="703">Messaging: delivery works; presence may be unknown.</text><text class="small" x="64" y="732">Durable storage unavailable? Show pending or fail, not a false confirmed save.</text></g>
+  <text class="small" x="40" y="791">Declare RPO/RTO, test restoration, and keep backups separate from replication.</text>
+</svg>

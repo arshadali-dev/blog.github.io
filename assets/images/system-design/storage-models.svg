@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900" role="img" aria-labelledby="title desc">
+  <title id="title">Relational keys and partition-oriented message storage</title>
+  <desc id="desc">Calendar, Event, User, and Attendee tables use primary and foreign keys. A separate NoSQL example locates pending messages with a conversation and time-bucket partition key and sequence sort key. Neither category eliminates transaction or scaling decisions.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#526987" stroke-width="1.7"/></marker></defs>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:23px;font-weight:700}.body{font-size:20px;fill:#425570}.small{font-size:18px;fill:#425570}.flow{fill:none;stroke:#526987;stroke-width:3;marker-end:url(#arrow)}.card rect{stroke:#c8d6e8;stroke-width:2}</style>
+  <rect width="900" height="900" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">Model ownership before choosing the database</text>
+  <text class="body" x="40" y="86">Example structures, not complete schemas.</text>
+  <rect x="40" y="110" width="820" height="365" rx="14" fill="#eef2ff"/>
+  <text class="label" x="62" y="147">SQL: relate entities and enforce constraints</text>
+  <g class="card"><rect x="70" y="175" width="300" height="110" rx="10" fill="#fff"/><text class="label" x="90" y="210">Calendar</text><text class="body" x="90" y="242">PK calendar_id</text><text class="small" x="90" y="270">owner, default time zone</text></g>
+  <g class="card"><rect x="520" y="175" width="300" height="110" rx="10" fill="#fff"/><text class="label" x="540" y="210">Event</text><text class="body" x="540" y="242">PK event_id</text><text class="small" x="540" y="270">FK calendar_id; version</text></g>
+  <path class="flow" d="M382 230H508"/><text class="small" x="393" y="212">1 to many</text>
+  <g class="card"><rect x="70" y="335" width="300" height="110" rx="10" fill="#fff"/><text class="label" x="90" y="370">User</text><text class="body" x="90" y="402">PK user_id</text><text class="small" x="90" y="430">Identity and profile</text></g>
+  <g class="card"><rect x="520" y="335" width="300" height="110" rx="10" fill="#fff"/><text class="label" x="540" y="370">Attendee link</text><text class="body" x="540" y="402">PK (event_id, user_id)</text><text class="small" x="540" y="430">Both IDs are foreign keys.</text></g>
+  <path class="flow" d="M670 297V323"/>
+  <path class="flow" d="M382 390H508"/><text class="small" x="393" y="372">1 to many</text>
+  <rect x="40" y="510" width="820" height="290" rx="14" fill="#e8f5f2"/>
+  <text class="label" x="62" y="551">NoSQL: organize for the critical access pattern</text>
+  <g class="card"><rect x="70" y="580" width="440" height="150" rx="10" fill="#fff"/><text class="label" x="90" y="616">Conversation partition</text><text class="body" x="90" y="650">PK: conversation + time bucket</text><text class="body" x="90" y="682">Sort key: sequence</text><text class="small" x="90" y="714">104, 105, 106 ... encrypted envelopes</text></g>
+  <g class="card"><rect x="550" y="580" width="280" height="150" rx="10" fill="#fff"/><text class="body" x="570" y="619">Read one partition</text><text class="body" x="570" y="654">Order by sequence</text><text class="body" x="570" y="689">Check transaction scope</text></g>
+  <text class="small" x="70" y="771">Cosmos DB and DynamoDB have different atomic-operation boundaries.</text>
+  <text class="body" x="40" y="853">SQL can scale. NoSQL can transact. Verify the actual engine and configuration.</text>
+</svg>

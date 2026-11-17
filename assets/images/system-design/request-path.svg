@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="960" viewBox="0 0 900 960" role="img" aria-labelledby="title desc">
+  <title id="title">Client, DNS, edge, gateway, and backend request path</title>
+  <desc id="desc">The client resolves a name through DNS, then sends HTTPS through the edge and API gateway to backend instances. Backend services access authoritative storage. DNS is not an inline application proxy.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#526987" stroke-width="1.7"/></marker></defs>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:24px;font-weight:700}.body{font-size:20px;fill:#425570}.small{font-size:18px;fill:#425570}.flow{fill:none;stroke:#526987;stroke-width:3;marker-end:url(#arrow)}.card rect{stroke:#c8d6e8;stroke-width:2}</style>
+  <rect width="900" height="960" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">A request is more than a row of boxes</text>
+  <text class="body" x="40" y="86">Name resolution, routing, policy, and business rules are different jobs.</text>
+  <g class="card"><rect x="40" y="130" width="240" height="96" rx="12" fill="#eef2ff"/><text class="label" x="62" y="170">Client app</text><text class="body" x="62" y="202">Browser or mobile</text></g>
+  <g class="card"><rect x="610" y="130" width="250" height="96" rx="12" fill="#fff5df"/><text class="label" x="632" y="170">DNS resolver</text><text class="body" x="632" y="202">Name to endpoint</text></g>
+  <path class="flow" d="M290 178H598" marker-start="url(#arrow)" stroke-dasharray="7 6"/>
+  <text class="small" x="320" y="153">Lookup and cached answer</text>
+  <path class="flow" d="M160 238V288"/><text class="body" x="180" y="272">HTTPS to service IP</text>
+  <g class="card"><rect x="40" y="300" width="240" height="100" rx="12" fill="#e8f5f2"/><text class="label" x="62" y="341">Edge / ingress</text><text class="body" x="62" y="375">WAF, TLS, routing</text></g>
+  <g class="card"><rect x="610" y="300" width="250" height="100" rx="12" fill="#fff"/><text class="label" x="632" y="341">CDN cache</text><text class="body" x="632" y="375">Suitable static assets</text></g>
+  <path class="flow" d="M292 350H598" marker-start="url(#arrow)"/><text class="small" x="340" y="328">Cacheable asset path</text>
+  <path class="flow" d="M160 412V448"/>
+  <g class="card"><rect x="40" y="460" width="240" height="170" rx="12" fill="#eef2ff"/><text class="label" x="62" y="500">API gateway</text><text class="body" x="62" y="535">Authentication</text><text class="body" x="62" y="566">Rate limits, routing</text><text class="body" x="62" y="597">Logs and metrics</text></g>
+  <path class="flow" d="M292 545H378"/><text class="small" x="300" y="520">Route</text>
+  <rect x="390" y="455" width="470" height="180" rx="14" fill="#fff" stroke="#9eafc6" stroke-dasharray="7 6" stroke-width="2"/>
+  <text class="label" x="414" y="494">Backend service</text>
+  <g class="card"><rect x="414" y="520" width="130" height="84" rx="10" fill="#e8f5f2"/><text class="body" x="434" y="552">Instance A</text><text class="small" x="434" y="582">Rules</text></g>
+  <g class="card"><rect x="558" y="520" width="130" height="84" rx="10" fill="#e8f5f2"/><text class="body" x="578" y="552">Instance B</text><text class="small" x="578" y="582">Rules</text></g>
+  <g class="card"><rect x="702" y="520" width="130" height="84" rx="10" fill="#e8f5f2"/><text class="body" x="722" y="552">Instance C</text><text class="small" x="722" y="582">Rules</text></g>
+  <path class="flow" d="M625 647V703"/><text class="small" x="645" y="673">Authorize resource</text><text class="small" x="645" y="699">Read / write state</text>
+  <g class="card"><rect x="400" y="715" width="450" height="120" rx="12" fill="#fff5df"/><text class="label" x="425" y="758">Authoritative storage</text><text class="body" x="425" y="794">Events, permissions, messages, versions</text></g>
+  <rect x="40" y="870" width="820" height="62" rx="12" fill="#e9eef8"/>
+  <text class="body" x="60" y="907">A routed request is not yet a committed operation.</text>
+</svg>

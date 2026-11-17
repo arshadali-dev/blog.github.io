@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="550" viewBox="0 0 900 550" role="img" aria-labelledby="title desc">
+  <title id="title">Two examples, one basic request and confirmation pattern</title>
+  <desc id="desc">A client sends a change to the backend. The backend validates it and commits it to a database before confirming success. Calendar invitations and recipient message delivery are separate background work.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#526987" stroke-width="1.7"/></marker></defs>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:23px;font-weight:700}.body{font-size:20px;fill:#425570}.small{font-size:18px;fill:#425570}.flow{fill:none;stroke:#526987;stroke-width:3;marker-end:url(#arrow)}.card rect{stroke:#c8d6e8;stroke-width:2}</style>
+  <rect width="900" height="550" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">Start with a change and its confirmation</text>
+  <text class="body" x="40" y="86">The same three responsibilities appear in many products.</text>
+  <rect x="30" y="110" width="840" height="165" rx="14" fill="#eef2ff"/>
+  <text class="label" x="50" y="143">Calendar</text>
+  <g class="card"><rect x="50" y="170" width="205" height="65" rx="10" fill="#fff"/><text class="label" x="70" y="198">Client</text><text class="small" x="70" y="222">Maya edits a meeting</text></g>
+  <g class="card"><rect x="350" y="170" width="205" height="65" rx="10" fill="#fff"/><text class="label" x="370" y="198">Backend</text><text class="small" x="370" y="222">Check access + rules</text></g>
+  <g class="card"><rect x="650" y="170" width="200" height="65" rx="10" fill="#fff"/><text class="label" x="670" y="198">Database</text><text class="small" x="670" y="222">Save event</text></g>
+  <path class="flow" d="M267 184H338"/><text class="small" x="272" y="169">Request</text>
+  <path class="flow" d="M567 184H638"/><text class="small" x="577" y="169">Write</text>
+  <path class="flow" d="M638 224H567"/><text class="small" x="569" y="252">Committed</text>
+  <path class="flow" d="M338 224H267"/><text class="small" x="273" y="252">Saved</text>
+  <rect x="30" y="295" width="840" height="165" rx="14" fill="#e8f5f2"/>
+  <text class="label" x="50" y="328">Messaging</text>
+  <g class="card"><rect x="50" y="355" width="205" height="65" rx="10" fill="#fff"/><text class="label" x="70" y="383">Client</text><text class="small" x="70" y="407">Maya sends to Leo</text></g>
+  <g class="card"><rect x="350" y="355" width="205" height="65" rx="10" fill="#fff"/><text class="label" x="370" y="383">Backend</text><text class="small" x="370" y="407">Check access + rules</text></g>
+  <g class="card"><rect x="650" y="355" width="200" height="65" rx="10" fill="#fff"/><text class="label" x="670" y="383">Database</text><text class="small" x="670" y="407">Save message</text></g>
+  <path class="flow" d="M267 369H338"/><text class="small" x="272" y="354">Request</text>
+  <path class="flow" d="M567 369H638"/><text class="small" x="577" y="354">Write</text>
+  <path class="flow" d="M638 409H567"/><text class="small" x="569" y="437">Committed</text>
+  <path class="flow" d="M338 409H267"/><text class="small" x="267" y="437">Accepted</text>
+  <text class="body" x="40" y="503">Invitations and recipient delivery happen separately, after the save.</text>
+  <text class="small" x="40" y="533">Later diagrams add the routing, recovery, and protection each promise requires.</text>
+</svg>

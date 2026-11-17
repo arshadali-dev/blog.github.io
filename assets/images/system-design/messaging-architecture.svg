@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1280" viewBox="0 0 900 1280" role="img" aria-labelledby="title desc">
+  <title id="title">Messaging architecture: encryption, durable acceptance, and device delivery</title>
+  <desc id="desc">The sender encrypts locally and connects through a gateway. A fenced conversation owner validates membership and commits acceptance. Workers deliver through a recipient gateway; a device saves locally before acknowledging through the gateway and service to durable progress. One recipient acknowledgment marks sender-visible delivery, but other devices retain independent pending work until acknowledgment, revocation, or expiry. Without an acknowledgment by the deadline, delivery is expired and unconfirmed. Redis holds disposable routing and presence hints.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#526987" stroke-width="1.7"/></marker></defs>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:24px;font-weight:700}.body{font-size:20px;fill:#425570}.small{font-size:18px;fill:#425570}.flow{fill:none;stroke:#526987;stroke-width:3;marker-end:url(#arrow)}.async{stroke-dasharray:8 6}.card rect{stroke:#c8d6e8;stroke-width:2}</style>
+  <rect width="900" height="1280" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">Messaging: accepted is not delivered</text>
+  <text class="body" x="40" y="86">Content is encrypted at the endpoints; servers route ciphertext.</text>
+  <g class="card"><rect x="40" y="120" width="340" height="96" rx="12" fill="#eef2ff"/><text class="label" x="62" y="158">Sender device</text><text class="body" x="62" y="191">Local outbox + encryption</text></g>
+  <path class="flow" d="M392 168H508" marker-start="url(#arrow)"/><text class="small" x="400" y="144">WebSocket</text>
+  <g class="card"><rect x="520" y="120" width="340" height="96" rx="12" fill="#e8f5f2"/><text class="label" x="542" y="158">Edge + gateway fleet</text><text class="body" x="542" y="191">Authenticated live channels</text></g>
+  <path class="flow" d="M690 228V298" marker-start="url(#arrow)"/>
+  <g class="card"><rect x="520" y="310" width="340" height="105" rx="12" fill="#eef2ff"/><text class="label" x="542" y="350">Conversation owner</text><text class="body" x="542" y="384">Membership, order, fencing</text></g>
+  <path class="flow async" d="M580 228V260H210V298" marker-start="url(#arrow)"/><text class="small" x="235" y="250">Ephemeral route registration</text>
+  <g class="card"><rect x="40" y="310" width="340" height="105" rx="12" fill="#fff"/><text class="label" x="62" y="350">Redis hints</text><text class="body" x="62" y="384">Presence + device routing</text></g>
+  <path class="flow" d="M690 427V493" marker-start="url(#arrow)"/><text class="small" x="460" y="452">Commit first.</text><text class="small" x="460" y="480">Then return acceptance.</text>
+  <g class="card"><rect x="420" y="505" width="440" height="150" rx="12" fill="#fff5df"/><text class="label" x="444" y="546">Durable acceptance transaction</text><text class="body" x="444" y="583">Envelope + sequence + dedup receipt</text><text class="body" x="444" y="620">Outbox with initial delivery intent</text></g>
+  <g class="card"><rect x="40" y="470" width="320" height="185" rx="12" fill="#e9eef8"/><text class="label" x="62" y="511">Two kinds of state</text><text class="body" x="62" y="548">Sockets / presence: disposable</text><text class="body" x="62" y="582">Accepted envelopes: durable</text><text class="small" x="62" y="622">Redis loss must not lose messages.</text></g>
+  <path class="flow async" d="M690 667V718"/><text class="small" x="711" y="697">Publish outbox</text>
+  <g class="card"><rect x="520" y="730" width="340" height="90" rx="12" fill="#e8f5f2"/><text class="label" x="542" y="767">Delivery queue</text><text class="body" x="542" y="798">Retryable, bounded fan-out</text></g>
+  <path class="flow async" d="M690 832V883"/>
+  <g class="card"><rect x="520" y="895" width="340" height="90" rx="12" fill="#eef2ff"/><text class="label" x="542" y="933">Device delivery workers</text><text class="body" x="542" y="966">Read routing; track device ACKs</text></g>
+  <path class="flow" d="M508 925H440V835H392"/>
+  <g class="card"><rect x="40" y="790" width="340" height="90" rx="12" fill="#e8f5f2"/><text class="label" x="62" y="828">Recipient gateway</text><text class="body" x="62" y="861">Forward over the live channel</text></g>
+  <path class="flow" d="M210 892V933"/><text class="small" x="232" y="920">Deliver</text>
+  <g class="card"><rect x="40" y="945" width="340" height="100" rx="12" fill="#e8f5f2"/><text class="label" x="62" y="980">Recipient device</text><text class="body" x="62" y="1010">Save locally, then ACK</text><text class="small" x="62" y="1038">Decrypt only at the endpoint.</text></g>
+  <path class="flow" d="M210 1057V1118"/><text class="small" x="232" y="1085">ACK via gateway</text><text class="small" x="232" y="1108">and service</text>
+  <g class="card"><rect x="40" y="1130" width="340" height="100" rx="12" fill="#fff5df"/><text class="label" x="62" y="1165">Durable delivery progress</text><text class="body" x="62" y="1195">Persist device acknowledgment</text><text class="small" x="62" y="1223">Delivery is not a read receipt.</text></g>
+  <path class="flow async" d="M690 997V1083"/><text class="small" x="712" y="1045">Offline?</text>
+  <g class="card"><rect x="520" y="1095" width="340" height="100" rx="12" fill="#fff5df"/><text class="label" x="542" y="1130">Per-device pending work</text><text class="body" x="542" y="1160">Retry until ACK / revoke / expiry</text><text class="small" x="542" y="1188">No ACK: expired / unconfirmed</text></g>
+  <text class="small" x="40" y="1258">One recipient ACK marks delivery; other devices keep independent pending work.</text>
+</svg>

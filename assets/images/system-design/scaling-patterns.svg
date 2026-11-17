@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1000" viewBox="0 0 900 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Six scaling and data-shaping choices</title>
+  <desc id="desc">Vertical scaling enlarges a server. Horizontal scaling adds instances. Replicas copy the same data. Shards divide rows. Vertical partitioning separates columns or payloads. Denormalization builds duplicated or precomputed read views.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#526987" stroke-width="1.7"/></marker></defs>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:23px;font-weight:700}.body{font-size:20px;fill:#425570}.small{font-size:18px;fill:#425570}.flow{fill:none;stroke:#526987;stroke-width:3;marker-end:url(#arrow)}.card>rect{stroke:#c8d6e8;stroke-width:2}.node{fill:#fff;stroke:#9eafc6;stroke-width:2}</style>
+  <rect width="900" height="1000" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">Different bottlenecks need different changes</text>
+  <text class="body" x="40" y="86">Replicas are not shards. More workers do not fix one hot key.</text>
+  <g class="card">
+    <rect x="40" y="120" width="395" height="240" rx="14" fill="#eef2ff"/>
+    <text class="label" x="60" y="157">1. Vertical scaling</text>
+    <rect class="node" x="70" y="199" width="95" height="56" rx="8"/><text class="body" x="85" y="234">Server</text>
+    <path class="flow" d="M177 227H230"/>
+    <rect class="node" x="245" y="180" width="155" height="95" rx="8"/><text class="body" x="264" y="217">More CPU</text><text class="body" x="264" y="248">and memory</text>
+    <text class="small" x="60" y="310">One node gets larger.</text><text class="small" x="60" y="338">Limit: hardware and failure domain.</text>
+  </g>
+  <g class="card">
+    <rect x="465" y="120" width="395" height="240" rx="14" fill="#e8f5f2"/>
+    <text class="label" x="485" y="157">2. Horizontal scaling</text>
+    <rect class="node" x="490" y="205" width="80" height="55" rx="8"/><text class="body" x="514" y="240">LB</text>
+    <rect class="node" x="665" y="180" width="165" height="42" rx="6"/><text class="body" x="682" y="208">Instance A</text>
+    <rect class="node" x="665" y="242" width="165" height="42" rx="6"/><text class="body" x="682" y="270">Instance B</text>
+    <path class="flow" d="M582 222L653 201"/><path class="flow" d="M582 245L653 263"/>
+    <text class="small" x="485" y="310">Add copies of the application.</text><text class="small" x="485" y="338">Needs distributable work and state.</text>
+  </g>
+  <g class="card">
+    <rect x="40" y="400" width="395" height="240" rx="14" fill="#eef2ff"/>
+    <text class="label" x="60" y="437">3. Read replicas</text>
+    <rect class="node" x="70" y="484" width="120" height="60" rx="8"/><text class="body" x="85" y="520">Primary</text>
+    <rect class="node" x="270" y="465" width="140" height="42" rx="6"/><text class="body" x="286" y="493">Replica A</text>
+    <rect class="node" x="270" y="529" width="140" height="42" rx="6"/><text class="body" x="286" y="557">Replica B</text>
+    <path class="flow" d="M202 500L258 486"/><path class="flow" d="M202 532L258 550"/>
+    <text class="small" x="60" y="590">Copies of the same logical data.</text><text class="small" x="60" y="618">Read capacity; account for replica lag.</text>
+  </g>
+  <g class="card">
+    <rect x="465" y="400" width="395" height="240" rx="14" fill="#e8f5f2"/>
+    <text class="label" x="485" y="437">4. Sharding</text>
+    <rect class="node" x="490" y="484" width="100" height="60" rx="8"/><text class="body" x="504" y="520">Router</text>
+    <rect class="node" x="685" y="465" width="145" height="42" rx="6"/><text class="body" x="704" y="493">Rows A-M</text>
+    <rect class="node" x="685" y="529" width="145" height="42" rx="6"/><text class="body" x="704" y="557">Rows N-Z</text>
+    <path class="flow" d="M602 500L673 486"/><path class="flow" d="M602 532L673 550"/>
+    <text class="small" x="485" y="590">Different row subsets on nodes.</text><text class="small" x="485" y="618">Key choice and cross-shard costs.</text>
+  </g>
+  <g class="card">
+    <rect x="40" y="680" width="395" height="240" rx="14" fill="#eef2ff"/>
+    <text class="label" x="60" y="717">5. Vertical partitioning</text>
+    <rect class="node" x="65" y="759" width="160" height="76" rx="8"/><text class="body" x="83" y="789">Hot columns</text><text class="small" x="83" y="818">ID, title, time</text>
+    <rect class="node" x="245" y="759" width="165" height="76" rx="8"/><text class="body" x="262" y="789">Large body</text><text class="small" x="262" y="818">Description</text>
+    <text class="small" x="60" y="870">Separate columns or payloads.</text><text class="small" x="60" y="898">Less I/O; may need a second fetch.</text>
+  </g>
+  <g class="card">
+    <rect x="465" y="680" width="395" height="240" rx="14" fill="#e8f5f2"/>
+    <text class="label" x="485" y="717">6. Denormalization</text>
+    <rect class="node" x="485" y="759" width="155" height="76" rx="8"/><text class="body" x="501" y="789">Event +</text><text class="small" x="501" y="818">attendee data</text>
+    <path class="flow" d="M652 797H683"/>
+    <rect class="node" x="695" y="759" width="145" height="76" rx="8"/><text class="body" x="711" y="789">Agenda</text><text class="small" x="711" y="818">Read view</text>
+    <text class="small" x="485" y="870">Precompute or duplicate for reads.</text><text class="small" x="485" y="898">Faster reads; reconcile stale copies.</text>
+  </g>
+  <text class="body" x="40" y="971">Validate with workload shape, correctness, latency, and cost measurements.</text>
+</svg>

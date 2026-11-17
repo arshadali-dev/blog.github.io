@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="760" viewBox="0 0 900 760" role="img" aria-labelledby="title desc">
+  <title id="title">Cache-aside reads and post-commit invalidation</title>
+  <desc id="desc">The app looks in Redis. A hit returns cached data. A miss causes the app to load the authoritative database and fill Redis with a bounded lifetime. Writes commit first and then invalidate or version affected entries, with concurrency and invalidation-race handling.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#526987" stroke-width="1.7"/></marker></defs>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:24px;font-weight:700}.body{font-size:20px;fill:#425570}.small{font-size:18px;fill:#425570}.flow{fill:none;stroke:#526987;stroke-width:3;marker-end:url(#arrow)}.card rect{stroke:#c8d6e8;stroke-width:2}</style>
+  <rect width="900" height="760" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">Cache-aside: the application coordinates reads</text>
+  <text class="body" x="40" y="86">Redis accelerates data access; the database remains authoritative.</text>
+  <g class="card"><rect x="40" y="135" width="240" height="90" rx="12" fill="#eef2ff"/><text class="label" x="62" y="172">Application</text><text class="body" x="62" y="205">Freshness + access</text></g>
+  <g class="card"><rect x="570" y="135" width="290" height="90" rx="12" fill="#e8f5f2"/><text class="label" x="592" y="172">Redis cache</text><text class="body" x="592" y="205">Disposable values + TTL</text></g>
+  <path class="flow" d="M292 180H558" marker-start="url(#arrow)"/><text class="body" x="318" y="155">1. Lookup / 4. Fill</text><text class="small" x="325" y="216">Hit: return cached value</text>
+  <g class="card"><rect x="570" y="370" width="290" height="115" rx="12" fill="#fff5df"/><text class="label" x="592" y="410">Database</text><text class="body" x="592" y="447">Authoritative records</text></g>
+  <path class="flow" d="M160 237V427H558"/><text class="body" x="285" y="409">2. App loads on miss</text>
+  <path class="flow" d="M558 460H225V237"/><text class="body" x="285" y="492">3. Result to app</text>
+  <text class="small" x="40" y="522">The app performs the miss query and fill; Redis does not read the database.</text>
+  <rect x="40" y="555" width="820" height="130" rx="14" fill="#e9eef8"/>
+  <text class="label" x="60" y="589">Write path</text>
+  <g class="card"><rect x="65" y="610" width="200" height="50" rx="8" fill="#fff"/><text class="body" x="85" y="643">Application</text></g>
+  <g class="card"><rect x="350" y="610" width="200" height="50" rx="8" fill="#fff"/><text class="body" x="370" y="643">Commit DB</text></g>
+  <g class="card"><rect x="635" y="610" width="200" height="50" rx="8" fill="#fff"/><text class="body" x="652" y="643">Invalidate / version</text></g>
+  <path class="flow" d="M277 635H338"/><path class="flow" d="M562 635H623"/>
+  <text class="small" x="40" y="727">Handle fill/write races; TTL alone does not ensure freshness or permission safety.</text>
+</svg>

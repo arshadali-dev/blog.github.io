@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="820" viewBox="0 0 900 820" role="img" aria-labelledby="title desc">
+  <title id="title">A product manager's system design framework</title>
+  <desc id="desc">Eight reusable phases connect workflows to quality, capacity, contracts and data, architecture, scaling, recovery, and a measurable delivery plan.</desc>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:24px;font-weight:700}.body{font-size:20px;fill:#425570}.number{font-size:23px;font-weight:700;fill:white}.card rect{stroke:#d2ddeb;stroke-width:2}</style>
+  <rect width="900" height="820" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">From product intent to operating decisions</text>
+  <text class="body" x="40" y="86">Iterate as evidence changes; these are not one-time handoffs.</text>
+  <g class="card">
+    <rect x="40" y="120" width="395" height="132" rx="14" fill="#eef2ff"/>
+    <circle cx="76" cy="158" r="20" fill="#3559bc"/><text class="number" x="69" y="166">1</text>
+    <text class="label" x="110" y="166">Clarify the product</text>
+    <text class="body" x="62" y="205">Users, workflows, exclusions</text>
+    <text class="body" x="62" y="234">Output: agreed scope</text>
+  </g>
+  <g class="card">
+    <rect x="465" y="120" width="395" height="132" rx="14" fill="#e8f5f2"/>
+    <circle cx="501" cy="158" r="20" fill="#007f80"/><text class="number" x="494" y="166">2</text>
+    <text class="label" x="535" y="166">Define quality</text>
+    <text class="body" x="487" y="205">Latency, durability, correctness</text>
+    <text class="body" x="487" y="234">Output: targets and correctness rules</text>
+  </g>
+  <g class="card">
+    <rect x="40" y="284" width="395" height="132" rx="14" fill="#eef2ff"/>
+    <circle cx="76" cy="322" r="20" fill="#3559bc"/><text class="number" x="69" y="330">3</text>
+    <text class="label" x="110" y="330">Estimate scale</text>
+    <text class="body" x="62" y="369">Traffic, fan-out, storage, peaks</text>
+    <text class="body" x="62" y="398">Output: capacity assumptions</text>
+  </g>
+  <g class="card">
+    <rect x="465" y="284" width="395" height="132" rx="14" fill="#e8f5f2"/>
+    <circle cx="501" cy="322" r="20" fill="#007f80"/><text class="number" x="494" y="330">4</text>
+    <text class="label" x="535" y="330">Model APIs and data</text>
+    <text class="body" x="487" y="369">Contracts, records, transactions</text>
+    <text class="body" x="487" y="398">Output: data and success guarantees</text>
+  </g>
+  <g class="card">
+    <rect x="40" y="448" width="395" height="132" rx="14" fill="#eef2ff"/>
+    <circle cx="76" cy="486" r="20" fill="#3559bc"/><text class="number" x="69" y="494">5</text>
+    <text class="label" x="110" y="494">Assemble architecture</text>
+    <text class="body" x="62" y="533">Trace requests and background work</text>
+    <text class="body" x="62" y="562">Output: component flows</text>
+  </g>
+  <g class="card">
+    <rect x="465" y="448" width="395" height="132" rx="14" fill="#e8f5f2"/>
+    <circle cx="501" cy="486" r="20" fill="#007f80"/><text class="number" x="494" y="494">6</text>
+    <text class="label" x="535" y="494">Relieve bottlenecks</text>
+    <text class="body" x="487" y="533">Measure before adding layers</text>
+    <text class="body" x="487" y="562">Output: tested scaling plan</text>
+  </g>
+  <g class="card">
+    <rect x="40" y="612" width="395" height="132" rx="14" fill="#eef2ff"/>
+    <circle cx="76" cy="650" r="20" fill="#3559bc"/><text class="number" x="69" y="658">7</text>
+    <text class="label" x="110" y="658">Protect the experience</text>
+    <text class="body" x="62" y="697">Failure, privacy, recovery, abuse</text>
+    <text class="body" x="62" y="726">Output: launch guardrails</text>
+  </g>
+  <g class="card">
+    <rect x="465" y="612" width="395" height="132" rx="14" fill="#e8f5f2"/>
+    <circle cx="501" cy="650" r="20" fill="#007f80"/><text class="number" x="494" y="658">8</text>
+    <text class="label" x="535" y="658">Defend and evolve</text>
+    <text class="body" x="487" y="697">Alternatives, cost, evidence</text>
+    <text class="body" x="487" y="726">Output: staged delivery plan</text>
+  </g>
+  <text class="body" x="40" y="788">Use for any product. Change the guarantees, not the questions.</text>
+</svg>
