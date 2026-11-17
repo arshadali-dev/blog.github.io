@@ -4,7 +4,7 @@ title: "Run Spark from Anywhere with the Microsoft Fabric Livy API"
 feature-img: assets/images/fabric-spark-livy-api.jpg
 feature-title: ""
 date: 2026-10-15
-permalink: /data-engineering/2026/10/15/fabric-spark-livy-api.html
+permalink: /data-engineering/2026/10/15/fabric-spark-livy-api
 description: "Call Fabric Spark Livy APIs from any language that supports REST requests. Follow Python examples for authentication, OneLake access, batch jobs, and High Concurrency."
 excerpt: "Call Fabric Spark Livy APIs from any language that supports REST requests. Follow Python examples for authentication, OneLake access, batch jobs, and High Concurrency."
 author: Arshad Ali

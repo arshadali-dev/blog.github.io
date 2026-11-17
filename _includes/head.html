@@ -4,6 +4,7 @@
 		(function(){var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark')}})();
 	</script>
 	{% seo %}
+	{% if page.noindex %}<meta name="robots" content="noindex, follow">{% endif %}
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -44,6 +45,19 @@
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 		gtag('config', '{{ site.theme_settings.google_analytics }}');
+		document.addEventListener('click', function(event) {
+			var link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+			if (!link) return;
+			var url = new URL(link.href);
+			if (url.origin !== location.origin ||
+				!url.pathname.startsWith('{{ "/assets/downloads/" | relative_url }}') ||
+				!/\.(ipynb|py)$/i.test(url.pathname)) return;
+			gtag('event', 'file_download', {
+				file_name: url.pathname,
+				file_extension: url.pathname.split('.').pop().toLowerCase(),
+				link_url: url.origin + url.pathname
+			});
+		});
 	</script>
 	{% endif %}
 </head>

@@ -1,0 +1,25 @@
+---
+layout: page
+title: Fabric & Spark
+description: Practical Microsoft Fabric and Apache Spark guides, runtime explainers, working examples, and downloadable notebooks.
+permalink: /fabric-spark/
+order: 2
+---
+<p>Explore Microsoft Fabric and Apache Spark capabilities through practical examples,
+runtime guidance, limitations, and downloadable code. Each guide identifies its
+supported runtime and links to supporting documentation.</p>
+
+<h2>Runtime guides and hands-on tutorials</h2>
+<ul>
+  {% for post in site.posts %}
+  {% unless post.published == false %}
+  {% if post.tags contains "microsoft-fabric" or post.tags contains "apache-spark" or post.tags contains "spark" %}
+  <li>
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+    <p>{{ post.description | default: post.excerpt | strip_html | escape }}</p>
+  </li>
+  {% endif %}
+  {% endunless %}
+  {% endfor %}
+</ul>
+<p><a href="{{ '/feed.xml' | relative_url }}">Subscribe to the RSS feed</a> for new articles.</p>
