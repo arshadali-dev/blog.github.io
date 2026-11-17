@@ -26,6 +26,10 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.13"
+          cache: pip
+          cache-dependency-path: assets/downloads/fabric-livy/requirements.txt
+      - name: Install existing offline-test dependencies
+        run: python -m pip install -r assets/downloads/fabric-livy/requirements.txt
       - name: Run offline regression tests
         run: python -m unittest discover -s .github/scripts -p "test_*.py"
       - name: Check generated downloads

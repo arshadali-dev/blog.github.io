@@ -72,8 +72,9 @@ lockfile changes, and validate both the local build and Linux CI. Do not remove
 or regenerate the lockfile merely to bypass an installation failure.
 
 The [Blog CI workflow](.github/workflows/ci.yml) runs on pull requests and pushes
-to `main`. It installs locked dependencies on Ubuntu, runs offline regression
-tests and generated-download checks, builds the site, and checks its content.
+to `main`. It installs locked Ruby dependencies and the existing pinned Livy
+client requirements on Ubuntu, runs offline regression tests and
+generated-download checks, builds the site, and checks its content.
 Repository-owner setup (requires GitHub admin access): protect `main`, require
 a pull request, and require **Build and test (Ubuntu)** with the branch up to
 date before merging. Zero additional approvals can be required for solo work.
