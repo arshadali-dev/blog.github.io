@@ -14,13 +14,15 @@ Source for [arshadali.dev](https://arshadali.dev), a technical blog covering Mic
 
 - [Jekyll](https://jekyllrb.com/) static site generator
 - [Type Theme](https://github.com/rohanchandra/type-theme) (customized)
-- GitHub Pages for hosting
+- Cloudflare Pages for hosting, connected to GitHub `main`
 - Dark/light mode toggle
 - Categories, tags, search, and social share
 
 ## Local preview
 
-Install Ruby 3.4 (with Devkit on Windows), then run from the repository root:
+Production and Linux CI use the Ruby version in [`.ruby-version`](.ruby-version).
+For local development, install Ruby 3.4 (with Devkit on Windows), then run from
+the repository root:
 
 ```shell
 bundle install
@@ -38,6 +40,76 @@ Stop the preview with **Ctrl+C** in its terminal.
 
 Do not use a static HTTP server against `_site` to preview source edits:
 it only serves the last generated build and cannot pick up new posts.
+
+## Build and deployment safeguards
+
+The shared [build script](.github/scripts/build_site.rb) invokes Jekyll through
+Bundler with strict front-matter validation. It writes `build-info.json` into
+the generated site only after a successful build, recording the source commit
+for deployment verification. Do not invoke bare `jekyll build`: globally
+installed gems can conflict with the versions in `Gemfile.lock`.
+
+Use this exact build command locally, in CI, and in Cloudflare:
+
+```shell
+ruby .github/scripts/build_site.rb
+```
+
+Cloudflare Pages project: `arshadali-dev-blog`
+
+| Setting | Value |
+|---|---|
+| Production branch | `main` |
+| Root directory | Repository root |
+| Build command | `ruby .github/scripts/build_site.rb` |
+| Build output directory | `_site` |
+| Ruby version | Read from `.ruby-version` |
+| Bundler and gem versions | Read from `Gemfile.lock` |
+
+Keep both Windows and Linux platforms in the lockfile. After an intentional
+dependency update, use `bundle lock --add-platform x86_64-linux`, review the
+lockfile changes, and validate both the local build and Linux CI. Do not remove
+or regenerate the lockfile merely to bypass an installation failure.
+
+The [Blog CI workflow](.github/workflows/ci.yml) runs on pull requests and pushes
+to `main`. It installs locked dependencies on Ubuntu, runs offline regression
+tests and generated-download checks, builds the site, and checks its content.
+Repository-owner setup (requires GitHub admin access): protect `main`, require
+a pull request, and require **Build and test (Ubuntu)** with the branch up to
+date before merging. Zero additional approvals can be required for solo work.
+Adding a workflow alone does not enforce these branch-protection settings.
+
+The [production verification workflow](.github/workflows/verify-deployment.yml)
+runs after the Cloudflare Pages check completes for `main`. A failed Cloudflare
+deployment fails the workflow. A successful deployment must serve the expected
+commit, the latest article on the homepage, its feed/search/sitemap entries,
+and correctly typed local images, stylesheets, and scripts. HTTP 200 alone is
+insufficient because Cloudflare can return the homepage for a missing resource.
+Superseded commits are skipped; verification retries briefly for propagation.
+
+Run the same checks manually with a full commit SHA:
+
+```shell
+python .github/scripts/verify_site.py --directory _site --revision <commit-sha>
+python .github/scripts/verify_site.py --url https://arshadali.dev --revision <commit-sha> --attempts 6
+```
+
+### If a deployment fails
+
+1. Open the **Cloudflare Pages** check for the commit and inspect the first
+   actual error in its build log. A successful Git push is not publication.
+2. Verify the dashboard build command is exactly the one above, without diff
+   markers, Markdown fences, or an old command appended to it.
+3. Retry once for a transient download or service failure. For reproducible
+   failures, fix the source or configuration through a tested pull request.
+4. Confirm both the Cloudflare deployment and **Verify live site** checks pass
+   before announcing publication.
+
+Use the project's Cloudflare Pages failure notification policy for build or
+deployment failures. GitHub Actions notifications cover CI and live-content
+verification failures; enable failed-workflow email notifications in personal
+GitHub notification settings. The last successful production deployment remains
+available when a new build fails.
 
 ## Livy example downloads
 

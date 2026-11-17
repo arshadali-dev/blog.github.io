@@ -1,0 +1,39 @@
+name: Blog CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blog-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and test (Ubuntu)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199 # v1
+        with:
+          bundler-cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.13"
+      - name: Run offline regression tests
+        run: python -m unittest discover -s .github/scripts -p "test_*.py"
+      - name: Check generated downloads
+        run: |
+          python .github/scripts/sync_livy_examples.py --check
+          python .github/scripts/sync_pipe_notebook.py --check
+          python .github/scripts/sync_sql_notebook.py --check
+      - name: Build with locked dependencies
+        run: ruby .github/scripts/build_site.rb
+      - name: Verify generated site
+        run: python .github/scripts/verify_site.py --directory _site --revision "$GITHUB_SHA"

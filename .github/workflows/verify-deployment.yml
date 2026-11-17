@@ -1,0 +1,65 @@
+name: Verify production deployment
+
+on:
+  check_run:
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      revision:
+        description: Expected production commit SHA (defaults to current main)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-production
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify live site
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.check_run.app.slug == 'cloudflare-workers-and-pages' &&
+       github.event.check_run.name == 'Cloudflare Pages')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      REVISION: ${{ github.event.check_run.head_sha || inputs.revision || github.sha }}
+    steps:
+      - name: Ignore superseded deployments
+        id: current
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          latest=$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq .commit.sha)
+          if [ "$REVISION" = "$latest" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Skipping superseded revision $REVISION; main is $latest."
+          fi
+      - name: Require a successful Cloudflare deployment
+        if: >-
+          steps.current.outputs.current == 'true' &&
+          github.event_name == 'check_run' &&
+          github.event.check_run.conclusion != 'success'
+        env:
+          DETAILS_URL: ${{ github.event.check_run.details_url }}
+        run: |
+          echo "::error::Cloudflare deployment failed. Logs: $DETAILS_URL"
+          exit 1
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        if: steps.current.outputs.current == 'true'
+        with:
+          ref: ${{ env.REVISION }}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        if: steps.current.outputs.current == 'true'
+        with:
+          python-version: "3.13"
+      - name: Verify the deployed revision, article, indexes, and assets
+        if: steps.current.outputs.current == 'true'
+        run: >-
+          python .github/scripts/verify_site.py
+          --url https://arshadali.dev --revision "$REVISION" --attempts 6
