@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "The Variant Data Type in Fabric Runtime 2.0: Native Semi‑Structured Data Without the JSON Tax"
+seo_title: "VARIANT in Fabric Runtime 2.0 | Arshad Ali"
 date: 2026-04-24
 description: "Learn how the Variant data type in Spark 4.x and Delta Lake 4.x eliminates repeated JSON parsing, replacing fragile STRING-based patterns with a binary, query-optimized semi-structured type in Fabric Runtime 2.0."
 excerpt: "Learn how the Variant data type in Spark 4.x and Delta Lake 4.x eliminates repeated JSON parsing, replacing fragile STRING-based patterns with a binary, query-optimized semi-structured type in Fabric Runtime 2.0."
