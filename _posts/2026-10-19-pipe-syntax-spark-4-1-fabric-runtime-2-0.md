@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Spark SQL That Reads Like PySpark: A Pipe Syntax Tutorial"
+seo_title: "Spark SQL Pipe Syntax in Fabric Runtime 2.0 | Arshad Ali"
 date: 2026-10-19
 description: "Learn Spark SQL pipe syntax in Fabric Runtime 2.0 with copy-paste examples, PySpark comparisons, joins, aggregation, window functions, and result checks."
 excerpt: "Learn Spark SQL pipe syntax in Fabric Runtime 2.0 with copy-paste examples, PySpark comparisons, joins, aggregation, window functions, and result checks."

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Fabric Runtime 2.0: Why It Matters for Spark Developers"
+seo_title: "Fabric Runtime 2.0 Preview: Spark and Delta | Arshad Ali"
 date: 2026-04-02
 description: "Fabric Runtime 2.0 upgrades to Spark 4.x and Delta Lake 4.x. Here is what changed and why it matters for data engineers building on Microsoft Fabric."
 feature-img: assets/images/Runtime-02.jpg
@@ -19,6 +20,11 @@ tags:
 ---
 
 # Fabric Runtime 2.0: Why It Matters for Spark Developers
+
+> **Historical context:** This article describes the April 2026 preview baseline.
+> For newer Spark 4.1 walkthroughs, see the
+> [SQL enhancements guide]({% post_url 2026-11-17-spark-sql-enhancements-fabric-runtime-2-0 %})
+> and the [SQL pipe syntax tutorial]({% post_url 2026-10-19-pipe-syntax-spark-4-1-fabric-runtime-2-0 %}).
 
 ## A modern Spark and Delta foundation for the next generation of analytics and AI in Microsoft Fabric
 
@@ -79,6 +85,10 @@ As Fabric becomes a backbone for analytics, AI, semantic models, and agents, the
 - Performance gains cannot compromise trust in outputs
 
 Spark 4.x and Delta 4.x together provide stronger primitives to support these expectations at enterprise scale.
+
+For data-modeling examples, explore
+[identity columns and surrogate keys]({% post_url 2026-04-17-identity-columns-fabric-runtime-2-0 %})
+and [the Variant data type for semi-structured data]({% post_url 2026-04-24-variant-data-type-fabric-runtime-2-0 %}).
 
 ## Enhancement areas Spark developers should care about
 

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Run Spark from Anywhere with the Microsoft Fabric Livy API"
+seo_title: "Microsoft Fabric Livy API: Run Spark | Arshad Ali"
 feature-img: assets/images/fabric-spark-livy-api.jpg
 feature-title: ""
 date: 2026-10-15

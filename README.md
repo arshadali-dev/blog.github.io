@@ -1,6 +1,7 @@
 # Arshad Ali — Blog
 
-Source for [arshadali.dev](https://arshadali.dev), a technical blog covering Microsoft Fabric, Spark Runtime, and data platform modernization.
+Source for [arshadali.dev](https://arshadali.dev), a blog sharing practical insights
+on data and analytics engineering and product management.
 
 ## What to expect
 
@@ -9,6 +10,9 @@ Source for [arshadali.dev](https://arshadali.dev), a technical blog covering Mic
 - **Delta Lake, SQL, Python, and streaming** — production-relevant improvements
 - **Data platform modernization** — patterns across Fabric and Azure Synapse
 - **AI-ready data foundations** — agentic analytics and AI scenarios
+- **Product management** — frameworks for product strategy, prioritization, and technical
+  decision-making
+- **System design for product managers** — practical examples and interview preparation
 
 ## Tech stack
 
@@ -201,9 +205,44 @@ These account steps cannot be replaced by repository configuration:
    Search referrals and AI citations are different metrics. Crawling, indexing,
    ranking, citation, and model training are not guaranteed by any of these steps.
 
+### Monthly discovery review
+
+Once a month, compare the last 28 complete days with the preceding 28 days.
+Keep account exports and measurements privately, outside the public repository.
+Record the reporting dates, affected URLs, observations, and one next action.
+
+| Check | Source | Follow-up |
+| --- | --- | --- |
+| Article indexing and selected canonical | Google Search Console URL Inspection and Page indexing; Bing URL Inspection | Inspect canonical article URLs. Distinguish unexpected exclusions from expected legacy redirects and duplicate URLs. |
+| Search reach | Search Console and Bing performance reports | Compare impressions, clicks, queries, and landing pages. Improve weak titles or coverage based on actual queries, not keyword stuffing. |
+| AI citations | Bing AI Performance | Track cited pages and citation trends within its supported experiences. Citations are not visits, rankings, or coverage of every AI service. |
+| Reader engagement | GA4 acquisition and events | Check referrals and notebook-download clicks; confirm the intended property receives data before interpreting missing events as zero activity. |
+| Crawl failures | Search Console crawl reports and Cloudflare security/bot reports | Investigate persistent errors or challenges affecting verified crawlers without weakening security controls. |
+
+Use the sitemap for discovery across the site. Request indexing for a newly
+published or materially updated priority article after a successful live test;
+do not repeatedly submit unchanged URLs. Account reports can lag deployments.
+Keep a record of changes so the next review can compare outcomes without
+assuming that a correlation proves an SEO or AI-citation effect.
+
+### Authoring and distribution
+
 For new posts, provide a clear answer, supported runtime/version, runnable
 examples, limitations, and evidence in the HTML itself. Share a useful summary
 with a link through relevant communities or newsletters; avoid bulk link spam.
+
+- Add descriptive contextual links to genuinely related articles. Expand a
+  topic hub when there is a useful collection, rather than creating thin pages.
+- Link the blog from profiles and author pages you control. Publish original
+  summaries on relevant channels; obtain approval before posting on someone's
+  behalf. If republishing full text, use an original-source canonical where the
+  platform supports it; otherwise prefer an excerpt and link.
+- Use concise browser titles without changing editorial headlines. Roughly
+  50-60 characters is a useful review target, not a hard indexing limit.
+- Preserve dated historical context and original evidence. Do not invent
+  benchmark results, inflate update dates, or add special AI markup in place of
+  useful content. Search-crawler access and model-training permission are
+  separate decisions.
 
 References: [Google AI search guidance](https://developers.google.com/search/docs/appearance/ai-features),
 [OpenAI crawler controls](https://developers.openai.com/api/docs/bots),

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "System Design for Product Managers: A Framework You Can Defend"
+seo_title: "System Design for Product Managers | Arshad Ali"
 date: 2026-11-14
 description: "A reusable system design framework for product managers: learn the foundations, explore deeper trade-offs, and follow visual Calendar and messaging examples."
 excerpt: "A reusable system design framework for product managers: learn the foundations, explore deeper trade-offs, and follow visual Calendar and messaging examples."

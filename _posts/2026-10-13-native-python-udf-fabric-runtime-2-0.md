@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Native Python UDFs in Fabric Runtime 2.0: What Gets Faster, What Still Matters"
+seo_title: "Native Python UDFs in Fabric Runtime 2.0 | Arshad Ali"
 feature-img: assets/images/python-udfs-fabric-runtime-2.0.jpg
 feature-title: ""
 date: 2026-10-13
@@ -89,6 +90,10 @@ These measurements come from our internal benchmark workloads, not the small not
 | Lookup or enrichment against reference data | A join, possibly with a broadcast hint for small data | Keep the work in Spark instead of making a request per row |
 
 Good evaluation candidates include feature engineering and reusable business rules where Python is useful and boundary overhead is visible. Long pure-Python loops, tiny datasets, and slow per-row network calls are less likely to benefit from a better transfer path alone.
+
+To compare SQL and DataFrame composition before choosing a UDF, the
+[pipe syntax tutorial]({% post_url 2026-10-19-pipe-syntax-spark-4-1-fabric-runtime-2-0 %})
+shows conventional SQL, pipe SQL, and PySpark side by side.
 
 ## Try it in a Fabric notebook
 
