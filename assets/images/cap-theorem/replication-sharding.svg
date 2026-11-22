@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="820" viewBox="0 0 900 820" role="img" aria-labelledby="title desc">
+  <title id="title">Replication copies data; sharding divides data</title>
+  <desc id="desc">Three replicas contain the same A through Z keys. Two shards instead contain A through M and N through Z, and each shard can have replicas. A separate example shows five consensus voters, with three communicating voters and two unreachable voters. Majority progress still depends on the protocol; copy count alone is not a consistency or durability guarantee.</desc>
+  <style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172b4d}.heading{font-size:30px;font-weight:700}.label{font-size:24px;font-weight:700}.body{font-size:22px;fill:#425570}.number{font-size:26px;font-weight:700;fill:#fff}.box{stroke:#cbd6e5;stroke-width:2}</style>
+  <rect width="900" height="820" rx="18" fill="#f7f9fd"/>
+  <text class="heading" x="40" y="52">Copies, capacity, and agreement are different</text>
+  <text class="body" x="40" y="90">A shard can be replicated. A replica is not an extra shard.</text>
+  <rect class="box" x="40" y="125" width="395" height="358" rx="14" fill="#eef2ff"/>
+  <text class="label" x="64" y="167">Replication: same keys</text>
+  <rect class="box" x="64" y="190" width="347" height="64" rx="10" fill="#fff"/>
+  <text class="body" x="86" y="230">Replica 1: keys A-Z</text>
+  <rect class="box" x="64" y="272" width="347" height="64" rx="10" fill="#fff"/>
+  <text class="body" x="86" y="312">Replica 2: keys A-Z</text>
+  <rect class="box" x="64" y="354" width="347" height="64" rx="10" fill="#fff"/>
+  <text class="body" x="86" y="394">Replica 3: keys A-Z</text>
+  <text class="body" x="64" y="456">Resilience, locality, read capacity</text>
+  <rect class="box" x="465" y="125" width="395" height="358" rx="14" fill="#e8f5f2"/>
+  <text class="label" x="489" y="167">Sharding: different keys</text>
+  <rect class="box" x="489" y="190" width="347" height="100" rx="10" fill="#fff"/>
+  <text class="label" x="510" y="230">Shard A: keys A-M</text>
+  <text class="body" x="510" y="268">Copies: A1, A2, A3</text>
+  <rect class="box" x="489" y="318" width="347" height="100" rx="10" fill="#fff"/>
+  <text class="label" x="510" y="358">Shard B: keys N-Z</text>
+  <text class="body" x="510" y="396">Copies: B1, B2, B3</text>
+  <text class="body" x="489" y="456">Storage and throughput capacity</text>
+  <rect class="box" x="40" y="520" width="820" height="255" rx="14" fill="#fff"/>
+  <text class="label" x="64" y="562">Separate example: five voting members, majority = three</text>
+  <path d="M130 624H450" stroke="#087f80" stroke-width="4"/>
+  <circle cx="130" cy="624" r="28" fill="#087f80"/><text class="number" x="122" y="633">1</text>
+  <circle cx="290" cy="624" r="28" fill="#087f80"/><text class="number" x="282" y="633">2</text>
+  <circle cx="450" cy="624" r="28" fill="#087f80"/><text class="number" x="442" y="633">3</text>
+  <circle cx="610" cy="624" r="28" fill="#a65025"/><text class="number" x="602" y="633">4</text>
+  <circle cx="770" cy="624" r="28" fill="#a65025"/><text class="number" x="762" y="633">5</text>
+  <text class="body" x="64" y="688">1-3 can communicate.</text>
+  <text class="body" x="548" y="688">4-5 are unreachable.</text>
+  <text class="body" x="64" y="729">Progress requires quorum AND the protocol's safety/timing rules.</text>
+  <text class="body" x="64" y="759">Acknowledgment and durable commitment are separate questions.</text>
+</svg>
