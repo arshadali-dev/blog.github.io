@@ -3,7 +3,7 @@ layout: post
 title: "CAP and Beyond: A Product Manager's Guide to Distributed-System Trade-offs"
 seo_title: "CAP Theorem and System Design for PMs | Arshad Ali"
 date: 2026-11-21
-published: false
+published: true
 description: "Understand CAP, PACELC, consistency, replication, sharding, caching, and global availability through practical product decisions and failure scenarios."
 excerpt: "Understand CAP, PACELC, consistency, replication, sharding, caching, and global availability through practical product decisions and failure scenarios."
 author: Arshad Ali

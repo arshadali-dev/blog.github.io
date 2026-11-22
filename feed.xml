@@ -11,7 +11,7 @@ layout: null
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     {% for post in site.posts limit:15 %}
       <item>
-        <title>{{ post.title | xml_escape }}</title>
+        <title>{{ post.title | smartify | xml_escape }}</title>
         <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
         <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
         <description>{{ post.excerpt | xml_escape }}</description>
