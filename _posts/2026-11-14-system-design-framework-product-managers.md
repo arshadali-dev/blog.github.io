@@ -7,11 +7,11 @@ description: "A reusable system design framework for product managers: learn the
 excerpt: "A reusable system design framework for product managers: learn the foundations, explore deeper trade-offs, and follow visual Calendar and messaging examples."
 author: Arshad Ali
 categories:
-  - Product Management
+  - Product-Management
 tags:
   - product-management
   - software-architecture
-feature-img: assets/images/system-design-for-product-managers.png
+feature-img: assets/images/system-design-for-product-managers-v2.png
 feature-title: ""
 ---
 
@@ -710,15 +710,33 @@ Change one constraint: ten times the load, half the budget, or stricter privacy.
 
 ## References and further reading
 
-- Google Calendar: [recurrence](https://developers.google.com/workspace/calendar/api/guides/recurringevents),
-  [incremental sync](https://developers.google.com/workspace/calendar/api/guides/sync),
-  and [push notifications](https://developers.google.com/workspace/calendar/api/guides/push).
-- Meta Engineering: [WhatsApp multi-device design](https://engineering.fb.com/2021/07/14/security/whatsapp-multi-device/)
-  (historical architecture context, not a current product-limit specification).
-- Azure Cosmos DB: [partitioning](https://learn.microsoft.com/en-us/azure/cosmos-db/partitioning)
-  and [transactional batches](https://learn.microsoft.com/en-us/azure/cosmos-db/transactional-batch).
-- Amazon DynamoDB: [transaction behavior, limits, and idempotency](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html).
-- Azure Architecture Center: [transactional outbox](https://learn.microsoft.com/en-us/azure/architecture/databases/guide/transactional-out-box-cosmos)
-  and [competing consumers](https://learn.microsoft.com/en-us/azure/architecture/patterns/competing-consumers).
+Start with the first two for architecture and reliability foundations, then use the
+remaining sources to explore the examples and implementation guarantees.
+
+1. **[Microsoft Azure Architecture Center: Architecture Styles](https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/).**
+   Compares layered, web-queue-worker, and microservices designs, including when
+   each fits and what complexity it introduces.
+2. **[Google SRE Book: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/).**
+   Explains how to turn user expectations into measurable service indicators and
+   targets. Useful for defining latency and reliability before choosing components.
+3. **Google Calendar:** [recurrence](https://developers.google.com/workspace/calendar/api/guides/recurringevents),
+   [incremental sync](https://developers.google.com/workspace/calendar/api/guides/sync),
+   and [push notifications](https://developers.google.com/workspace/calendar/api/guides/push).
+   Explains recurring-event behavior, recovering synchronization progress, and
+   change notifications. Grounds the Calendar example in documented API behavior.
+4. **[Meta Engineering: WhatsApp Multi-device Design](https://engineering.fb.com/2021/07/14/security/whatsapp-multi-device/).**
+   Explains device identities, encrypted delivery, and history synchronization.
+   Historical architecture context, not a current product-limit specification.
+5. **Azure Cosmos DB:** [partitioning](https://learn.microsoft.com/en-us/azure/cosmos-db/partitioning)
+   and [transactional batches](https://learn.microsoft.com/en-us/azure/cosmos-db/transactional-batch).
+   Connects partition-key choices to scale and transaction scope. Useful for
+   checking whether records that must change atomically share the required boundary.
+6. **[Amazon DynamoDB: Transaction Behavior, Limits, and Idempotency](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html).**
+   Details transaction constraints and retry guarantees. Shows why an
+   application's retry promise must account for service-specific limits.
+7. **Azure Architecture Center:** [transactional outbox](https://learn.microsoft.com/en-us/azure/architecture/databases/guide/transactional-out-box-cosmos)
+   and [competing consumers](https://learn.microsoft.com/en-us/azure/architecture/patterns/competing-consumers).
+   Explains reliable publication of committed work and distributing queued work
+   across workers, including ordering and duplicate-processing considerations.
 
 > *Note: This blog post was written with assistance from AI*
