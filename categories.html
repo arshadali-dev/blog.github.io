@@ -6,21 +6,26 @@ order: 2
 page_class: categories-page-layout
 ---
 
-{% assign defined_categories = "Data-Engineering,Data-Science,Data Warehouse,Optimization,Security,Architecture,Product Management,Artificial Intelligence (AI) and Agentic AI" | split: "," %}
+{% assign empty_posts = "" | split: "," %}
 
 <div class="categories-page">
   <div class="categories-nav">
-    {% for cat_name in defined_categories %}
-      {% assign cat_name_stripped = cat_name | strip %}
-      <a class="category-chip" href="#{{ cat_name_stripped | cgi_escape }}">{{ cat_name_stripped }}</a>
+    {% for category in site.data.categories %}
+      <a class="category-chip" href="#{{ category.name | cgi_escape }}">{{ category.name | escape }}</a>
     {% endfor %}
   </div>
 
-  {% for cat_name in defined_categories %}
-    {% assign cat_name_stripped = cat_name | strip %}
-    {% assign cat_posts = site.categories[cat_name_stripped] %}
-    <section id="{{ cat_name_stripped | cgi_escape }}" class="category-section">
-      <h2>{{ cat_name_stripped }}</h2>
+  {% for category in site.data.categories %}
+    {% assign cat_posts = site.categories[category.key] | default: empty_posts %}
+    {% unless category.key == category.name %}
+      {% assign legacy_posts = site.categories[category.name] | default: empty_posts %}
+      {% assign cat_posts = cat_posts | concat: legacy_posts | uniq | sort: "date" | reverse %}
+    {% endunless %}
+    <section id="{{ category.name | cgi_escape }}" class="category-section">
+      {% unless category.key == category.name %}
+        <span id="{{ category.key | cgi_escape }}" aria-hidden="true"></span>
+      {% endunless %}
+      <h2>{{ category.name | escape }}</h2>
       {% if cat_posts.size > 0 %}
         {% for post in cat_posts %}
           <div class="category-post">
