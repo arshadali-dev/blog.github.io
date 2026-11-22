@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="740" viewBox="0 0 900 740" role="img" aria-labelledby="title desc">
+<title id="title">Distinguish decomposition, prerequisites and evidence in Azure Boards</title>
+<desc id="desc">In an Agile-process example an Epic contains a Feature, User Story and Tasks through parent-child links. Identity authorization is a predecessor rather than a parent. Code, tests and telemetry supply evidence. A named contact does not replace Scrum Team accountability.</desc>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L9 5 L0 10" fill="#246b80"/></marker>
+<style>text{font-family:Arial,sans-serif;fill:#183247}.heading{font-size:27px;font-weight:700}.label{font-size:21px;font-weight:700}.body{font-size:18px}.note{font-size:17px;fill:#40596b}.card{fill:#fff;stroke:#a2becb;stroke-width:2}.flow{fill:none;stroke:#246b80;stroke-width:2.5;marker-end:url(#arrow)}</style>
+</defs>
+<rect width="900" height="740" fill="#f4f8fb"/>
+<text x="35" y="48" class="heading">Work-item traceability is more than a hierarchy</text>
+<text x="35" y="82" class="note">Illustrative Agile process: Scrum uses Product Backlog Items instead of User Stories.</text>
+<rect x="40" y="140" width="415" height="85" rx="12" class="card"/>
+<text x="59" y="172" class="label">Epic: reliable shared scheduling</text>
+<text x="59" y="202" class="body">Product investment and intended outcome</text>
+<rect x="40" y="255" width="415" height="85" rx="12" class="card"/>
+<text x="59" y="287" class="label">Feature: meeting creation</text>
+<text x="59" y="317" class="body">A coherent capability within the investment</text>
+<rect x="40" y="370" width="415" height="85" rx="12" class="card"/>
+<text x="59" y="402" class="label">Story: authorized save survives retry</text>
+<text x="59" y="432" class="body">Specific behavior and acceptance criteria</text>
+<rect x="40" y="485" width="415" height="85" rx="12" class="card"/>
+<text x="59" y="517" class="label">Tasks: implement, test, instrument</text>
+<text x="59" y="547" class="body">Developers' implementation work</text>
+<path d="M247 225 V250" class="flow"/>
+<path d="M247 340 V365" class="flow"/>
+<path d="M247 455 V480" class="flow"/>
+<text x="278" y="246" class="note">Parent / Child</text>
+<text x="278" y="361" class="note">Parent / Child</text>
+<text x="278" y="476" class="note">Parent / Child</text>
+<rect x="520" y="140" width="340" height="150" rx="12" fill="#e1f2ee"/>
+<text x="540" y="175" class="label">Make reality visible</text>
+<text x="540" y="208" class="body"><tspan x="540">Current state and work scope</tspan><tspan x="540" dy="28">Blocker owner and next action</tspan><tspan x="540" dy="28">Contact is not accountability</tspan></text>
+<rect x="520" y="350" width="340" height="105" rx="12" fill="#fff4e3" stroke="#ccad78" stroke-width="2"/>
+<text x="540" y="385" class="label">Identity authorization</text>
+<text x="540" y="417" class="body">Predecessor, not a parent</text>
+<path d="M520 412 H460" class="flow" stroke-dasharray="7 5"/>
+<rect x="520" y="500" width="340" height="105" rx="12" class="card"/>
+<text x="540" y="535" class="label">Code, tests, telemetry</text>
+<text x="540" y="567" class="body">Linked completion evidence</text>
+<path d="M520 545 H460" class="flow" stroke-dasharray="2 5"/>
+<rect x="35" y="640" width="830" height="70" rx="12" fill="#dfeaf0"/>
+<text x="55" y="670" class="label">Different links answer different questions</text>
+<text x="55" y="698" class="body">What is included? What must happen first? What proves the work is complete?</text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700" role="img" aria-labelledby="title desc">
+<title id="title">Connect product value and delivery evidence</title>
+<desc id="desc">An outcome and hypothesis guide ordered small slices and a Sprint plan. A usable increment proceeds through release evidence into customer experience. Customer learning revisits the outcome; delivery evidence revisits the plan.</desc>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L9 5 L0 10" fill="#246b80"/></marker>
+<style>text{font-family:Arial,sans-serif;fill:#183247}.heading{font-size:27px;font-weight:700}.label{font-size:21px;font-weight:700}.body{font-size:18px}.note{font-size:17px;fill:#40596b}.card{fill:#fff;stroke:#a2becb;stroke-width:2}.flow{fill:none;stroke:#246b80;stroke-width:2.5;marker-end:url(#arrow)}.feedback{stroke-dasharray:7 5}</style>
+</defs>
+<rect width="900" height="700" fill="#f4f8fb"/>
+<text x="35" y="48" class="heading">From product judgment to reliable delivery</text>
+<text x="35" y="82" class="note">A connected learning loop, not a one-way ticket factory</text>
+<rect x="45" y="135" width="250" height="135" rx="13" class="card"/>
+<text x="62" y="171" class="label">Outcome hypothesis</text>
+<text x="62" y="205" class="body"><tspan x="62">Who benefits?</tspan><tspan x="62" dy="27">What will we measure?</tspan></text>
+<rect x="325" y="135" width="250" height="135" rx="13" class="card"/>
+<text x="342" y="171" class="label">Ordered small slices</text>
+<text x="342" y="205" class="body"><tspan x="342">Value, risk, learning</tspan><tspan x="342" dy="27">Explicit trade-offs</tspan></text>
+<rect x="605" y="135" width="250" height="135" rx="13" class="card"/>
+<text x="622" y="171" class="label">Sprint goal &amp; plan</text>
+<text x="622" y="205" class="body"><tspan x="622">Coherent objective</tspan><tspan x="622" dy="27">Realistic capacity</tspan></text>
+<path d="M295 203 H320" class="flow"/>
+<path d="M575 203 H600" class="flow"/>
+<path d="M730 270 V335" class="flow"/>
+<rect x="605" y="340" width="250" height="135" rx="13" class="card"/>
+<text x="622" y="376" class="label">Usable increment</text>
+<text x="622" y="410" class="body"><tspan x="622">Integrated behavior</tspan><tspan x="622" dy="27">Definition of Done met</tspan></text>
+<rect x="325" y="340" width="250" height="135" rx="13" class="card"/>
+<text x="342" y="376" class="label">Release evidence</text>
+<text x="342" y="410" class="body"><tspan x="342">Rollout and recovery</tspan><tspan x="342" dy="27">Owners and monitoring</tspan></text>
+<rect x="45" y="340" width="250" height="135" rx="13" class="card"/>
+<text x="62" y="376" class="label">Customer experience</text>
+<text x="62" y="410" class="body"><tspan x="62">Useful in real journeys?</tspan><tspan x="62" dy="27">Observe, learn, adapt</tspan></text>
+<path d="M605 408 H580" class="flow"/>
+<path d="M325 408 H300" class="flow"/>
+<path d="M170 475 V515 H20 V110 H170 V130" class="flow feedback"/>
+<path d="M450 475 V515 H880 V110 H730 V130" class="flow feedback"/>
+<text x="48" y="550" class="note">Dashed paths: customer and delivery evidence change the next decisions.</text>
+<rect x="35" y="580" width="830" height="85" rx="12" fill="#e1f2ee"/>
+<text x="55" y="612" class="label">Inspect two different claims</text>
+<text x="55" y="641" class="body">Working software demonstrates delivery; user evidence demonstrates value.</text>
+</svg>
