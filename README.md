@@ -124,6 +124,14 @@ continue to redirect to the canonical URL. Do not add `.html` to new post
 permalinks or hardcode article URLs; use `post.url` or Jekyll's `post_url` tag.
 Local Jekyll preview also supports these extensionless paths.
 
+Category keys, display names, and ordering are defined in
+[`_data/categories.yml`](_data/categories.yml). Use each entry's `key` in post
+front matter; for example, `Product-Management` displays as `Product Management`.
+The category page also accepts the legacy display-name spelling and combines
+both groups without duplicates. Category links use the display-name anchor;
+the key anchor remains available when it differs. Do not rename post categories
+just to change their display labels, because category keys affect article URLs.
+
 The shared SEO image hook maps each post's `feature-img` to `image` for
 `jekyll-seo-tag`, unless an explicit SEO image is provided. Author strings are
 resolved through [`_data/authors.yml`](_data/authors.yml). Update both that
