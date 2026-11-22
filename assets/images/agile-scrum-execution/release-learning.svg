@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700" role="img" aria-labelledby="title desc">
+<title id="title">From a Done increment to a safe release and customer learning</title>
+<desc id="desc">An integrated Done increment passes rollout-readiness checks before limited exposure. Observed behavior supports broader exposure or a pause and safe recovery. Customer and operational learning updates priorities, tests and the plan. Done does not alone prove release readiness or customer value.</desc>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L9 5 L0 10" fill="#246b80"/></marker>
+<style>text{font-family:Arial,sans-serif;fill:#183247}.heading{font-size:27px;font-weight:700}.label{font-size:20px;font-weight:700}.body{font-size:18px}.small{font-size:17px}.note{font-size:17px;fill:#40596b}.card{fill:#fff;stroke:#a2becb;stroke-width:2}.flow{fill:none;stroke:#246b80;stroke-width:2.5;marker-end:url(#arrow)}</style>
+</defs>
+<rect width="900" height="700" fill="#f4f8fb"/>
+<text x="35" y="48" class="heading">Done is not the last delivery decision</text>
+<text x="35" y="82" class="note">Each exposure step needs evidence and an authorized decision.</text>
+<rect x="40" y="180" width="175" height="140" rx="12" class="card"/>
+<text x="56" y="216" class="label">Done increment</text>
+<text x="56" y="249" class="small"><tspan x="56">Integrated, usable</tspan><tspan x="56" dy="27">Quality standard</tspan><tspan x="56" dy="27">met</tspan></text>
+<rect x="255" y="180" width="175" height="140" rx="12" class="card"/>
+<text x="271" y="216" class="label">Rollout ready</text>
+<text x="271" y="249" class="small"><tspan x="271">Owners, migration</tspan><tspan x="271" dy="27">Monitoring</tspan><tspan x="271" dy="27">Recovery tested</tspan></text>
+<rect x="470" y="180" width="175" height="140" rx="12" class="card"/>
+<text x="486" y="216" class="label">Limited cohort</text>
+<text x="486" y="249" class="small"><tspan x="486">Observe behavior</tspan><tspan x="486" dy="27">Check thresholds</tspan><tspan x="486" dy="27">Decide next step</tspan></text>
+<rect x="685" y="180" width="175" height="140" rx="12" class="card"/>
+<text x="701" y="216" class="label">Broader release</text>
+<text x="701" y="249" class="small"><tspan x="701">Expand safely</tspan><tspan x="701" dy="27">Support users</tspan><tspan x="701" dy="27">Measure outcomes</tspan></text>
+<path d="M215 250 H250" class="flow"/>
+<path d="M430 250 H465" class="flow"/>
+<path d="M645 250 H680" class="flow"/>
+<text x="49" y="355" class="note">Passing evidence supports progress; failed checks stop expansion.</text>
+<rect x="40" y="400" width="375" height="120" rx="12" fill="#fff0e9" stroke="#b47761" stroke-width="2"/>
+<text x="59" y="435" class="label">Failed checks: pause / recover</text>
+<text x="59" y="467" class="body"><tspan x="59">Use the tested response plan.</tspan><tspan x="59" dy="27">Code rollback may not undo data changes.</tspan></text>
+<rect x="455" y="400" width="405" height="120" rx="12" fill="#e1f2ee"/>
+<text x="474" y="435" class="label">Inspect real experience</text>
+<text x="474" y="467" class="body"><tspan x="474">Journey success, incidents and feedback</tspan><tspan x="474" dy="27">Delivery output is not proof of value.</tspan></text>
+<path d="M342 320 V380 H225 V395" class="flow"/>
+<path d="M557 320 V380 H400 V395" class="flow" stroke-dasharray="7 5"/>
+<path d="M772 320 V395" class="flow"/>
+<rect x="40" y="565" width="820" height="90" rx="12" fill="#dfeaf0"/>
+<text x="60" y="600" class="label">Feed learning into priorities, tests and the next plan</text>
+<text x="60" y="632" class="body">Keep the product hypothesis and delivery approach open to new evidence.</text>
+<path d="M657 520 V560" class="flow" stroke-dasharray="7 5"/>
+<path d="M225 520 V560" class="flow" stroke-dasharray="7 5"/>
+<path d="M40 610 H20 V140 H127 V175" class="flow" stroke-dasharray="7 5"/>
+</svg>

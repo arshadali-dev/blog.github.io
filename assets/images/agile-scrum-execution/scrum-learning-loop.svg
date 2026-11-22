@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="740" viewBox="0 0 900 740" role="img" aria-labelledby="title desc">
+<title id="title">The Sprint contains an inspection and adaptation loop</title>
+<desc id="desc">A Sprint of one month or less contains Planning, development and Daily Scrums, Review, and Retrospective. Backlog refinement is ongoing work. The Sprint Goal provides focus. Usable increments may be released during the Sprint under the applicable release policy.</desc>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L9 5 L0 10" fill="#246b80"/></marker>
+<style>text{font-family:Arial,sans-serif;fill:#183247}.heading{font-size:27px;font-weight:700}.label{font-size:21px;font-weight:700}.body{font-size:18px}.note{font-size:17px;fill:#40596b}.card{fill:#fff;stroke:#a2becb;stroke-width:2}.flow{fill:none;stroke:#246b80;stroke-width:2.5;marker-end:url(#arrow)}</style>
+</defs>
+<rect width="900" height="740" fill="#f4f8fb"/>
+<text x="35" y="48" class="heading">Scrum is a learning cadence</text>
+<text x="35" y="82" class="note">Five events: the Sprint itself, plus four events within it</text>
+<rect x="30" y="110" width="835" height="485" rx="16" fill="#edf5f8" stroke="#a2becb" stroke-width="2"/>
+<text x="55" y="143" class="label">SPRINT: fixed length, one month or less</text>
+<rect x="55" y="175" width="260" height="115" rx="12" class="card"/>
+<text x="74" y="208" class="label">Sprint Planning</text>
+<text x="74" y="239" class="body"><tspan x="74">Why, what, how</tspan><tspan x="74" dy="26">Scrum Team</tspan></text>
+<rect x="550" y="175" width="290" height="140" rx="12" class="card"/>
+<text x="568" y="208" class="label">Build, inspect, adapt</text>
+<text x="568" y="239" class="body"><tspan x="568">Create usable increments</tspan><tspan x="568" dy="27">Daily Scrum: 15 minutes</tspan><tspan x="568" dy="27">Developers adapt their plan</tspan></text>
+<rect x="550" y="420" width="290" height="100" rx="12" class="card"/>
+<text x="568" y="454" class="label">Sprint Review</text>
+<text x="568" y="485" class="body">Inspect outcomes; adapt work</text>
+<rect x="55" y="420" width="260" height="100" rx="12" class="card"/>
+<text x="74" y="454" class="label">Sprint Retrospective</text>
+<text x="74" y="485" class="body">Improve how the team works</text>
+<path d="M315 231 H545" class="flow"/>
+<path d="M695 315 V415" class="flow"/>
+<path d="M550 470 H320" class="flow"/>
+<path d="M185 420 V295" class="flow"/>
+<text x="55" y="358" class="note">Next Sprint</text>
+<rect x="332" y="330" width="198" height="90" rx="12" fill="#dff2ed" stroke="#79b9aa" stroke-width="2"/>
+<text x="431" y="365" text-anchor="middle" class="label">Sprint Goal</text>
+<text x="431" y="396" text-anchor="middle" class="body">One coherent focus</text>
+<rect x="55" y="543" width="785" height="35" rx="8" fill="#dfeaf0"/>
+<text x="73" y="567" class="note">Ongoing refinement: clarify, split and size likely next work; not a separate event.</text>
+<rect x="30" y="625" width="835" height="82" rx="12" fill="#fff4e3" stroke="#ccad78" stroke-width="2"/>
+<text x="50" y="657" class="label">Release need not wait for the Review</text>
+<text x="50" y="686" class="body">Usable increments may ship during the Sprint when release requirements are met.</text>
+<path d="M840 250 H880 V665 H870" class="flow" stroke-dasharray="7 5"/>
+</svg>

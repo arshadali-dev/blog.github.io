@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="650" viewBox="0 0 900 650" role="img" aria-labelledby="title desc">
+<title id="title">Calendar dependency handoffs and a modeled critical path</title>
+<desc id="desc">Identity takes two days and durable storage takes three days in parallel, with testing throughout. Integrated creation takes two days after both finish, followed by two days of additional integrated failure checks and one day of pilot readiness. The longest path is eight days under the stated assumptions.</desc>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L9 5 L0 10" fill="#246b80"/></marker>
+<marker id="critical-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L9 5 L0 10" fill="#9b553e"/></marker>
+<style>text{font-family:Arial,sans-serif;fill:#183247}.heading{font-size:27px;font-weight:700}.label{font-size:20px;font-weight:700}.body{font-size:18px}.note{font-size:17px;fill:#40596b}.card{fill:#fff;stroke:#a2becb;stroke-width:2}.flow{fill:none;stroke:#246b80;stroke-width:2.5;marker-end:url(#arrow)}.critical{fill:none;stroke:#9b553e;stroke-width:3;marker-end:url(#critical-arrow)}</style>
+</defs>
+<rect width="900" height="650" fill="#f4f8fb"/>
+<text x="35" y="48" class="heading">Plan the handoffs, not only each team's work</text>
+<text x="35" y="82" class="note">Illustrative durations in days; this graph is a planning model, not a promise.</text>
+<text x="35" y="112" class="note">Testing runs throughout; later checks exercise failures across connected components.</text>
+<rect x="35" y="145" width="190" height="115" rx="12" class="card"/>
+<text x="53" y="178" class="label">Identity contract</text>
+<text x="53" y="210" class="body"><tspan x="53">Auth tests pass</tspan><tspan x="53" dy="27">2 days</tspan></text>
+<rect x="35" y="325" width="190" height="115" rx="12" fill="#fff0e9" stroke="#b47761" stroke-width="2"/>
+<text x="53" y="358" class="label">Durable storage</text>
+<text x="53" y="390" class="body"><tspan x="53">Verified save / retry</tspan><tspan x="53" dy="27">3 days</tspan></text>
+<rect x="285" y="235" width="180" height="130" rx="12" class="card"/>
+<text x="303" y="270" class="label">Core integration</text>
+<text x="303" y="302" class="body"><tspan x="303">Create and retrieve</tspan><tspan x="303" dy="27">2 days</tspan></text>
+<rect x="500" y="235" width="170" height="130" rx="12" class="card"/>
+<text x="518" y="270" class="label">Failure checks</text>
+<text x="518" y="302" class="body"><tspan x="518">Integrated faults</tspan><tspan x="518" dy="27">2 days</tspan></text>
+<rect x="705" y="235" width="160" height="130" rx="12" class="card"/>
+<text x="723" y="270" class="label">Pilot checks</text>
+<text x="723" y="302" class="body"><tspan x="723">Ops ready</tspan><tspan x="723" dy="27">1 day</tspan></text>
+<path d="M225 202 H255 V270 H280" class="flow"/>
+<path d="M225 382 H255 V335 H280" class="critical"/>
+<path d="M465 300 H495" class="critical"/>
+<path d="M670 300 H700" class="critical"/>
+<rect x="35" y="475" width="830" height="140" rx="12" fill="#e1f2ee"/>
+<text x="55" y="510" class="label">Longest modeled path: 3 + 2 + 2 + 1 = 8 days</text>
+<text x="55" y="542" class="body">Warm-colored connectors identify the longer prerequisite path.</text>
+<text x="55" y="574" class="note"><tspan x="55">Assumptions: parallel first steps, fixed durations, available people and environments.</tspan><tspan x="55" dy="25">Resource contention, review queues or changing scope can change this path.</tspan></text>
+</svg>
