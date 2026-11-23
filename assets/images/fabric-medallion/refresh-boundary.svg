@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="380" viewBox="0 0 1140 380" role="img" aria-labelledby="title desc">
+  <title id="title">Where managed materialized lake view refresh fits</title>
+  <desc id="desc">Ingestion writes Bronze Delta data outside the managed refresh boundary. The selected Fabric dependency graph refreshes Silver and then Gold materialized lake views. Consumer readiness is a separate responsibility. The graph can span lakehouses with explicit scope and permissions; ordered refresh is not an atomic multi-layer snapshot.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#527080"/></marker>
+  </defs>
+  <rect width="1140" height="380" rx="18" fill="#f7fafb"/>
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#173447">
+    <text x="36" y="43" font-size="24" font-weight="700">A managed transformation graph, not the entire data pipeline</text>
+    <rect x="428" y="70" width="446" height="220" rx="18" fill="#e8f6f2" stroke="#14806d" stroke-width="2" stroke-dasharray="7 5"/>
+    <text x="651" y="105" text-anchor="middle" font-size="19" font-weight="700">Selected MLV refresh scope</text>
+    <text x="651" y="132" text-anchor="middle" font-size="15">Dependencies first; independent branches can run in parallel</text>
+    <rect x="32" y="162" width="155" height="91" rx="12" fill="#fff" stroke="#9cb4c0"/>
+    <text x="109" y="197" text-anchor="middle" font-size="21" font-weight="700">Ingestion</text>
+    <text x="109" y="226" text-anchor="middle" font-size="16">Source readiness</text>
+    <rect x="229" y="162" width="163" height="91" rx="12" fill="#fff2e7" stroke="#a86228"/>
+    <text x="310" y="197" text-anchor="middle" font-size="21" font-weight="700">Bronze</text>
+    <text x="310" y="226" text-anchor="middle" font-size="16">Source Delta data</text>
+    <rect x="466" y="162" width="155" height="91" rx="12" fill="#fff" stroke="#7294a8"/>
+    <text x="543" y="197" text-anchor="middle" font-size="21" font-weight="700">Silver MLV</text>
+    <text x="543" y="226" text-anchor="middle" font-size="16">Validated Delta</text>
+    <rect x="696" y="162" width="155" height="91" rx="12" fill="#fff" stroke="#aa861f"/>
+    <text x="773" y="197" text-anchor="middle" font-size="21" font-weight="700">Gold MLV</text>
+    <text x="773" y="226" text-anchor="middle" font-size="16">Business Delta</text>
+    <rect x="928" y="162" width="179" height="91" rx="12" fill="#fff" stroke="#9cb4c0"/>
+    <text x="1017" y="197" text-anchor="middle" font-size="21" font-weight="700">Consumption</text>
+    <text x="1017" y="226" text-anchor="middle" font-size="16">Model readiness</text>
+    <g fill="none" stroke="#527080" stroke-width="2.5" marker-end="url(#arrow)">
+      <path d="M187 208 H221"/><path d="M392 208 H458"/><path d="M621 208 H688"/><path d="M851 208 H920"/>
+    </g>
+    <text x="36" y="331" font-size="17">The graph can span lakehouses/workspaces with explicit scope and permissions.</text>
+    <text x="36" y="358" font-size="17">Ordered refresh does not establish an atomic snapshot across all layers.</text>
+  </g>
+</svg>
