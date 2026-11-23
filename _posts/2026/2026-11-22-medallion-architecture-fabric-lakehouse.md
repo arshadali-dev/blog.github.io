@@ -76,10 +76,13 @@ layer separation. Our MLV tutorial also demonstrates schemas in one lakehouse as
 setup, **not a prescriptive reference architecture**. These serve different purposes; a
 tutorial's convenience should not become an enterprise security decision.
 
-For a pilot with one team, I recommend evaluating a schema-based layout. For production, keep it
-only if it meets the required boundaries. Separate lakehouses or workspaces are appropriate when
-independent ownership or privileged-administrator separation matters. Do not consolidate an
-established governed design merely to adopt MLVs.
+Evaluate a schema-based layout for a one-team pilot; retain it in production only if it meets
+required boundaries. Separate lakehouses provide item-level ownership boundaries.
+Workspace-administrator separation requires separate workspaces with appropriate role
+assignments. Do not consolidate an established governed design merely to adopt MLVs.
+
+MLVs work with schema-based and multi-lakehouse layouts; cross-lakehouse refresh requires
+explicit scope and permissions.
 
 ### Keep namespace, security, and compute separate
 
@@ -109,6 +112,9 @@ rerunning the transformation at query time.
 Fabric manages dependency-aware refresh and exposes **lineage**, the graph showing which tables
 and views depend on others, alongside run monitoring. This shifts work from imperative
 orchestration code toward reviewable transformation definitions.
+
+**Fabric manages refresh order; you configure when refresh runs.** This is not automatic
+propagation immediately after every source commit.
 
 <figure class="system-design-diagram">
   <img src="{{ '/assets/images/fabric-medallion/refresh-boundary.svg' | relative_url }}" alt="External ingestion writes Bronze Delta data. A Fabric-managed dependency graph refreshes Silver and then Gold materialized lake views. Consumer readiness remains a separate step; the graph can cross lakehouses with explicit scope and permissions." loading="lazy">
@@ -199,9 +205,9 @@ FROM bronze.orders;
 and reports counts; it does **not** create a quarantine table. Preserve rejected records
 separately if investigation or regulatory retention requires them.
 
-MLV data quality also supports separately registered column-level quality suites, including
-completeness and uniqueness checks. Use appropriate suites and reconciliation checks rather than
-expecting one row constraint to establish the whole data contract.
+For wider validation, use separately registered column-level quality suites for completeness
+and uniqueness, plus reconciliation checks. See the
+[data-quality guide](https://learn.microsoft.com/en-us/fabric/data-engineering/materialized-lake-views/data-quality).
 
 ### Create and query Gold
 
@@ -256,7 +262,7 @@ These are illustrative validation targets, not measured Fabric results.
 
 For SQL-defined MLVs with optimal refresh, Fabric evaluates the available strategy **when a
 refresh runs**. It can skip unchanged work, process changes incrementally, or rebuild the
-result. This is not automatic propagation immediately after every source commit.
+result.
 
 | Strategy | What happens | What to check |
 |---|---|---|
@@ -277,18 +283,14 @@ deletes rather than incremental mutation handling.
 
 ### Advanced: mutation hints and other authoring paths
 
-Append-only tests are not enough for mutable business data. Compatible unique-key refresh hints
-can support incremental handling of updates and deletes, but **refresh hints are Preview**. They
-trust the declared uniqueness; Fabric does not validate those keys at runtime.
+**Refresh hints are Preview** and can enable incremental updates/deletes with compatible unique
+keys. Fabric trusts declared uniqueness without runtime validation; incorrect keys can threaten
+correctness. Validate keys and follow the
+[hint prerequisites](https://learn.microsoft.com/en-us/fabric/data-engineering/materialized-lake-views/optimal-refresh-handling-deletes-updates).
+Use full refresh when those conditions cannot be assured.
 
-The current hint guidance also requires
-`spark.materialized.lake.views.dv.auto.create.enabled=true`. Validate genuine keys and the
-documented hint conditions before enabling this path. Incorrect uniqueness assumptions can
-threaten correctness; a full refresh may be the safer baseline.
-
-Choose CDF retention and recovery procedures to match your refresh and outage windows. Test a
-prolonged pause and the supported full-refresh recovery path, not just the next happy-path
-append.
+Match CDF retention to refresh and outage windows. Test corrections, deletes, and the documented
+full-refresh recovery path after a prolonged pause, not just appends.
 
 **PySpark MLV authoring is Preview and currently uses full refresh.** Non-Delta sources also use
 full refresh. SQL definitions are a useful starting point when eligible incremental processing
@@ -313,17 +315,14 @@ logic, and subsecond streaming can still require other processing tools.
 
 ### Cross-lakehouse dependencies are supported, not implicit
 
-Extended lineage can trace upstream dependencies across lakehouses and workspaces. A lineage
-schedule or ad-hoc run can include upstream lakehouses, execute dependencies first, and run
-independent branches in parallel.
+Extended lineage traces dependencies across lakehouses and workspaces. Scheduled or ad-hoc runs
+can include selected upstream lakehouses, execute dependencies first, and run independent
+branches in parallel.
 
-Distinguish **visible dependencies** from **dependencies included in the refresh scope**. A
-shortcut is treated as a source entity; access through it does not imply that the upstream MLV
-will be refreshed.
-
-The execution identity needs the documented permissions to read sources and refresh included
-MLVs. Inaccessible or faulted nodes can block the run. Cross-workspace orchestration reduces the
-need for custom sequencing, but not for permission and scope design.
+**Visible lineage is not refresh scope.** Shortcuts are source entities; access through one does
+not imply upstream MLV refresh. Verify included dependencies and the execution identity's
+source-read and MLV-refresh permissions; inaccessible or faulted nodes can block execution.
+See the [graph execution guidance](https://learn.microsoft.com/en-us/fabric/data-engineering/materialized-lake-views/view-lineage).
 
 Dependency order is also not a global atomic transaction across all layers. If consumers require
 a coordinated business snapshot, define a batch/watermark contract and verify every required
@@ -365,14 +364,14 @@ efficiency without fixing an upstream ingestion delay.
 
 ### Adoption checklist
 
-- [ ] Define grain, metric semantics, replay/retention, and acceptable freshness.
-- [ ] Choose schema/item/workspace boundaries and test real consumer and refresh identities.
-- [ ] Pilot one SQL chain; configure CDF on each directly referenced input where incremental
+- Define grain, metric semantics, replay/retention, and acceptable freshness.
+- Choose schema/item/workspace boundaries and test real consumer and refresh identities.
+- Pilot one SQL chain; configure CDF on each directly referenced input where incremental
   refresh is intended.
-- [ ] Test appends, corrections, deletes, duplicates, nulls, failed refreshes, and recovery.
-- [ ] Inspect actual refresh strategy and reconcile outputs against the existing implementation.
-- [ ] Make ingestion readiness, refresh scope, and consumer publication explicit.
-- [ ] Assign owners, alerts, deployment procedures, and a fallback before replacing production
+- Test appends, corrections, deletes, duplicates, nulls, failed refreshes, and recovery.
+- Inspect actual refresh strategy and reconcile outputs against the existing implementation.
+- Make ingestion readiness, refresh scope, and consumer publication explicit.
+- Assign owners, alerts, deployment procedures, and a fallback before replacing production
   orchestration.
 
 Keep business logic in version-controlled definitions. Avoid rebuilding a large imperative
