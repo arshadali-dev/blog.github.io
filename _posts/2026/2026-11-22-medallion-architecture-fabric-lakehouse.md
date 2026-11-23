@@ -131,10 +131,16 @@ readiness, business logic, permissions, recovery, and consumer freshness.
 
 ## 4. Build a small Bronze-to-Gold chain
 
+**What you'll build:** A Bronze Delta table containing sample orders, a Silver MLV that
+validates them, and a Gold MLV that calculates daily order counts and value. During lineage
+refresh, Fabric processes Silver before Gold when both are included in the refresh scope.
+
 Use a fresh development lakehouse with schemas enabled, attached as the notebook's default.
-You need Fabric-enabled capacity and Contributor-or-higher workspace access. Use **Fabric
-Runtime 1.3**, the documented baseline in the
-[getting-started guide](https://learn.microsoft.com/en-us/fabric/data-engineering/materialized-lake-views/get-started-with-materialized-lake-views).
+You need Fabric-enabled capacity and Contributor-or-higher workspace access. Use a currently
+supported Fabric runtime compatible with Materialized Lake Views. Check the current
+[MLV prerequisites](https://learn.microsoft.com/en-us/fabric/data-engineering/materialized-lake-views/get-started-with-materialized-lake-views)
+and [Fabric runtime lifecycle guidance](https://learn.microsoft.com/en-us/fabric/data-engineering/runtime)
+before running this example.
 
 Run the three blocks in order, each in a separate **Spark SQL notebook cell**. The `%%sql` magic
 selects Spark SQL; these are not T-SQL commands for the SQL analytics endpoint, which cannot
@@ -270,9 +276,11 @@ result.
 | **Incremental** | Update the materialized result from relevant source changes | CDF on every directly referenced upstream table/MLV, query eligibility, mutation handling |
 | **Full** | Recompute the result from its inputs | Input size, query cost, refresh duration, capacity contention |
 
-Our `SUM` and `COUNT` query is eligible without extra source partitioning, provided its direct
-inputs have CDF enabled. Other aggregates, such as `AVG`, require source partitioning and
-partition columns in `GROUP BY`; mixing them applies the stricter conditions to the query.
+`SUM` and `COUNT`, without `DISTINCT`, support incremental refresh without additional source
+partitioning requirements. CDF must be enabled on every directly referenced Delta table or
+MLV, and the remaining query and data-change requirements must be satisfied. Other aggregates,
+such as `AVG`, require source partitioning and partition columns in `GROUP BY`; mixing them
+applies the stricter conditions to the query.
 
 `DISTINCT`, window functions, and nondeterministic expressions can force full refresh. Joins
 also have eligibility conditions. Even an eligible query can receive a full refresh when Fabric
