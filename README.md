@@ -22,6 +22,16 @@ on data and analytics engineering and product management.
 - Dark/light mode toggle
 - Categories, tags, search, and social share
 
+## Post organization
+
+Store posts by publication year under `_posts/<year>/`, retaining the
+`YYYY-MM-DD-slug.md` filename; for example,
+`_posts/2026/2026-03-26-welcome.md`. Create a new year folder when needed.
+Jekyll reads these subfolders without changing public URLs. Keep existing
+`post_url` references unchanged; the dated filename still identifies the post.
+When moving a source article, update its download generator's `POST` path and
+regenerate companion notebooks to refresh their source-path metadata.
+
 ## Local preview
 
 Production and Linux CI use the Ruby version in [`.ruby-version`](.ruby-version).
@@ -279,7 +289,7 @@ live validation of the actual downloads, including output and cleanup checks.
 
 ## Pipe syntax companion notebook
 
-The [pipe syntax tutorial](_posts/2026-10-19-pipe-syntax-spark-4-1-fabric-runtime-2-0.md)
+The [pipe syntax tutorial](_posts/2026/2026-10-19-pipe-syntax-spark-4-1-fabric-runtime-2-0.md)
 is the source of truth for its
 [downloadable notebook](assets/downloads/fabric-pipe-syntax/pipe-syntax-runtime-2-0.ipynb).
 The generator preserves every Python and SQL block in order, keeps SQL magics,
@@ -304,7 +314,7 @@ the article and generator's validation status after a successful live run.
 
 ## SQL enhancements companion notebook
 
-The [SQL enhancements tutorial](_posts/2026-11-17-spark-sql-enhancements-fabric-runtime-2-0.md)
+The [SQL enhancements tutorial](_posts/2026/2026-11-17-spark-sql-enhancements-fabric-runtime-2-0.md)
 is the source of truth for its
 [downloadable notebook](assets/downloads/fabric-sql-enhancements/spark-sql-runtime-2-0.ipynb).
 The generator reuses the pipe tutorial's Markdown/cell conversion, preserves

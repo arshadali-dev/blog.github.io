@@ -6,7 +6,7 @@ import re
 
 from sync_pipe_notebook import ROOT, build_notebook
 
-POST = ROOT / "_posts" / "2026-11-17-spark-sql-enhancements-fabric-runtime-2-0.md"
+POST = ROOT / "_posts" / "2026" / "2026-11-17-spark-sql-enhancements-fabric-runtime-2-0.md"
 DESTINATION = (
     ROOT / "assets" / "downloads" / "fabric-sql-enhancements"
     / "spark-sql-runtime-2-0.ipynb"

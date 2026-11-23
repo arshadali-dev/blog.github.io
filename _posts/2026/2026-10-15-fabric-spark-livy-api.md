@@ -16,6 +16,7 @@ tags:
   - fabric-runtime
   - apache-spark
   - data-engineering
+  - delta-lake
 ---
 
 # Run Spark from Anywhere with the Microsoft Fabric Livy API

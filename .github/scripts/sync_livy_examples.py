@@ -10,7 +10,7 @@ import zipfile
 from io import BytesIO
 
 ROOT = Path(__file__).resolve().parents[2]
-POST = ROOT / "_posts" / "2026-10-15-fabric-spark-livy-api.md"
+POST = ROOT / "_posts" / "2026" / "2026-10-15-fabric-spark-livy-api.md"
 DESTINATION = ROOT / "assets" / "downloads" / "fabric-livy"
 HEADER = "# Python 3.11+. Replace the ID placeholders before running.\n"
 
