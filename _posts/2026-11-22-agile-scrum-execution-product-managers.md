@@ -11,10 +11,6 @@ categories:
   - Product-Management
 tags:
   - product-management
-  - agile
-  - scrum
-  - project-management
-  - pm-workflows
 feature-img: "assets/images/agile-scrum-execution/banner.png"
 feature-title: ""
 ---

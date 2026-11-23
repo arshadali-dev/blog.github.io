@@ -13,8 +13,6 @@ tags:
   - apache-spark
   - delta-lake
   - data-engineering
-  - modernization
-  - performance
 ---
 
 # Identity Columns in Fabric Runtime 2.0: From Workarounds to First‑Class Support

@@ -13,7 +13,6 @@ tags:
   - microsoft-fabric
   - apache-spark
   - fabric-runtime
-  - spark-sql
   - data-engineering
 feature-img: assets/images/spark-sql-workflows-runtime-2-0.png
 feature-title: ""
