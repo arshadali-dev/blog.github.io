@@ -15,6 +15,7 @@ tags:
   - delta-lake
   - data-engineering
   - data-science
+  - performance
 ---
 
 # Fabric Runtime 2.0: Why It Matters for Spark Developers
