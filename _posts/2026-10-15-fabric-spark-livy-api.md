@@ -15,10 +15,6 @@ tags:
   - microsoft-fabric
   - fabric-runtime
   - apache-spark
-  - livy-api
-  - python
-  - onelake
-  - high-concurrency
 ---
 
 # Run Spark from Anywhere with the Microsoft Fabric Livy API

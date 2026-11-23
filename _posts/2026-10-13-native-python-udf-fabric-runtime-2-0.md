@@ -14,9 +14,6 @@ tags:
   - microsoft-fabric
   - fabric-runtime
   - apache-spark
-  - python
-  - native-execution-engine
-  - performance
 ---
 
 # Native Python UDFs in Fabric Runtime 2.0: What Gets Faster, What Still Matters

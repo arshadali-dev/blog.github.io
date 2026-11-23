@@ -14,7 +14,6 @@ tags:
   - apache-spark
   - delta-lake
   - data-engineering
-  - performance
 ---
 
 # The Variant Data Type in Fabric Runtime 2.0: Native Semi‑Structured Data Without the JSON Tax

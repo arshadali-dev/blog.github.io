@@ -12,8 +12,6 @@ tags:
   - microsoft-fabric
   - apache-spark
   - fabric-runtime
-  - spark-sql
-  - pyspark
 feature-img: assets/images/pipe-syntax-fabric-runtime-2.0.png
 feature-title: ""
 ---
