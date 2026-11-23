@@ -10,6 +10,7 @@ author: Arshad Ali
 categories:
   - Data-Engineering
 tags:
+  - microsoft-fabric
   - fabric-runtime
   - apache-spark
   - delta-lake

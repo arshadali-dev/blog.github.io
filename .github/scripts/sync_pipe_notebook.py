@@ -11,7 +11,7 @@ import re
 from typing import NotRequired, TypedDict
 
 ROOT = Path(__file__).resolve().parents[2]
-POST = ROOT / "_posts" / "2026-10-19-pipe-syntax-spark-4-1-fabric-runtime-2-0.md"
+POST = ROOT / "_posts" / "2026" / "2026-10-19-pipe-syntax-spark-4-1-fabric-runtime-2-0.md"
 DESTINATION = (
     ROOT / "assets" / "downloads" / "fabric-pipe-syntax"
     / "pipe-syntax-runtime-2-0.ipynb"

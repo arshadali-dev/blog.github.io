@@ -14,6 +14,7 @@ tags:
   - apache-spark
   - fabric-runtime
   - data-engineering
+  - delta-lake
 feature-img: assets/images/spark-sql-workflows-runtime-2-0.png
 feature-title: ""
 ---

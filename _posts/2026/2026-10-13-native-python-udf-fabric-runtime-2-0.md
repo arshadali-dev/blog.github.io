@@ -16,6 +16,7 @@ tags:
   - apache-spark
   - performance
   - data-engineering
+  - delta-lake
 ---
 
 # Native Python UDFs in Fabric Runtime 2.0: What Gets Faster, What Still Matters

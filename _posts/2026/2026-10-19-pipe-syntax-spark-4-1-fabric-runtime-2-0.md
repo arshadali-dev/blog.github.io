@@ -13,6 +13,7 @@ tags:
   - apache-spark
   - fabric-runtime
   - data-engineering
+  - delta-lake
 feature-img: assets/images/pipe-syntax-fabric-runtime-2.0.png
 feature-title: ""
 ---
