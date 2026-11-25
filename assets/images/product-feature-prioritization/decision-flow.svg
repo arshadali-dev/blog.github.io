@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="720" viewBox="0 0 900 720" role="img" aria-labelledby="title desc">
+  <title id="title">Prioritization is a decision loop, not a universal feature ranking</title>
+  <desc id="desc">Start with the outcome and target segment. Assess material risks and binding obligations with accountable specialists. Scope required remediation by severity, exposure, and deadline; compare discretionary work using blockers, value, full cost, and confidence. Both routes feed one capacity-constrained plan. Measure outcomes against the agreed baseline, then use new evidence to revisit the strategic context.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#38526c"/>
+    </marker>
+    <marker id="feedback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#087c70"/>
+    </marker>
+    <style>
+      text { font-family: "Segoe UI", Arial, sans-serif; fill: #172c45; }
+      .heading { font-size: 28px; font-weight: 700; }
+      .label { font-size: 23px; font-weight: 700; }
+      .detail { font-size: 19px; }
+      .small { font-size: 17px; }
+      .flow { fill: none; stroke: #38526c; stroke-width: 3; marker-end: url(#arrow); }
+      .connector { fill: none; stroke: #38526c; stroke-width: 3; }
+      .box { stroke: #9eb1c1; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect width="900" height="720" rx="18" fill="#f6f9fc"/>
+  <text x="450" y="42" text-anchor="middle" class="heading">Context first. Judgment before scores.</text>
+  <rect x="160" y="67" width="580" height="83" rx="13" fill="#e7f5f1" stroke="#087c70" stroke-width="2"/>
+  <text x="450" y="101" text-anchor="middle" class="label">Choose the outcome and target segment</text>
+  <text x="450" y="128" text-anchor="middle" class="detail">Mission, success measures, and guardrails</text>
+  <path d="M450 150 V178" class="flow"/>
+  <rect x="160" y="187" width="580" height="86" rx="13" fill="#fff" class="box"/>
+  <text x="450" y="221" text-anchor="middle" class="label">Assess risks and binding obligations</text>
+  <text x="450" y="249" text-anchor="middle" class="detail">Engineering, security, and relevant decision owners</text>
+  <path d="M450 273 V303" class="connector"/>
+  <path d="M450 303 H240 V333" class="flow"/>
+  <path d="M450 303 H640 V333" class="flow"/>
+  <text x="140" y="324" text-anchor="middle" class="small">Required work</text>
+  <text x="735" y="324" text-anchor="middle" class="small">Discretionary work</text>
+  <rect x="60" y="343" width="360" height="120" rx="13" fill="#fff2e4" stroke="#b36c18" stroke-width="2"/>
+  <text x="240" y="390" text-anchor="middle" class="label">Scope required remediation</text>
+  <text x="240" y="426" text-anchor="middle" class="detail">Severity, exposure, deadline</text>
+  <rect x="450" y="343" width="380" height="120" rx="13" fill="#eaf3ff" stroke="#4475a6" stroke-width="2"/>
+  <text x="640" y="390" text-anchor="middle" class="label">Compare discretionary work</text>
+  <text x="640" y="426" text-anchor="middle" class="detail">Blockers, value, full cost, confidence</text>
+  <path d="M240 463 V491 H640 V463" class="connector"/>
+  <path d="M450 491 V517" class="flow"/>
+  <rect x="160" y="527" width="580" height="82" rx="13" fill="#fff" class="box"/>
+  <text x="450" y="560" text-anchor="middle" class="label">Make a capacity-constrained plan</text>
+  <text x="450" y="589" text-anchor="middle" class="detail">Dependencies, owners, and what is deferred</text>
+  <path d="M450 609 V631" class="flow"/>
+  <rect x="160" y="641" width="580" height="70" rx="13" fill="#e7f5f1" stroke="#087c70" stroke-width="2"/>
+  <text x="450" y="670" text-anchor="middle" class="label">Measure outcomes and revisit</text>
+  <text x="450" y="698" text-anchor="middle" class="detail">Compare against the agreed baseline</text>
+  <path d="M740 676 H870 V109 H748" fill="none" stroke="#087c70" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#feedback)"/>
+  <text x="805" y="656" text-anchor="middle" class="small">New evidence</text>
+</svg>
