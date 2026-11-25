@@ -22,6 +22,23 @@ on data and analytics engineering and product management.
 - Dark/light mode toggle
 - Categories, tags, search, and social share
 
+## Homepage category views
+
+The homepage offers Data Engineering and Product Management tabs. Data Engineering
+is selected by default; `/?category=product-management` opens a shareable PM view.
+Each category retains newest-first ordering and paginates independently with five
+posts per page (`&page=2` for the second PM page). Browser Back/Forward restores the
+view, and keyboard users can switch tabs with arrow keys, Home, and End.
+Posts appear directly below the tabs; category counts and page changes are announced
+to screen readers without a repeated visible heading or summary.
+
+Set `home_category_featured` to a post's category key to place it first in that
+homepage category without changing its date or other chronological listings.
+Product Sense is featured in Product Management. Unpublished posts appear only in
+the unpublished preview, not production. With JavaScript disabled, both category
+lists remain readable, with anchor links above them; older `/blog/pageN` links
+normalize to the corresponding Data Engineering page when JavaScript is enabled.
+
 ## Post organization
 
 Store posts by publication year under `_posts/<year>/`, retaining the

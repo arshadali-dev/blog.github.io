@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="630" viewBox="0 0 900 630" role="img" aria-labelledby="title desc">
+  <title id="title">Product metrics: value, drivers, economics, and guardrails</title>
+  <desc id="desc">A customer outcome anchors the North Star. Input metrics form hypotheses about delivered value, which must support business outcomes. Counter metrics are reviewed alongside all three, and outcome review supplies new evidence. Arrows are hypotheses, not guarantees of causality.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#24566e"/></marker>
+    <style>
+      text{font-family:Segoe UI,Arial,sans-serif;fill:#142b41}
+      .heading{font-size:23px;font-weight:700}
+      .detail{font-size:19px}
+      .small{font-size:17px}
+      .link{fill:none;stroke:#24566e;stroke-width:3;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="900" height="630" rx="16" fill="#f5f9fc"/>
+  <text x="450" y="38" text-anchor="middle" class="heading">Measure value. Check economics. Protect trust.</text>
+  <rect x="150" y="62" width="600" height="74" rx="12" fill="#e0f4ef" stroke="#2d8075" stroke-width="2"/>
+  <text x="450" y="91" text-anchor="middle" class="heading">Customer outcome</text>
+  <text x="450" y="118" text-anchor="middle" class="detail">The useful job the product should help complete</text>
+  <path d="M450 136V178" class="link"/>
+  <text x="175" y="174" text-anchor="middle" class="small">Hypothesis: drives value</text>
+  <text x="725" y="174" text-anchor="middle" class="small">Hypothesis: sustains growth</text>
+  <rect x="40" y="190" width="255" height="139" rx="12" fill="#e6f1fb" stroke="#44799d" stroke-width="2"/>
+  <text x="167" y="223" text-anchor="middle" class="heading">Input metrics</text>
+  <text x="167" y="255" text-anchor="middle" class="detail">First value</text>
+  <text x="167" y="282" text-anchor="middle" class="detail">Meaningful adoption</text>
+  <text x="167" y="309" text-anchor="middle" class="detail">Repeat useful use</text>
+  <rect x="325" y="190" width="250" height="139" rx="12" fill="#d6f1ea" stroke="#2d8075" stroke-width="2"/>
+  <text x="450" y="223" text-anchor="middle" class="heading">North Star</text>
+  <text x="450" y="255" text-anchor="middle" class="detail">Delivered customer value</text>
+  <text x="450" y="284" text-anchor="middle" class="small">Example: weekly valid</text>
+  <text x="450" y="308" text-anchor="middle" class="small">production outcomes</text>
+  <rect x="605" y="190" width="255" height="139" rx="12" fill="#e6f1fb" stroke="#44799d" stroke-width="2"/>
+  <text x="732" y="223" text-anchor="middle" class="heading">Business outcomes</text>
+  <text x="732" y="255" text-anchor="middle" class="detail">Retention</text>
+  <text x="732" y="282" text-anchor="middle" class="detail">Expansion and revenue</text>
+  <text x="732" y="309" text-anchor="middle" class="detail">Sustainable margin</text>
+  <path d="M295 260H316" class="link"/>
+  <path d="M575 260H596" class="link"/>
+  <text x="450" y="365" text-anchor="middle" class="small">Always review these signals alongside:</text>
+  <rect x="100" y="383" width="700" height="86" rx="12" fill="#fff2e4" stroke="#ac6b28" stroke-width="2"/>
+  <text x="450" y="415" text-anchor="middle" class="heading">Counter metrics / guardrails</text>
+  <text x="450" y="445" text-anchor="middle" class="detail">Correctness, reliability, customer cost, satisfaction</text>
+  <path d="M450 469V493" class="link"/>
+  <rect x="100" y="505" width="700" height="75" rx="12" fill="#e7edf4" stroke="#657d93" stroke-width="2"/>
+  <text x="450" y="535" text-anchor="middle" class="heading">Review outcomes and make a decision</text>
+  <text x="450" y="563" text-anchor="middle" class="detail">Expand, investigate, pause, or change the plan</text>
+  <path d="M100 543H20V157H60V179" fill="none" stroke="#24566e" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+  <text x="450" y="613" text-anchor="middle" class="small">New evidence updates the inputs, definitions, and next investment.</text>
+</svg>

@@ -9,12 +9,30 @@ layout: default
   </div>
   {% endif %}
 
+  {% assign home_categories = "Data-Engineering|Product-Management" | split: "|" %}
+  <div class="home-category-browser" data-home-url="{{ '/' | relative_url }}"
+       data-page-size="{{ site.paginate | default: 5 }}" data-initial-page="{{ paginator.page | default: 1 }}">
+  <nav class="home-category-tabs" aria-label="Article categories">
+    <a id="tab-data-engineering" href="#home-data-engineering" data-category="data-engineering">Data Engineering</a>
+    <a id="tab-product-management" href="#home-product-management" data-category="product-management">Product Management</a>
+  </nav>
+  <p class="home-category-status" aria-live="polite" hidden></p>
+  {% for category_key in home_categories %}
+  {% assign category_slug = category_key | downcase %}
+  {% assign category_name = category_key | replace: "-", " " %}
+  {% assign category_posts = site.categories[category_key] | sort: "date" | reverse %}
+  {% assign featured_posts = category_posts | where: "home_category_featured", category_key %}
+  {% assign remaining_posts = category_posts | where_exp: "post", "post.home_category_featured != category_key" %}
+  {% assign ordered_posts = featured_posts | concat: remaining_posts %}
+  <section id="home-{{ category_slug }}" class="home-category-panel"
+           data-category="{{ category_slug }}" data-category-name="{{ category_name }}"
+           aria-labelledby="tab-{{ category_slug }}">
   <div class="posts">
-    {% for post in paginator.posts %}
+    {% for post in ordered_posts %}
     <div class="post-teaser">
       {% if post.feature-img %}
       <a class="teaser-image" href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">
-        <img src="{{ post.feature-img | relative_url }}" alt="{{ post.title }} teaser image">
+        <img src="{{ post.feature-img | relative_url }}" alt="{{ post.title }} teaser image" loading="lazy">
       </a>
       {% endif %}
       <header>
@@ -40,21 +58,22 @@ layout: default
     </div>
     {% endfor %}
   </div>
-
-  {% if paginator.total_pages > 1 %}
-  <div class="pagination">
-    {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | relative_url | replace: '//', '/' }}" class="button" >
+  {% if ordered_posts.size == 0 %}
+  <p class="home-category-empty">No posts yet.</p>
+  {% endif %}
+  </section>
+  {% endfor %}
+  <nav class="pagination home-category-pagination" aria-label="Article pages" hidden>
+    <a data-page="previous" class="button" hidden>
       <i class="fa fa-chevron-left"></i>
       {{ site.theme_settings.str_previous_page }}
     </a>
-    {% endif %}
-    {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url | replace: '//', '/' }}" class="button" >
+    <span class="home-category-page"></span>
+    <a data-page="next" class="button" hidden>
       {{ site.theme_settings.str_next_page }}
       <i class="fa fa-chevron-right"></i>
     </a>
-    {% endif %}
+  </nav>
   </div>
-  {% endif %}
+  <script src="{{ '/assets/js/home-categories.js' | relative_url }}"></script>
 </div>
