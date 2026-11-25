@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="690" viewBox="0 0 900 690" role="img" aria-labelledby="title desc">
+  <title id="title">PRODUCT: a decision chain with an evidence feedback loop</title>
+  <desc id="desc">Seven steps connect purpose, users, problems, solutions, trade-offs, plan and outcomes. Solid arrows show the explanation order. A dashed feedback path returns evidence to earlier choices; it is not a fixed waterfall.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#246c79" stroke-width="1.5"/></marker>
+    <style>
+      text { font-family: "Segoe UI", Arial, sans-serif; fill: #17283d; }
+      .heading { font-size: 27px; font-weight: 700; }
+      .label { font-size: 21px; font-weight: 600; }
+      .detail { font-size: 16px; fill: #40576d; }
+      .letter { font-size: 24px; font-weight: 700; fill: #fff; text-anchor: middle; }
+      .order { fill: none; stroke: #246c79; stroke-width: 2; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="900" height="690" rx="18" fill="#f4f8fc"/>
+  <text x="40" y="48" class="heading">PRODUCT: reason clearly, then revise</text>
+  <text x="40" y="77" class="detail">Hypothetical fridge example · each step leaves a decision, not just a list</text>
+  <g>
+    <rect x="80" y="105" width="640" height="62" rx="10" fill="#fff" stroke="#bdd6df"/>
+    <circle cx="117" cy="136" r="23" fill="#246c79"/><text x="117" y="144" class="letter">P</text>
+    <text x="158" y="132" class="label">Purpose and context</text>
+    <text x="158" y="155" class="detail">Use existing food; reduce household coordination effort</text>
+    <path d="M400 168 V177" class="order"/>
+    <rect x="80" y="179" width="640" height="62" rx="10" fill="#fff" stroke="#bdd6df"/>
+    <circle cx="117" cy="210" r="23" fill="#246c79"/><text x="117" y="218" class="letter">R</text>
+    <text x="158" y="206" class="label">Recognize users</text>
+    <text x="158" y="229" class="detail">Start with households sharing shopping and cooking</text>
+    <path d="M400 242 V251" class="order"/>
+    <rect x="80" y="253" width="640" height="62" rx="10" fill="#fff" stroke="#bdd6df"/>
+    <circle cx="117" cy="284" r="23" fill="#246c79"/><text x="117" y="292" class="letter">O</text>
+    <text x="158" y="280" class="label">Observe problems</text>
+    <text x="158" y="303" class="detail">Validate inventory uncertainty and forgotten food</text>
+    <path d="M400 316 V325" class="order"/>
+    <rect x="80" y="327" width="640" height="62" rx="10" fill="#fff" stroke="#bdd6df"/>
+    <circle cx="117" cy="358" r="23" fill="#246c79"/><text x="117" y="366" class="letter">D</text>
+    <text x="158" y="354" class="label">Develop solutions</text>
+    <text x="158" y="377" class="detail">Compare shared planning, better layout, and sensing</text>
+    <path d="M400 390 V399" class="order"/>
+    <rect x="80" y="401" width="640" height="62" rx="10" fill="#fff" stroke="#bdd6df"/>
+    <circle cx="117" cy="432" r="23" fill="#246c79"/><text x="117" y="440" class="letter">U</text>
+    <text x="158" y="428" class="label">Understand trade-offs</text>
+    <text x="158" y="451" class="detail">Choose a low-commitment test before appliance tooling</text>
+    <path d="M400 464 V473" class="order"/>
+    <rect x="80" y="475" width="640" height="62" rx="10" fill="#fff" stroke="#bdd6df"/>
+    <circle cx="117" cy="506" r="23" fill="#246c79"/><text x="117" y="514" class="letter">C</text>
+    <text x="158" y="502" class="label">Craft the vision and plan</text>
+    <text x="158" y="525" class="detail">Focused workflow; explicit exclusions and safety boundary</text>
+    <path d="M400 538 V547" class="order"/>
+    <rect x="80" y="549" width="640" height="62" rx="10" fill="#e5f4f0" stroke="#75b7a8"/>
+    <circle cx="117" cy="580" r="23" fill="#246c79"/><text x="117" y="588" class="letter">T</text>
+    <text x="158" y="576" class="label">Track outcomes and learn</text>
+    <text x="158" y="599" class="detail">Useful routine, waste, effort, safety, and sustainable cost</text>
+  </g>
+  <path d="M721 580 H850 V136 H724" fill="none" stroke="#246c79" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+  <text x="750" y="322" class="detail">Evidence</text>
+  <text x="750" y="345" class="detail">can change</text>
+  <text x="750" y="368" class="detail">any earlier</text>
+  <text x="750" y="391" class="detail">choice</text>
+  <text x="40" y="649" class="detail">Solid: explanation order. Dashed: learning feedback, not a fixed release sequence.</text>
+  <text x="40" y="675" class="detail">Safety and feasibility remain prerequisites throughout.</text>
+</svg>

@@ -22,6 +22,51 @@
   color: $header-desc-link-color
 }
 // Post listing
+.home-category-tabs,
+.home-category-empty {
+  margin-left: $padding-large;
+  margin-right: $padding-large;
+  @media (max-width: 600px) {
+    margin-left: $padding-small;
+    margin-right: $padding-small;
+  }
+}
+.home-category-tabs {
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 1.5rem;
+  border-bottom: 1px solid $border-color;
+  a {
+    padding: 0.7rem 0.8rem;
+    color: inherit;
+    border-bottom: 3px solid transparent;
+    text-align: center;
+    &[aria-selected="true"] {
+      border-bottom-color: $link-color;
+      font-weight: bold;
+    }
+    &:focus-visible {
+      outline: 2px solid $link-color;
+      outline-offset: 2px;
+    }
+  }
+}
+.home-category-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.home-category-panel[hidden],
+.home-category-browser [hidden],
+.home-category-browser .post-teaser[hidden] {
+  display: none;
+}
 .posts {
   .post-teaser {
     @extend %padding-regular;
@@ -79,5 +124,16 @@
   text-align: center;
   @media (max-width: 600px) {
     padding: $padding-small;
+  }
+  .home-category-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    .button {
+      margin: 0;
+    }
   }
 }
