@@ -586,6 +586,9 @@ availability is not the same as a monthly uptime percentage.
 **PACELC** adds that, even without a partition, stronger coordination can trade latency
 for consistency. Apply the trade-off per operation, not as a label for the whole product.
 
+For a deeper walkthrough of partition behavior and operation-specific choices, see
+[CAP Theorem for Product Managers]({% post_url 2026-11-21-cap-theorem-distributed-systems-product-managers %}).
+
 **RPO (recovery point objective)** is the tolerable time window of committed data loss;
 **RTO (recovery time objective)** is the restoration-time target. Single-zone durability
 does not imply regional durability. Asynchronous regional replication with a five-minute
@@ -634,6 +637,9 @@ Explain each choice as **need, requirement, choice, alternative, cost, and valid
   Choose storage-backed acceptance over gateway-memory-only handling; accept write latency
   and recovery work; test acknowledged-message loss under gateway and zone failures.
 
+For turning this evolution into small delivery slices, dependency plans, and release
+decisions, see [Agile and Scrum for Product Managers]({% post_url 2026-11-22-agile-scrum-execution-product-managers %}).
+
 Then evolve from evidence:
 
 | Stage | Calendar | Messaging |
@@ -654,6 +660,9 @@ Observe save/acceptance success, sync/delivery delay, overdue work, duplicates, 
 reconnect failures. Separate queue waiting from processing time; avoid private payloads
 in telemetry. Connect these to customer outcomes: successful scheduling without corrective
 rework, or confidence that a conversation reached its recipient.
+
+For defining customer outcomes, supporting measures, and guardrails together, see
+[Measuring Product and Feature Success]({% post_url 2026-11-25-product-success-metrics %}).
 
 **Decision depth: price the actual work.** Distinguish cheap Calendar reads from broad
 free/busy queries. Messaging cost per recipient-device delivery exposes amplification

@@ -26,8 +26,8 @@ on data and analytics engineering and product management.
 
 The homepage offers Data Engineering and Product Management tabs. Data Engineering
 is selected by default; `/?category=product-management` opens a shareable PM view.
-Each category retains newest-first ordering and paginates independently with five
-posts per page (`&page=2` for the second PM page). Browser Back/Forward restores the
+Each category retains newest-first ordering and paginates independently with up to ten
+posts per page (`&page=2` opens a second PM page when there are more than ten posts). Browser Back/Forward restores the
 view, and keyboard users can switch tabs with arrow keys, Home, and End.
 Posts appear directly below the tabs; category counts and page changes are announced
 to screen readers without a repeated visible heading or summary.
@@ -40,6 +40,11 @@ lists remain readable, with anchor links above them; older `/blog/pageN` links
 normalize to the corresponding Data Engineering page when JavaScript is enabled.
 
 ## Post organization
+
+Previous/next links at the bottom of each article follow publication order within
+its categories, skipping unrelated posts. For articles with multiple categories,
+sharing any category qualifies. A link is omitted when no matching post exists in
+that direction; homepage featured ordering does not affect these links.
 
 Store posts by publication year under `_posts/<year>/`, retaining the
 `YYYY-MM-DD-slug.md` filename; for example,

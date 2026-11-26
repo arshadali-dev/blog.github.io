@@ -209,6 +209,9 @@ limited trial in real kitchens where we learn whether people keep using it. A sh
 is a **prototype**: it lets us test whether people can find food in a different layout.
 These terms describe different purposes, not three stages every product must pass through.
 
+For turning the chosen experience into small deliverable slices with clear owners and
+release decisions, see [Agile and Scrum for Product Managers]({% post_url 2026-11-22-agile-scrum-execution-product-managers %}).
+
 Our initial hypothesis: **A low-effort shared view and a visible place for food needing
 attention reduce forgotten food without adding more household administration.**
 
@@ -245,6 +248,9 @@ Validate data deletion, permission controls, connectivity loss, and correction p
 A household can update its list every day and still throw away just as much food.
 Use adoption to understand the result, not as a substitute for the result.
 A **guardrail** is a limit on harm or extra effort that the benefit must not outweigh.
+
+For choosing outcome measures, separating adoption from value, and defining guardrails,
+see [Measuring Product and Feature Success]({% post_url 2026-11-25-product-success-metrics %}).
 
 | Role | Proposed measure | Interpretation |
 | --- | --- | --- |

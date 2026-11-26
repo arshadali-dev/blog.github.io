@@ -66,6 +66,10 @@ customers need predictable performance, which better defaults could provide. Ter
 [opportunity solution trees](https://www.producttalk.org/opportunity-solution-trees/)
 connect outcomes, customer needs, solutions, and assumption tests.
 
+If the customer segment or underlying problem is still unclear, start with
+[Product Sense and the PRODUCT Framework]({% post_url 2026-11-25-product-sense-product-framework %})
+before ranking proposed features.
+
 The diagram maps the decision loop. Select it to open the full-size version.
 
 <figure class="system-design-diagram">
@@ -344,6 +348,9 @@ failures? Did eligible pilots reach production? Did cost per successful workload
 increasing failures or breaking compatibility?
 Compare against the agreed baseline and account for changes in customer or workload mix;
 a before-and-after improvement alone does not establish causation.
+
+For defining those outcomes and guardrails before delivery, see
+[Measuring Product and Feature Success]({% post_url 2026-11-25-product-success-metrics %}).
 
 Review new evidence at an agreed cadence. Severe incidents or time-critical obligations may
 warrant immediate intervention; louder requests usually do not. Reprioritization creates

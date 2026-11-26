@@ -78,7 +78,7 @@ theme_settings:
   site_navigation_sort: order
 
 # PAGINATION
-paginate: 5
+paginate: 10
 paginate_path: "blog/page:num"
 
 # BUILD SETTINGS
