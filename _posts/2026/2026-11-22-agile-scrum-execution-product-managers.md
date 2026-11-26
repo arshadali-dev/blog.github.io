@@ -292,6 +292,10 @@ Prioritize customer value, risk reduction, dependencies, learning, and effort.
 distinguishes must, should, could, and not-this-time scope. Use it to separate
 essential Calendar behavior from optional depth; it supports judgment, not automatic ordering.
 
+When competing investments need a broader decision than scope labels can provide, see
+[Product Prioritization]({% post_url 2026-11-24-product-feature-prioritization %})
+for weighing trust, adoption blockers, value, and capacity.
+
 **Technical debt** means design or implementation compromises that increase future
 maintenance or change costs. Plan for it alongside security, reliability, and
 accessibility. A **spike** is a time-boxed investigation with a question and an
@@ -563,6 +567,9 @@ For Calendar, measure successful scheduling and coordination effort, not just
 events created or code shipped.
 Define cohorts (the measured user groups), baselines, targets, time windows,
 and guardrails: limits on undesirable effects. No single metric ranks productivity.
+
+For choosing customer-value measures and rollout guardrails beyond delivery flow, see
+[Measuring Product and Feature Success]({% post_url 2026-11-25-product-success-metrics %}).
 
 **Advanced detail: flow relationships.** Under stable, consistently measured flow,
 **Little's Law** is average WIP = throughput x average cycle time. At two completed

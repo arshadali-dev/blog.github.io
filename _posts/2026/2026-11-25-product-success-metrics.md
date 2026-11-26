@@ -317,6 +317,10 @@ A feature usually needs a primary outcome measure, not its own independent North
 Connect local benefit to product value and business hypotheses without claiming all resulting
 revenue belongs to that feature.
 
+If the problem or target user is not yet clear, use
+[Product Sense and the PRODUCT Framework]({% post_url 2026-11-25-product-sense-product-framework %})
+to establish them before choosing metrics.
+
 | Initiative | Success and supporting measures | Counter metrics |
 | --- | --- | --- |
 | Reading-app onboarding | Share of eligible new readers finishing a first article; time to that first value | Share returning to read the following week; abandonment and complaints |
@@ -439,6 +443,9 @@ and compare sentiment with observed retention and renewal.
 For each initiative, record the customer problem, intended outcome, business hypothesis,
 primary success measure, drivers, and counter metrics. Then specify **unit, numerator,
 denominator, data source, eligibility, baseline, target, window, segments, and owner**.
+
+For integrating the scorecard into a delivery plan with explicit ownership and safe
+release decisions, see [Agile and Scrum for Product Managers]({% post_url 2026-11-22-agile-scrum-execution-product-managers %}).
 
 Return to the execution engine. The rollout owner is the engineering lead. For two weekly
 cycles, compare recurring production workloads supported by both engines, assigning each

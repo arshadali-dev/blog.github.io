@@ -1,17 +1,41 @@
+{% assign previous_post = nil %}
+{% assign next_post = nil %}
+{% assign current_post_found = false %}
+{% for candidate in site.posts %}
+  {% if candidate.id == page.id %}
+    {% assign current_post_found = true %}
+  {% else %}
+    {% assign shares_category = false %}
+    {% for category in page.categories %}
+      {% if candidate.categories contains category %}
+        {% assign shares_category = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% if shares_category %}
+      {% if current_post_found %}
+        {% assign previous_post = candidate %}
+        {% break %}
+      {% else %}
+        {% assign next_post = candidate %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
 <div id="post-nav">
-  {% if page.previous.url %}
+  {% if previous_post.url %}
   <div id="previous-post" class="post-nav-post">
       <p>{{ site.theme_settings.str_previous_post }}</p>
-      <a href="{{ site.baseurl }}{{ page.previous.url }}">
-        {{ page.previous.title }}
+      <a href="{{ previous_post.url | relative_url }}">
+        {{ previous_post.title }}
       </a>
   </div>
   {% endif %}
-  {% if page.next.url %}
+  {% if next_post.url %}
   <div id="next-post" class="post-nav-post">
       <p>{{ site.theme_settings.str_next_post }}</p>
-      <a href="{{ site.baseurl }}{{ page.next.url }}">
-        {{ page.next.title }}
+      <a href="{{ next_post.url | relative_url }}">
+        {{ next_post.title }}
       </a>
   </div>
   {% endif %}

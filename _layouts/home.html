@@ -11,7 +11,7 @@ layout: default
 
   {% assign home_categories = "Data-Engineering|Product-Management" | split: "|" %}
   <div class="home-category-browser" data-home-url="{{ '/' | relative_url }}"
-       data-page-size="{{ site.paginate | default: 5 }}" data-initial-page="{{ paginator.page | default: 1 }}">
+       data-page-size="{{ site.paginate | default: 10 }}" data-initial-page="{{ paginator.page | default: 1 }}">
   <nav class="home-category-tabs" aria-label="Article categories">
     <a id="tab-data-engineering" href="#home-data-engineering" data-category="data-engineering">Data Engineering</a>
     <a id="tab-product-management" href="#home-product-management" data-category="product-management">Product Management</a>
